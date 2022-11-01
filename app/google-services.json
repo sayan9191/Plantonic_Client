@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "171985324980",
+    "firebase_url": "https://plantonic-cc6d5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "plantonic-cc6d5",
+    "storage_bucket": "plantonic-cc6d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171985324980:android:2a517570592d6c4b9040e1",
+        "android_client_info": {
+          "package_name": "com.example.plantonic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC75CHTHGGlHAIdd3WtOvt3MG-bzsLiiMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171985324980-4m89f63p7t9cmdintg3guv6bp79ste9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171985324980:android:7d4da8ef69a10a769040e1",
+        "android_client_info": {
+          "package_name": "com.technicalmeaw.plantonic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171985324980-tnqr9lr7ejd21g4gqa93lmhtqh8qp9mr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technicalmeaw.plantonic",
+            "certificate_hash": "4cd9f6701bf9bb969fcf8df643d24ba8a3d81ed0"
+          }
+        },
+        {
+          "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC75CHTHGGlHAIdd3WtOvt3MG-bzsLiiMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171985324980-4m89f63p7t9cmdintg3guv6bp79ste9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

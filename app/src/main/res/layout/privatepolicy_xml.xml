@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy Policy"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_margin="20dp"
+        android:text="Company does not permit Users to avail the Services on the Platform without prior registration. Users may access the Application by registering to create an account and become a member. The membership is limited for the purpose of buying or selling products, is subject to this Agreement and strictly not transferable.
+
+"
+        />
+</LinearLayout>
