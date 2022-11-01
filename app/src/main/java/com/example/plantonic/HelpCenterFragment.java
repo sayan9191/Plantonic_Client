@@ -65,18 +65,18 @@ public class HelpCenterFragment extends Fragment {
     }
 
 
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                FragmentManager manager = getActivity().getSupportFragmentManager();
-//                manager.popBackStackImmediate();
-//            }
-//        };
-//
-//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-//
-//    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStackImmediate();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+    }
 }
