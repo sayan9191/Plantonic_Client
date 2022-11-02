@@ -31,10 +31,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 //        replaceFragment(new HomeFragment());
 
