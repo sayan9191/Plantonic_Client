@@ -1,12 +1,9 @@
+
+
 package com.example.plantonic;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -27,14 +24,14 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=  inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         orderBtn = view.findViewById(R.id.orderViewBtn);
         wishlistBtn = view.findViewById(R.id.wishlistBtn);
         cartBtn = view.findViewById(R.id.cartBtn);
         profileBtn = view.findViewById(R.id.profileBtn);
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
         feedbackBtm = view.findViewById(R.id.feedbackBtn);
-        versionCode= view.findViewById(R.id.versionCode);
+        versionCode = view.findViewById(R.id.versionCode);
 
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +48,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("HelpCenter")
                         .replace(R.id.fragmentContainerView, new FavouriteFragment());
                 fragmentTransaction.commit();
-                Toast.makeText(getContext(),"Your Wishlist!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -63,7 +60,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("cartFragment")
                         .replace(R.id.fragmentContainerView, new CartFragment());
                 fragmentTransaction.commit();
-                Toast.makeText(getContext(),"Your Cart Items!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Your Cart Items!", Toast.LENGTH_SHORT).show();
             }
         });
         helpCenterBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +71,25 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("HelpCenter")
                         .replace(R.id.fragmentContainerView, new HelpCenterFragment())
                         .commit();
-                Toast.makeText(getContext(),"HelpCenter",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        feedbackBtm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .addToBackStack("Feedback")
+                        .replace(R.id.fragmentContainerView, new FeedbackFragment())
+                        .commit();
+                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
             }
         });
 
         versionCode.setText(String.valueOf(BuildConfig.VERSION_NAME));
         return view;
     }
-
 
 
 }
