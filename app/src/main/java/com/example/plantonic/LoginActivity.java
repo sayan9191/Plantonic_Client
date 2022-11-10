@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +18,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    TextView logInBtn,forgotPasswordBtn,signInBtn,signInGoogleBtn;
+    int RC_SIGN_IN= 0;
+    GoogleSignInClient mGoogleSignInClient;
+    TextView logInBtn,forgotPasswordBtn,signInBtn;
+    com.google.android.gms.common.SignInButton signInGoogleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,12 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordBtn= findViewById(R.id.forgotPassword);
         signInGoogleBtn= findViewById(R.id.btnSignInGoogle);
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,28 +63,44 @@ public class LoginActivity extends AppCompatActivity {
         signInGoogleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                switch (view.getId()) {
+                    case R.id.btnSignInGoogle:
+                        signIn();
+                        break;
+                    // ...
+                }
             }
         });
     }
 
     private void signIn() {
-        Intent signInIntent= gsc.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1000){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
-            try {
-                task.getResult(ApiException.class);
-                navigateUpToHomeActivity();
-            } catch (ApiException e){
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 

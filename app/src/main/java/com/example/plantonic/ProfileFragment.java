@@ -75,6 +75,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .addToBackStack("Profile")
+                        .replace(R.id.fragmentContainerView, new EditProfileFragment())
+                        .commit();
+                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         feedbackBtm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

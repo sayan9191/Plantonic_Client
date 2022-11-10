@@ -45,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return allCategories.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         de.hdodenhof.circleimageview.CircleImageView categoriesImageview;
         TextView categoriesTxtView;
         public ViewHolder(@NonNull View itemView) {
@@ -54,6 +54,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             categoriesTxtView =  itemView.findViewById(R.id.categoriesTxtView);
         }
     }
+
+
 
     public void updateCategories(ArrayList<CategoryItem> list){
         allCategories.clear();

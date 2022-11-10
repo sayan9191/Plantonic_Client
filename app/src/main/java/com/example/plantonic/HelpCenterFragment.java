@@ -37,8 +37,9 @@ public class HelpCenterFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerView, new ProfileFragment());
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction
+                        .setReorderingAllowed(true).addToBackStack("HelpCenter").replace(R.id.fragmentContainerView, new ProfileFragment());
                 fragmentTransaction.commit();
             }
         });
@@ -75,8 +76,6 @@ public class HelpCenterFragment extends Fragment {
                 manager.popBackStackImmediate();
             }
         };
-
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-
     }
 }
