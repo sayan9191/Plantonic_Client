@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
+    EditText emailId, password1;
     int RC_SIGN_IN= 0;
     GoogleSignInClient mGoogleSignInClient;
     TextView logInBtn,forgotPasswordBtn,signInBtn;
@@ -29,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         logInBtn= findViewById(R.id.logInBtn);
         signInBtn= findViewById(R.id.btnSignIN);
+        emailId = findViewById(R.id.emailEditTxt);
+        password1 = findViewById(R.id.passwordEditTxt);
         forgotPasswordBtn= findViewById(R.id.forgotPassword);
         signInGoogleBtn= findViewById(R.id.btnSignInGoogle);
 
@@ -42,8 +46,34 @@ public class LoginActivity extends AppCompatActivity {
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getApplicationContext(),HomeActivity.class);
-                startActivity(intent);
+                String email = emailId.getText().toString().trim();
+                String password = password1.getText().toString().trim();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+//                if (email.equals(emailPattern) && password.length()>=8){
+//                    Intent intent= new Intent(getApplicationContext(),HomeActivity.class);
+//                    startActivity(intent);
+//                }
+//                else if (email.equals("") && password.length()==0){
+//                    Toast.makeText(getApplicationContext(),"Enter your details first", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(!email.equals("") && !email.equals(emailPattern)){
+//                    Toast.makeText(getApplicationContext(),"Enter valid email id", Toast.LENGTH_SHORT).show();
+//                }
+//                else if (password.length() < 8){
+//                    Toast.makeText(getApplicationContext(),"Enter your password", Toast.LENGTH_SHORT).show();
+//                }
+
+                if (email.equals("") && password.equals("")){
+                    Toast.makeText(getApplicationContext(),"Enter your details", Toast.LENGTH_SHORT).show();
+                }else if (email.equals("") || !email.matches(emailPattern)){
+                    Toast.makeText(getApplicationContext(),"Enter valid email", Toast.LENGTH_SHORT).show();
+                }else if (password.length() < 8){
+                    Toast.makeText(getApplicationContext(),"Enter your password", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent= new Intent(getApplicationContext(),HomeActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         forgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
