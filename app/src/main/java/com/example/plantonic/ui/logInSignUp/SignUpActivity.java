@@ -1,21 +1,30 @@
 package com.example.plantonic.ui.logInSignUp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.plantonic.OtpVerifyActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.bottomSheet.BottomSheet;
 import com.example.plantonic.ui.bottomSheet.BottomSheetPP;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText phoneNo, name, password;
     TextView termsAndConditionBtn,privacyAndPolicyBtn,signINBtn,continueBtn;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordEditTxt);
         signINBtn= findViewById(R.id.btnSignIN);
         continueBtn = findViewById(R.id.logInBtn);
+        progressBar = findViewById(R.id.progressbar);
 
         String phoneNumber = phoneNo.getText().toString();
         termsAndConditionBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,9 +67,40 @@ public class SignUpActivity extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this, OtpVerifyActivity.class);
-                intent.putExtra("phoneNumber", phoneNumber);
-                startActivity(intent);
+                if (phoneNo.getText().toString().trim().isEmpty() && name.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+                    Toast.makeText(SignUpActivity.this,"Enter your details",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                progressBar.setVisibility(view.VISIBLE);
+                continueBtn.setVisibility(view.INVISIBLE);
+                PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNo.getText().toString(),
+                        60L,
+                        TimeUnit.SECONDS,
+                        SignUpActivity.this,
+                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                            }
+
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                progressBar.setVisibility(view.GONE);
+                                continueBtn.setVisibility(view.VISIBLE);
+                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                               progressBar.setVisibility(view.GONE);
+                               continueBtn.setVisibility(view.VISIBLE);
+                                Intent intent = new Intent(getApplicationContext(), OtpVerifyActivity.class);
+                                intent.putExtra("phoneNumber", phoneNo.getText().toString().trim());
+                                intent.putExtra("verificationId", verificationId);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
     }

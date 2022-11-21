@@ -3,95 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:backgroundTint="#D6D8D7"
-        app:cardCornerRadius="15dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="horizontal"
-            android:weightSum="7">
+            android:weightSum="2">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="200dp"
-                android:minWidth="200dp"
-                android:layout_weight="2"
-                android:padding="10dp"
-                android:src="@drawable/face_icon"
+                android:padding="20dp"
+                android:src="@drawable/google_logo"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:layout_marginLeft="20dp">
+                android:layout_margin="20dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product Name"
                     android:textColor="@color/black"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Price"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="price"
+                    android:textSize="16sp"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:weightSum="3"
-                    >
+                    android:layout_marginTop="20dp"
+                    android:weightSum="3">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="-"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textSize="22sp"/>
+                        android:textSize="40sp"
+                        android:gravity="center"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="0"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                       android:layout_weight="1"
-                        android:textSize="22sp"/>
-
+                        android:textSize="40sp"
+                        android:gravity="center"/>
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="+"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textSize="22sp"/>
+                        android:textSize="40sp"
+                        android:gravity="center"/>
                 </LinearLayout>
-            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/removeCart"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="3"
-                android:src="@drawable/delete_icon"
-                android:layout_margin="20dp"
-                android:layout_gravity="center"/>
+            </LinearLayout>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>
