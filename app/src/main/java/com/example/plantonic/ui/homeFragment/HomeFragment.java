@@ -21,18 +21,16 @@ import android.widget.ImageView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.plantonic.CategoryAdapter;
+import com.example.plantonic.Adapter.CategoryAdapter;
 import com.example.plantonic.OnProductListener;
-import com.example.plantonic.PopularItemAdapter;
-import com.example.plantonic.ProductViewFragment;
+import com.example.plantonic.Adapter.PopularItemAdapter;
+import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.R;
-import com.example.plantonic.firebaseClasses.CategoryItem;
-import com.example.plantonic.SearchFragment;
-import com.example.plantonic.firebaseClasses.PopularProductItem;
-import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.firebaseClasses.CategoryItem;
+import com.example.plantonic.ui.cartfav.SearchFragment;
+import com.example.plantonic.ui.firebaseClasses.ProductItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeFragment extends Fragment implements OnProductListener {
@@ -112,6 +110,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
         ProductViewFragment productViewFragment = new ProductViewFragment();
         Bundle bundle = new Bundle();
         bundle.putString(PRODUCT_ID, productItem.productId);
+        productViewFragment.setArguments(bundle);
 
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction

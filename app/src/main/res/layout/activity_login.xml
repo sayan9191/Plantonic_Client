@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".ui.logInSignUp.LoginActivity">
 
     <ImageView
         android:id="@+id/iconImageView"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/gmail_icon" />
+            android:src="@drawable/phoneblack_icon" />
 
         <EditText
             android:id="@+id/emailEditTxt"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="40dp"
-            android:hint="Email ID"
+            android:hint="Phone No."
             android:backgroundTint="#8F8F8F"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"/>
@@ -130,10 +130,18 @@
         android:text="OR" />
 
 
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="0dp"
+        android:layout_alignTop="@+id/btnSignInGoogle"
+        android:layout_alignBottom="@+id/btnSignInGoogle"
+        android:layout_marginStart="50dp"
+        android:elevation="2dp"
+        android:src="@drawable/google_logo" />
 
-    <com.google.android.gms.common.SignInButton
+    <TextView
         android:id="@+id/btnSignInGoogle"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/or"
         android:layout_centerHorizontal="true"
@@ -141,9 +149,14 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/button_design"
         android:gravity="center"
+        android:text="Sign in with Google"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"

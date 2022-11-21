@@ -1,8 +1,7 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.profile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -16,19 +15,23 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airbnb.lottie.L;
+import com.example.plantonic.ui.logInSignUp.LoginActivity;
+import com.example.plantonic.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.util.concurrent.Executor;
 
 
 public class EditProfileFragment extends Fragment {
     EditText firstName, lastName, email, phone;
     TextView logoutBtn;
-    GoogleSignInClient mGoogleSignInClient;
+    TextView updateProfile;
+    GoogleSignInOptions googleSignInOptions;
+    GoogleSignInClient googleSignInClient;
     View view;
 
     @Override
@@ -40,39 +43,44 @@ public class EditProfileFragment extends Fragment {
         lastName = view.findViewById(R.id.lastName);
         email = view.findViewById(R.id.email);
         phone = view.findViewById(R.id.phone);
+        updateProfile = view.findViewById(R.id.updateProfile);
         logoutBtn = view.findViewById(R.id.logoutBtn);
 
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        if (account!= null){
+            String personName = account.getDisplayName();
+            email.setText(account.getEmail());
+            int idx = personName.lastIndexOf(' ');
+            if (idx == -1)
+                throw new IllegalArgumentException("Only a single name: " + personName);
+            String fName = personName.substring(0, idx);
+            String lName = personName.substring(idx + 1);
+            firstName.setText(fName);
+            lastName.setText(lName);
+        }
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    // ...
-                    case R.id.logoutBtn:
-                        signOut();
-                        break;
-                    // ...
-                }
+                signOut();
             }
         });
 
-        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(requireActivity());
-        if( acct !=null)
-
-            {
-                String personName = acct.getDisplayName();
-                String personEmail = acct.getEmail();
-                int idx = personName.lastIndexOf(' ');
-                if (idx == -1)
-                    throw new IllegalArgumentException("Only a single name: " + personName);
-                String fName = personName.substring(0, idx);
-                String lName = personName.substring(idx + 1);
-                firstName.setText(fName);
-                lastName.setText(lName);
-                email.setText(personEmail);
-            }
         return view;
         }
-        @Override
+    void signOut(){
+        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
+    }
+
+
+    @Override
         public void onAttach (@NonNull Context context){
             super.onAttach(context);
             OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -86,14 +94,4 @@ public class EditProfileFragment extends Fragment {
         }
 
 
-    void signOut(){
-        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(Task<Void> task) {
-                requireActivity().finish();
-                Intent intent = new Intent(getActivity().getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.logInSignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.plantonic.HomeActivity;
+import com.example.plantonic.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     TextView backBtn;
@@ -39,7 +41,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 String password1 = password.getText().toString().trim();
                 String confirmPassword1 = confirmPassword.getText().toString().trim();
                 if (password1.length() >= 8 && confirmPassword1.equals(password1)){
-                    Intent intent= new Intent(ResetPasswordActivity.this,HomeActivity.class);
+                    Intent intent= new Intent(ResetPasswordActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
                 else if (password1.equals("") ){

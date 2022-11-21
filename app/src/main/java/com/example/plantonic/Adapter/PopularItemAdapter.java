@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.OnProductListener;
+import com.example.plantonic.R;
+import com.example.plantonic.ui.firebaseClasses.ProductItem;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.others;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.plantonic.ui.homeFragment.HomeFragment;
+import com.example.plantonic.R;
+import com.example.plantonic.ui.profile.ProfileFragment;
 
 
 public class HelpCenterFragment extends Fragment {

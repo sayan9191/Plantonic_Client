@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.others;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.plantonic.R;
+import com.example.plantonic.ui.profile.ProfileFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class FeedbackFragment extends Fragment {

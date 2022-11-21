@@ -1,6 +1,6 @@
 
 
-package com.example.plantonic;
+package com.example.plantonic.ui.profile;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -12,6 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.plantonic.BuildConfig;
+import com.example.plantonic.ui.cartfav.CartFragment;
+import com.example.plantonic.ui.cartfav.FavouriteFragment;
+import com.example.plantonic.ui.others.FeedbackFragment;
+import com.example.plantonic.ui.others.HelpCenterFragment;
+import com.example.plantonic.R;
 
 
 public class ProfileFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.example.plantonic.firebaseClasses;
+package com.example.plantonic.ui.firebaseClasses;
 
 public class PopularProductItem {
 

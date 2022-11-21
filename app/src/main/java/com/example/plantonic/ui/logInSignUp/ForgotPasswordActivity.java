@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.logInSignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.plantonic.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     EditText emailId;
@@ -39,7 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 String email = emailId.getText().toString().trim();
                 if (email.matches(emailPattern))
                 {
-                    Intent intent= new Intent(getApplicationContext(),ResetPasswordActivity.class);
+                    Intent intent= new Intent(getApplicationContext(), ResetPasswordActivity.class);
                     startActivity(intent);
                     finish();
                     Toast.makeText(getApplicationContext(),"valid email address",Toast.LENGTH_SHORT).show();
