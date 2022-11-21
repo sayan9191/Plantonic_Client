@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.Adapter.listeners;
 
 import com.example.plantonic.ui.firebaseClasses.ProductItem;
 

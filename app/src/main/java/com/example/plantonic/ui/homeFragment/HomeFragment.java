@@ -22,7 +22,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.plantonic.Adapter.CategoryAdapter;
-import com.example.plantonic.OnProductListener;
+import com.example.plantonic.Adapter.listeners.OnProductListener;
 import com.example.plantonic.Adapter.PopularItemAdapter;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.R;
@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         imageSlider = view.findViewById(R.id.imageSlider);
         recyclerView1= view.findViewById(R.id.recyclerView1);
-        recyclerView2 = view.findViewById(R.id.recyclerView2);
+        recyclerView2 = view.findViewById(R.id.searchResultRecyclerView);
         searchBtn = view.findViewById(R.id.searchBtn);
 
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
@@ -89,7 +89,8 @@ public class HomeFragment extends Fragment implements OnProductListener {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerView, new SearchFragment());
+                fragmentTransaction.addToBackStack("searchFragment")
+                        .setReorderingAllowed(true).replace(R.id.fragmentContainerView, new SearchFragment());
                 fragmentTransaction.commit();
             }
         });
