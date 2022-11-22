@@ -5,6 +5,7 @@ import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -32,6 +34,8 @@ public class ProductViewFragment extends Fragment {
     TextView name, productPrice, productActualPrice, productDescription,productDetails,productDiscount;
     ImageView backBtn;
     com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn;
+    NestedScrollView productDetailsScrollView;
+    ProgressBar progressBar;
     int productNo = 0;
     TextView integer_number;
     Button decrease,increase;
@@ -58,11 +62,15 @@ public class ProductViewFragment extends Fragment {
         integer_number = view.findViewById(R.id.integer_number);
         decrease = view.findViewById(R.id.decrease);
         increase = view.findViewById(R.id.increase);
+        productDetailsScrollView = view.findViewById(R.id.productDetailsScrollView);
+        progressBar = view.findViewById(R.id.productDetailsProgressBar);
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
 
         try{
             productId = getArguments().getString(PRODUCT_ID);
+            progressBar.setVisibility(View.VISIBLE);
+            productDetailsScrollView.setVisibility(View.GONE);
         }catch (Exception e){
             productId = null;
             getParentFragmentManager().popBackStackImmediate();
@@ -73,7 +81,10 @@ public class ProductViewFragment extends Fragment {
 
                 @Override
                 public void onChanged(ProductItem productItem) {
-                    if (productItem!= null){
+                    if (productItem!= null && Objects.equals(productItem.productId, productId)){
+                        productDetailsScrollView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+
                         productDetails.setText(productItem.productName);
                         name.setText(productItem.productName);
                         productActualPrice.setText("₹ "+ productItem.listedPrice+ "/-");
@@ -112,6 +123,9 @@ public class ProductViewFragment extends Fragment {
                             slideModels.add(new SlideModel(productItem.imageUrl4, ScaleTypes.CENTER_CROP));
                         }
                         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+                    }else{
+                        productDetailsScrollView.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
                     }
                 }
             });

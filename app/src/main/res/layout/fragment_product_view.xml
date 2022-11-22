@@ -35,8 +35,10 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/productDetailsScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_below="@id/linear_layout1">
 
         <LinearLayout
@@ -50,8 +52,8 @@
                 android:layout_height="400dp"
                 android:layout_marginTop="5dp"
                 app:iss_auto_cycle="true"
-                app:iss_delay="1000"
-                app:iss_period="1000"
+                app:iss_delay="2000"
+                app:iss_period="2000"
                 android:src="@drawable/face_icon">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -233,6 +235,13 @@
             />
 
 
+
+    <ProgressBar
+        android:id="@+id/productDetailsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:elevation="10dp"/>
 
 
 </RelativeLayout>

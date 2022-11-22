@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         signInBtn = findViewById(R.id.btnSignIN);
         progressBar = findViewById(R.id.progressbar);
 
+        checkLogin();
+
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +104,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkLogin() {
+        if (FirebaseAuth.getInstance().getUid() != null){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
 
