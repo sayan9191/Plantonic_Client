@@ -68,8 +68,6 @@ public class FeedbackFragment extends Fragment {
                 manager.popBackStackImmediate();
             }
         };
-
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-
     }
 }

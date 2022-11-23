@@ -18,10 +18,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
 
@@ -31,6 +33,7 @@ import java.util.Objects;
 
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
+    TextView addToCartBtn;
     TextView name, productPrice, productActualPrice, productDescription,productDetails,productDiscount;
     ImageView backBtn;
     com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn;
@@ -52,6 +55,7 @@ public class ProductViewFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_product_view, container, false);
         imageSlider = view.findViewById(R.id.productImages);
         backBtn = view.findViewById(R.id.backBtn);
+        addToCartBtn = view.findViewById(R.id.cartBtn);
         name = view.findViewById(R.id.productName);
         shareBtn = view.findViewById(R.id.shareBtn);
         productPrice = view.findViewById(R.id.productPrice);
@@ -95,6 +99,7 @@ public class ProductViewFragment extends Fragment {
                         productDiscount.setText(discount +"% off");
                         productDescription.setText(productItem.productDescription);
 
+                        //share button of Product
                         shareBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -132,7 +137,20 @@ public class ProductViewFragment extends Fragment {
 
         }
 
+        //Add to cart product item
+        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction.setReorderingAllowed(true)
+                        .addToBackStack("cartFragment")
+                        .replace(R.id.fragmentContainerView, new CartFragment());
+                fragmentTransaction.commit();
+                Toast.makeText(getContext(), "Your item added to cart!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        //back button
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,12 +160,16 @@ public class ProductViewFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        //product Items No decrease
         decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 decreaseInteger(view);
             }
         });
+
+        //product Items No. increase
         increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
