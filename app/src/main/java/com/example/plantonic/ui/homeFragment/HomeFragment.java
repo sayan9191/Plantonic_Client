@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
 
 
+        //Slider of offers
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel("https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__480.jpg", ScaleTypes.FIT));
         slideModels.add(new SlideModel("https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__480.jpg", ScaleTypes.FIT));
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
-
+        //Adapters
         categoryAdapter = new CategoryAdapter(this.getContext());
         popularItemAdapter = new PopularItemAdapter(this.getContext(), this);
 
@@ -84,7 +85,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
             }
         });
 
-
+        //Search Button of products
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,10 +103,10 @@ public class HomeFragment extends Fragment implements OnProductListener {
                 popularItemAdapter.updatePopularProducts(popularProductItems);
             }
         });
-
         return view;
     }
 
+    //Click on products
     @Override
     public void onProductClick(ProductItem productItem) {
         ProductViewFragment productViewFragment = new ProductViewFragment();
