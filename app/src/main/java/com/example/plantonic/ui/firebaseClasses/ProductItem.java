@@ -11,8 +11,7 @@ public class ProductItem {
     public String imageUrl2;
     public String imageUrl3;
     public String imageUrl4;
-//    public String timeStamp;
-//    public String category;
+
 
     public String getProductId() {
         return productId;
@@ -94,19 +93,5 @@ public class ProductItem {
         this.imageUrl4 = imageUrl4;
     }
 
-//    public String getTimeStamp() {
-//        return timeStamp;
-//    }
-//
-//    public void setTimeStamp(String timeStamp) {
-//        this.timeStamp = timeStamp;
-//    }
-//
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
+
 }

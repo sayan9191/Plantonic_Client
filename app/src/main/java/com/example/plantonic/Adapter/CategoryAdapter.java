@@ -35,7 +35,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         CategoryItem currentItem = allCategories.get(position);
         Glide.with(context).load(currentItem.categoryImage).centerCrop().into(holder.categoriesImageview);
-//        Picasso.get().load(currentItem.categoryImage).into(holder.categoriesImageview);
         holder.categoriesTxtView.setText(currentItem.categoryName);
     }
 

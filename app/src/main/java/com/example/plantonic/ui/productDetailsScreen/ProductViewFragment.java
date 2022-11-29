@@ -5,10 +5,12 @@ import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -24,8 +26,10 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.cartfav.CartFragment;
+import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
 import com.example.plantonic.ui.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,15 +40,18 @@ public class ProductViewFragment extends Fragment {
     TextView addToCartBtn;
     TextView name, productPrice, productActualPrice, productDescription,productDetails,productDiscount;
     ImageView backBtn;
-    com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn;
+    com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn, favouriteBtn;
     NestedScrollView productDetailsScrollView;
     ProgressBar progressBar;
     int productNo = 0;
     TextView integer_number;
     Button decrease,increase;
     View view;
+
+
     String productId;
     private ProductViewModel productViewModel;
+    private boolean isFavourite = false;
 
 
 
@@ -58,6 +65,7 @@ public class ProductViewFragment extends Fragment {
         addToCartBtn = view.findViewById(R.id.cartBtn);
         name = view.findViewById(R.id.productName);
         shareBtn = view.findViewById(R.id.shareBtn);
+        favouriteBtn = view.findViewById(R.id.favouriteBtn);
         productPrice = view.findViewById(R.id.productPrice);
         productActualPrice = view.findViewById(R.id.realPrice);
         productDetails = view.findViewById(R.id.productDetails);
@@ -68,6 +76,8 @@ public class ProductViewFragment extends Fragment {
         increase = view.findViewById(R.id.increase);
         productDetailsScrollView = view.findViewById(R.id.productDetailsScrollView);
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
+
+
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
 
@@ -80,7 +90,14 @@ public class ProductViewFragment extends Fragment {
             getParentFragmentManager().popBackStackImmediate();
         }
 
+
+
         if (productId!= null) {
+
+            /*
+              Getting all data about product
+             */
+
             productViewModel.getProductDetailsFromId(productId).observe(getViewLifecycleOwner(), new Observer< ProductItem >() {
 
                 @Override
@@ -113,6 +130,36 @@ public class ProductViewFragment extends Fragment {
                             }
                         });
 
+
+
+
+
+
+
+
+                        // favourite Button of Product
+
+                        favouriteBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (!isFavourite){
+                                    productViewModel.addToFav(new FavouriteItem(FirebaseAuth.getInstance().getUid()
+                                            , productItem.productId, productItem.merchantId, System.currentTimeMillis()));
+                                }
+                                else{
+                                    productViewModel.removeFromFav(FirebaseAuth.getInstance().getUid(), productItem.productId);
+                                }
+                            }
+                        });
+
+
+
+
+
+
+
+
+
                         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
                         if (!Objects.equals(productItem.imageUrl1, "")){
@@ -132,6 +179,23 @@ public class ProductViewFragment extends Fragment {
                         productDetailsScrollView.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
                     }
+                }
+            });
+
+            // Checking if product is favourite
+            productViewModel.checkIfFav(FirebaseAuth.getInstance().getUid(), productId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isFav) {
+                    isFavourite =isFav;
+
+                    if(isFav){
+                        favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), android.R.color.holo_red_dark));
+
+                    }else {
+                        favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.green));
+
+                    }
+
                 }
             });
 

@@ -1,5 +1,7 @@
 package com.example.plantonic.Adapter;
 
+import static com.example.plantonic.R.layout.item_layout;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,7 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
     @NonNull
     @Override
     public PopularItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(item_layout,parent,false);
 
         return new PopularItemAdapter.ViewHolder(view);
     }

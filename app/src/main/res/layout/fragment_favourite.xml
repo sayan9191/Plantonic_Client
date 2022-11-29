@@ -25,15 +25,16 @@
         android:textColor="@color/green"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/favouriteRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/backBtn"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="-2dp"
         android:layout_marginTop="10dp"
-        android:background="#CFCFCF"
         android:layout_marginBottom="0dp"
+        android:background="#CFCFCF"
         tools:listitem="@layout/favourite_item" />
 
     <TextView
