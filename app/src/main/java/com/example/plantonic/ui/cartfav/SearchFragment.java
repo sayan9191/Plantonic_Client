@@ -18,7 +18,7 @@ import com.example.plantonic.Adapter.listeners.OnSearchListener;
 import com.example.plantonic.Adapter.SearchResultAdapter;
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentSearchBinding;
-import com.example.plantonic.ui.firebaseClasses.search.SearchProductItem;
+import com.example.plantonic.firebaseClasses.search.SearchProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.OnSearchListener;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.firebaseClasses.search.SearchProductItem;
+import com.example.plantonic.firebaseClasses.search.SearchProductItem;
 
 import java.util.ArrayList;
 import java.util.List;

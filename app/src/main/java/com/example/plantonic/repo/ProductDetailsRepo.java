@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.FavouriteItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

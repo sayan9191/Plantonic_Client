@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.firebaseClasses.CategoryItem;
+import com.example.plantonic.firebaseClasses.CategoryItem;
 
 import java.util.ArrayList;
 

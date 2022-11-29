@@ -11,9 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.plantonic.ui.firebaseClasses.CategoryItem;
-import com.example.plantonic.ui.firebaseClasses.PopularProductItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.CategoryItem;
+import com.example.plantonic.firebaseClasses.PopularProductItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

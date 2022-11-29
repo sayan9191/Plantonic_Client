@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +16,7 @@ import android.widget.TextView;
 import com.example.plantonic.Adapter.FavouriteRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;

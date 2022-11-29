@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.firebaseClasses;
+package com.example.plantonic.firebaseClasses;
 
 import com.airbnb.lottie.L;
 

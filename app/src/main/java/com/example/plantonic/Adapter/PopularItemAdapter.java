@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 
 import com.example.plantonic.Adapter.listeners.OnProductListener;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 
 import java.util.ArrayList;
 

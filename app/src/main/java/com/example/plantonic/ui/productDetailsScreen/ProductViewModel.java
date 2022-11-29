@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.plantonic.repo.ProductDetailsRepo;
-import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.FavouriteItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 
 public class ProductViewModel extends ViewModel {
     private final ProductDetailsRepo repository = ProductDetailsRepo.getInstance();

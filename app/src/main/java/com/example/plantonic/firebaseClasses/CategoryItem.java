@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.firebaseClasses;
+package com.example.plantonic.firebaseClasses;
 
 public class CategoryItem {
     public void setCategoryId(String categoryId) {

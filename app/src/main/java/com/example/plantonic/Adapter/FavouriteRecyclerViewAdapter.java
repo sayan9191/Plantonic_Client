@@ -1,7 +1,5 @@
 package com.example.plantonic.Adapter;
 
-import static com.example.plantonic.R.layout.favourite_item;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.cartfav.FavouriteViewModel;
-import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
-import com.example.plantonic.ui.productDetailsScreen.ProductViewModel;
+import com.example.plantonic.firebaseClasses.ProductItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -48,6 +43,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
     @Override
     public void onBindViewHolder(@NonNull FavouriteRecyclerViewAdapter.ViewHolder holder, int position) {
         ProductItem productItem = allFavItems.get(position);
+
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
         holder.productName.setText(productItem.productName);
         holder.productPrice.setText("₹" +productItem.actualPrice+"/-");
@@ -57,6 +53,13 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             @Override
             public void onClick(View view) {
                 favouriteViewModel.removeFromFav(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
+            }
+        });
+
+        holder.cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favouriteViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
             }
         });
     }
@@ -76,7 +79,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.productPrice);
             actualPrice = itemView.findViewById(R.id.actualPrice);
-            cartBtn = itemView.findViewById(R.id.cartBtn);
+            cartBtn = itemView.findViewById(R.id.moveToCartBtn);
             removeBtn = itemView.findViewById(R.id.removeBtn);
 
         }

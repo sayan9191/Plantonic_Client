@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.firebaseClasses.search;
+package com.example.plantonic.firebaseClasses.search;
 
 import java.util.ArrayList;
 import java.util.List;

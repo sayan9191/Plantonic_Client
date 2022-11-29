@@ -3,15 +3,13 @@ package com.example.plantonic.repo;
 import static com.example.plantonic.utils.constants.DatabaseConstants.getAllUserFavouritesReference;
 import static com.example.plantonic.utils.constants.DatabaseConstants.getParticularProductReference;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.plantonic.ui.firebaseClasses.FavouriteItem;
-import com.example.plantonic.ui.firebaseClasses.ProductItem;
+import com.example.plantonic.firebaseClasses.FavouriteItem;
+import com.example.plantonic.firebaseClasses.ProductItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
