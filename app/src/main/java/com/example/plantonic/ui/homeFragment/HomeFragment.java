@@ -27,7 +27,7 @@ import com.example.plantonic.Adapter.PopularItemAdapter;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
-import com.example.plantonic.ui.cartfav.SearchFragment;
+import com.example.plantonic.ui.search.SearchFragment;
 import com.example.plantonic.firebaseClasses.ProductItem;
 
 import java.util.ArrayList;

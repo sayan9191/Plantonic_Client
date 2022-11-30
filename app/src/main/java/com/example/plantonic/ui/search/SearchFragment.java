@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.cartfav;
+package com.example.plantonic.ui.search;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
