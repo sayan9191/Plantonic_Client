@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
     <Button
         android:id="@+id/btnBack"
@@ -34,17 +34,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchView"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:textSize="18dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Search Results"
         android:textColor="@color/green"
-        android:text="Popular Products"/>
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/searchResultRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/popularTxtView"/>
+
+    <TextView
+        android:id="@+id/noResultFoundLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Results Found"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_alignTop="@+id/searchResultRecyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+         />
 
 
 </RelativeLayout>

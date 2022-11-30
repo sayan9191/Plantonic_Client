@@ -6,17 +6,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
 import com.example.plantonic.databinding.ActivityHomeBinding;
+import com.example.plantonic.ui.cartfav.CartFragment;
+import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
+import com.example.plantonic.ui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.Objects;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -31,10 +30,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 //        replaceFragment(new HomeFragment());
 
@@ -42,27 +40,32 @@ public class HomeActivity extends AppCompatActivity {
 //
 //            switch (item.getItemId()) {
 //
-//                case R.id.home:
-//                    replaceFragment(new HomeFragment());
+//                case R.id.homeFragment:
+//                     replaceFragment(R.id.homeFragment, new HomeFragment());
 //                    break;
-//                case R.id.favourite:
-//                    replaceFragment(new FavouriteFragment());
+//                case R.id.favouriteFragment:
+//                    replaceFragment(R.id.favouriteFragment, (Fragment) new FavouriteFragment());
 //                    break;
-//                case R.id.cart:
-//                    replaceFragment(new CartFragment());
+//                case R.id.cartFragment:
+//                    replaceFragment(R.id.cartFragment, new CartFragment());
 //                    break;
-//                case R.id.profile:
-//                    replaceFragment(new ProfileFragment());
+//                case R.id.profileFragment:
+//                    replaceFragment(R.id.profileFragment, new ProfileFragment());
 //                    break;
 //            }
 //            return true;
 //        });
 //    }
-//    private void replaceFragment(Fragment fragment) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frameLayout, fragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+//
+//
+//    private void replaceFragment(int id, Fragment fragment) {
+//        Fragment f = getSupportFragmentManager().findFragmentById(id);
+//        if (f!= null){
+//            FragmentManager manager = f.getParentFragmentManager();
+//
+//            if (manager.getBackStackEntryCount() > 1){
+//                manager.popBackStack();
+//            }
+//        }
     }
 }

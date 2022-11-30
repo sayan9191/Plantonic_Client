@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.example.plantonic.FavouriteFragment"
+        android:name="com.example.plantonic.ui.cartfav.FavouriteFragment"
         android:label="fragment_favouriate"
         tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.plantonic.CartFragment"
+        android:name="com.example.plantonic.ui.cartfav.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.plantonic.ProfileFragment"
+        android:name="com.example.plantonic.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 
