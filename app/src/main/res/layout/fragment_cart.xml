@@ -6,30 +6,39 @@
     tools:context=".ui.cartfav.CartFragment">
 
 
-    <ImageView
-        android:id="@+id/backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/back_button_icon"/>
 
     <TextView
+        android:id="@+id/cartHeading"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="My Cart"
-        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:elevation="3dp"
         android:gravity="center"
         android:textSize="24sp"
+        android:background="@color/white"
         android:textColor="@color/green"
         android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/backBtn"
+        android:layout_height="match_parent"
+
+        android:layout_below="@id/cartHeading"
         tools:listitem="@layout/cart_item_layout" />
+
+    <TextView
+        android:id="@+id/noCartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="You currently do not have any Items added to Cart"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"/>
 
 </RelativeLayout>
