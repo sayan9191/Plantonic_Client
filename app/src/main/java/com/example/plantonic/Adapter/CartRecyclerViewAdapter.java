@@ -46,8 +46,17 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.cartProductImage);
         holder.cartProductName.setText(productItem.productName);
-        holder.cartProductPrice.setText(productItem.actualPrice);
-        holder.cartActualPrice.setText(productItem.listedPrice);
+        holder.cartProductPrice.setText("₹" +productItem.actualPrice+"/-");
+        holder.cartActualPrice.setText("₹" +productItem.listedPrice+"/-");
+        holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
+
+        //remove button from cart item
+        holder.removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartListner.onRemoveFromCartClicked(productItem);
+            }
+        });
     }
 
     @Override
@@ -72,9 +81,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             cartIncreaseProduct = itemView.findViewById(R.id.cartIncreaseProduct);
         }
     }
-    public void updateAllCartItems(List<ProductItem> list){
+    public void updateAllCartProductItems(List<ProductItem> list){
         allCartProductItems.clear();
         allCartProductItems.addAll(list);
+        this.notifyDataSetChanged();
+    }
+
+    public void updateAllCartItems(List<CartItem> list){
+        allCartItems.clear();
+        allCartItems.addAll(list);
         this.notifyDataSetChanged();
     }
 }

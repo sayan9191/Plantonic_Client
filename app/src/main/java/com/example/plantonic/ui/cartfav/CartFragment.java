@@ -55,22 +55,24 @@ public class CartFragment extends Fragment implements CartListner {
         cartItems.observe(getViewLifecycleOwner(), new Observer<List<CartItem>>() {
             @Override
             public void onChanged(List<CartItem> cartItems) {
-                if (cartItems.size() > 0){
-                    Log.d("--------", cartItems.get(0).getProductId());
-                }
 
+                cartRecyclerViewAdapter.updateAllCartItems(cartItems);
             }
         });
 
         productItems.observe(getViewLifecycleOwner(), new Observer<List<ProductItem>>() {
             @Override
             public void onChanged(List<ProductItem> productItems) {
-                if (productItems.size() > 0){
-                    Log.d("--------", productItems.get(0).imageUrl1);
-                }
+                cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
+
             }
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onRemoveFromCartClicked(ProductItem productItem) {
+        cartViewModel.removeFromCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
     }
 }
