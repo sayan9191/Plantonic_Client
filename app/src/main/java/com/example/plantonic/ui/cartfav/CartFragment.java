@@ -6,12 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
+import com.example.plantonic.Adapter.listeners.CartListner;
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
@@ -21,10 +25,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.lang.reflect.Array;
 import java.util.List;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartListner {
+
+    RecyclerView cartRecyclerView;
 
     FragmentCartBinding binding;
     CartViewModel cartViewModel;
+    private CartRecyclerViewAdapter cartRecyclerViewAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,6 +41,10 @@ public class CartFragment extends Fragment {
 
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
+        // CartRecyclerViewAdapter
+        cartRecyclerViewAdapter = new CartRecyclerViewAdapter(this.getContext(), this, cartViewModel);
+        binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this.requireContext()));
+        binding.cartRecyclerView.setAdapter(this.cartRecyclerViewAdapter);
 
         LiveData[] list = cartViewModel.getAllCartItems(FirebaseAuth.getInstance().getUid());
 
