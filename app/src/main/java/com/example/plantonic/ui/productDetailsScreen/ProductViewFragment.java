@@ -42,9 +42,9 @@ public class ProductViewFragment extends Fragment {
     com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn, favouriteBtn;
     NestedScrollView productDetailsScrollView;
     ProgressBar progressBar;
-    int productNo = 0;
+    int productNo = 1;
     TextView integer_number;
-    Button decrease,increase;
+    TextView decrease,increase;
     View view;
 
 
@@ -151,14 +151,6 @@ public class ProductViewFragment extends Fragment {
                             }
                         });
 
-
-
-
-
-
-
-
-
                         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
                         if (!Objects.equals(productItem.imageUrl1, "")){
@@ -249,15 +241,16 @@ public class ProductViewFragment extends Fragment {
 
     public void decreaseInteger(View view) {
         productNo = productNo - 1;
-        if (productNo>0){
+        if (productNo>1){
             display(productNo);
         }
         else{
-            productNo= 0;
-            display((0));
+            productNo= 1;
+            display((1));
         }
     }
     private void display(int number) {
         integer_number.setText("" + number);
     }
+
 }
