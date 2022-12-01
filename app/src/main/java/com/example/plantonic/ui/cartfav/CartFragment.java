@@ -28,7 +28,6 @@ import java.util.List;
 public class CartFragment extends Fragment implements CartListner {
 
     RecyclerView cartRecyclerView;
-
     FragmentCartBinding binding;
     CartViewModel cartViewModel;
     private CartRecyclerViewAdapter cartRecyclerViewAdapter;
@@ -56,6 +55,12 @@ public class CartFragment extends Fragment implements CartListner {
             @Override
             public void onChanged(List<CartItem> cartItems) {
 
+                if (cartItems.size()==0){
+                    binding.noCartView.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.noCartView.setVisibility(View.GONE);
+                }
                 cartRecyclerViewAdapter.updateAllCartItems(cartItems);
             }
         });
@@ -67,6 +72,7 @@ public class CartFragment extends Fragment implements CartListner {
 
             }
         });
+
 
         return binding.getRoot();
     }

@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.L;
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.CartListner;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.cartfav.CartViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,26 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             @Override
             public void onClick(View view) {
                 cartListner.onRemoveFromCartClicked(productItem);
+            }
+        });
+        //Increase product Items
+        holder.cartIncreaseProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartViewModel.addIncreaseCartQuantity(FirebaseAuth.getInstance().getUid(), productItem.getProductId(), Long.parseLong(holder.cartProductItemNo.getText().toString()));
+            }
+        });
+        // decrease product Items
+        holder.cartDecreaseProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long quantity = Long.parseLong(holder.cartProductItemNo.getText().toString());
+                if (quantity>1){
+                    cartViewModel.removeDecreaseCartQuantity(FirebaseAuth.getInstance().getUid(), productItem.getProductId(), quantity);
+                }
+                else {
+                    Toast.makeText(context,"Quantity can't be zero",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

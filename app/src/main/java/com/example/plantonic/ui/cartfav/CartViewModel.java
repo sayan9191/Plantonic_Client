@@ -21,6 +21,13 @@ public class CartViewModel extends ViewModel {
 
     public void removeFromCart(String userId, String productId){
         cartRepository.removeProductFromCart(userId, productId);
+    }
 
+    public void addIncreaseCartQuantity(String userId, String productId, Long quantity){
+        cartRepository.addToCart(new CartItem(userId, productId, quantity, System.currentTimeMillis()));
+    }
+
+    public void removeDecreaseCartQuantity(String userId, String productId, Long quantity){
+        cartRepository.decreaseCartQuantity(new CartItem(userId, productId, quantity, System.currentTimeMillis()));
     }
 }

@@ -143,6 +143,27 @@ public class CartRepository {
         }
     }
 
+    public void decreaseCartQuantity(CartItem cartItem) {
+        getSpecificUserCartItemReference(cartItem.getUserId(), cartItem.getProductId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            CartItem cartItem = snapshot.getValue(CartItem.class);
+                            if (cartItem!=null){
+                                Long quantity = cartItem.getQuantity();
+                                snapshot.child("quantity").getRef().setValue(quantity-1);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
 
     private void addProductToCart(CartItem cartItem){
         getSpecificUserCartItemReference(cartItem.getUserId(), cartItem.getProductId())
