@@ -64,9 +64,8 @@ public class CartRepository {
                             cartMap.remove(snapshot.getKey());
                             _allCartItems.postValue(new ArrayList<>(cartMap.values()));
 
-                            if (cartProductMap.containsKey(snapshot.getKey())){
-                                cartProductMap.remove(snapshot.getKey());
-                            }
+                            cartProductMap.remove(snapshot.getKey());
+                            _allCartProducts.postValue(new ArrayList<>(cartProductMap.values()));
                         }
                     }
 
@@ -152,6 +151,28 @@ public class CartRepository {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "added to cart");
+
+                    }
+                });
+    }
+
+    public void removeProductFromCart(String userId,String productId){
+        getSpecificUserCartItemReference(userId, productId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            snapshot.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Log.d(TAG,"Removed from Cart");
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });

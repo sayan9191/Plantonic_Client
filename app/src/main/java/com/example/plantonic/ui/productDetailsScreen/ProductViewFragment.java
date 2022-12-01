@@ -37,21 +37,21 @@ import java.util.Objects;
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
     TextView addToCartBtn;
-    TextView name, productPrice, productActualPrice, productDescription,productDetails,productDiscount;
+    TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount;
     ImageView backBtn;
     com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn, favouriteBtn;
     NestedScrollView productDetailsScrollView;
     ProgressBar progressBar;
     int productNo = 1;
     TextView integer_number;
-    TextView decrease,increase;
+    TextView decrease, increase;
     View view;
 
 
     String productId;
     private ProductViewModel productViewModel;
     private boolean isFavourite = false;
-
+    private boolean isCart = false;
 
 
     @Override
@@ -77,42 +77,40 @@ public class ProductViewFragment extends Fragment {
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
 
 
-
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
 
-        try{
+        try {
             productId = getArguments().getString(PRODUCT_ID);
             progressBar.setVisibility(View.VISIBLE);
             productDetailsScrollView.setVisibility(View.GONE);
-        }catch (Exception e){
+        } catch (Exception e) {
             productId = null;
             getParentFragmentManager().popBackStackImmediate();
         }
 
 
-
-        if (productId!= null) {
+        if (productId != null) {
 
             /*
               Getting all data about product
              */
 
-            productViewModel.getProductDetailsFromId(productId).observe(getViewLifecycleOwner(), new Observer< ProductItem >() {
+            productViewModel.getProductDetailsFromId(productId).observe(getViewLifecycleOwner(), new Observer<ProductItem>() {
 
                 @Override
                 public void onChanged(ProductItem productItem) {
-                    if (productItem!= null && Objects.equals(productItem.productId, productId)){
+                    if (productItem != null && Objects.equals(productItem.productId, productId)) {
                         productDetailsScrollView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
 
                         productDetails.setText(productItem.productName);
                         name.setText(productItem.productName);
-                        productActualPrice.setText("₹ "+ productItem.listedPrice+ "/-");
-                        productPrice.setText("₹ "+ productItem.actualPrice+ "/-");
-                        int realPrice= Integer.parseInt(productItem.listedPrice);
+                        productActualPrice.setText("₹ " + productItem.listedPrice + "/-");
+                        productPrice.setText("₹ " + productItem.actualPrice + "/-");
+                        int realPrice = Integer.parseInt(productItem.listedPrice);
                         int price = Integer.parseInt(productItem.actualPrice);
-                        int discount = (realPrice - price)*100/realPrice;
-                        productDiscount.setText(discount +"% off");
+                        int discount = (realPrice - price) * 100 / realPrice;
+                        productDiscount.setText(discount + "% off");
                         productDescription.setText(productItem.productDescription);
 
                         //share button of Product
@@ -121,19 +119,13 @@ public class ProductViewFragment extends Fragment {
                             public void onClick(View view) {
                                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                                 myIntent.setType("text/plain");
-                                String body ="This is your product " + productItem.productName + productItem.actualPrice + " Launching discount"+ discount;
+                                String body = "This is your product " + productItem.productName + productItem.actualPrice + " Launching discount" + discount;
                                 String sub = "Your Subject";
-                                myIntent.putExtra(Intent.EXTRA_SUBJECT,sub);
-                                myIntent.putExtra(Intent.EXTRA_TEXT,body);
+                                myIntent.putExtra(Intent.EXTRA_SUBJECT, sub);
+                                myIntent.putExtra(Intent.EXTRA_TEXT, body);
                                 startActivity(Intent.createChooser(myIntent, "Share Using"));
                             }
                         });
-
-
-
-
-
-
 
 
                         // favourite Button of Product
@@ -141,11 +133,10 @@ public class ProductViewFragment extends Fragment {
                         favouriteBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (!isFavourite){
+                                if (!isFavourite) {
                                     productViewModel.addToFav(new FavouriteItem(FirebaseAuth.getInstance().getUid()
                                             , productItem.productId, productItem.merchantId, System.currentTimeMillis()));
-                                }
-                                else{
+                                } else {
                                     productViewModel.removeFromFav(FirebaseAuth.getInstance().getUid(), productItem.productId);
                                 }
                             }
@@ -153,20 +144,20 @@ public class ProductViewFragment extends Fragment {
 
                         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-                        if (!Objects.equals(productItem.imageUrl1, "")){
+                        if (!Objects.equals(productItem.imageUrl1, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl1, ScaleTypes.CENTER_CROP));
                         }
-                        if (!Objects.equals(productItem.imageUrl2, "")){
+                        if (!Objects.equals(productItem.imageUrl2, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl2, ScaleTypes.CENTER_CROP));
                         }
-                        if (!Objects.equals(productItem.imageUrl3, "")){
+                        if (!Objects.equals(productItem.imageUrl3, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl3, ScaleTypes.CENTER_CROP));
                         }
                         if (!Objects.equals(productItem.imageUrl4, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl4, ScaleTypes.CENTER_CROP));
                         }
                         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
-                    }else{
+                    } else {
                         productDetailsScrollView.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
                     }
@@ -177,12 +168,12 @@ public class ProductViewFragment extends Fragment {
             productViewModel.checkIfFav(FirebaseAuth.getInstance().getUid(), productId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean isFav) {
-                    isFavourite =isFav;
+                    isFavourite = isFav;
 
-                    if(isFav){
+                    if (isFav) {
                         favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), android.R.color.holo_red_dark));
 
-                    }else {
+                    } else {
                         favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.green));
 
                     }
@@ -196,12 +187,9 @@ public class ProductViewFragment extends Fragment {
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.setReorderingAllowed(true)
-                        .addToBackStack("cartFragment")
-                        .replace(R.id.fragmentContainerView, new CartFragment());
-                fragmentTransaction.commit();
-                Toast.makeText(getContext(), "Your item added to cart!", Toast.LENGTH_SHORT).show();
+                if (!isCart) {
+                    productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
+                }
             }
         });
 
@@ -233,6 +221,7 @@ public class ProductViewFragment extends Fragment {
         });
         return view;
     }
+
     public void increaseInteger(View view) {
         productNo = productNo + 1;
         display(productNo);
@@ -241,14 +230,14 @@ public class ProductViewFragment extends Fragment {
 
     public void decreaseInteger(View view) {
         productNo = productNo - 1;
-        if (productNo>1){
+        if (productNo > 1) {
             display(productNo);
-        }
-        else{
-            productNo= 1;
+        } else {
+            productNo = 1;
             display((1));
         }
     }
+
     private void display(int number) {
         integer_number.setText("" + number);
     }

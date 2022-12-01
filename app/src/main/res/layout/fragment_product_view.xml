@@ -191,39 +191,42 @@
                 android:text=" Select Quantity"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center">
+                android:layout_marginStart="20dp"
+                android:background="@drawable/border_layout"
+                android:layout_gravity="start">
 
-                <Button
+                <TextView
                     android:id="@+id/decrease"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/black"
-                    android:text="-" />
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:background="#B5B5B5"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/integer_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20dp" />
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    />
 
-                <Button
+                <TextView
                     android:id="@+id/increase"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/black"
-                    android:text="+" />
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:background="@color/green"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
