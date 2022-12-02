@@ -40,6 +40,7 @@
                 />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/priceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
@@ -68,7 +69,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/roundPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -80,6 +80,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/priceTotal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
@@ -88,7 +89,6 @@
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/roundPrice"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -225,9 +225,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 
@@ -254,8 +252,7 @@
 
         android:layout_margin="5dp"
         android:background="@drawable/floating_background"
-        android:elevation="10dp"
-        >
+        android:elevation="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -297,6 +294,7 @@
 
             android:background="@drawable/offer_background"
             android:backgroundTint="#FFC107"
+            android:elevation="1dp"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingEnd="20dp"
@@ -306,7 +304,6 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
