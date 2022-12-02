@@ -24,7 +24,7 @@ public class CartViewModel extends ViewModel {
     }
 
     public void addIncreaseCartQuantity(String userId, String productId, Long quantity){
-        cartRepository.addToCart(new CartItem(userId, productId, quantity, System.currentTimeMillis()));
+        cartRepository.increaseCartQuantity(new CartItem(userId, productId, quantity, System.currentTimeMillis()));
     }
 
     public void removeDecreaseCartQuantity(String userId, String productId, Long quantity){

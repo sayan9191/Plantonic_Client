@@ -13,7 +13,6 @@ public class ProductViewModel extends ViewModel {
     private final ProductDetailsRepo repository = ProductDetailsRepo.getInstance();
 
     private final LiveData<ProductItem> productItem = repository.productItem;
-    private final ProductDetailsRepo productDetailsRepo = new ProductDetailsRepo();
     private final CartRepository cartRepository = new CartRepository();
 
     LiveData<ProductItem> getProductDetailsFromId(String id){
@@ -37,6 +36,5 @@ public class ProductViewModel extends ViewModel {
     public void addToCart(String userId, String productId, Long quantity){
         CartItem item = new CartItem(userId, productId, quantity, System.currentTimeMillis());
         cartRepository.addToCart(item);
-        productDetailsRepo.removeFav(userId, productId);
     }
 }

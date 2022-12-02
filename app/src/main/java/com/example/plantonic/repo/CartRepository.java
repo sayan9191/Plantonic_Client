@@ -117,9 +117,7 @@ public class CartRepository {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            increaseCartQuantity(snapshot, cartItem);
-                        }else{
+                        if (!snapshot.exists()){
                             addProductToCart(cartItem);
                         }
                     }
@@ -131,16 +129,30 @@ public class CartRepository {
                 });
     }
 
-    private void increaseCartQuantity(DataSnapshot snapshot, CartItem cartItem) {
-        Long quantity = (Long) snapshot.child("quantity").getValue();
-        if (quantity != null){
-            snapshot.child("quantity").getRef().setValue(quantity + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d(TAG, "increased quantity");
-                }
-            });
-        }
+    public void increaseCartQuantity(CartItem cartItem) {
+
+        getSpecificUserCartItemReference(cartItem.getUserId(), cartItem.getProductId())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            Long quantity = (Long) snapshot.child("quantity").getValue();
+                            if (quantity != null){
+                                snapshot.child("quantity").getRef().setValue(quantity + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "increased quantity");
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     public void decreaseCartQuantity(CartItem cartItem) {
