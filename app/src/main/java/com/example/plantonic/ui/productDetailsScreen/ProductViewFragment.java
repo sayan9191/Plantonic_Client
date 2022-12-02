@@ -61,7 +61,7 @@ public class ProductViewFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_product_view, container, false);
         imageSlider = view.findViewById(R.id.productImages);
         backBtn = view.findViewById(R.id.backBtn);
-        addToCartBtn = view.findViewById(R.id.cartBtn);
+        addToCartBtn = view.findViewById(R.id.addToCartBtn);
         name = view.findViewById(R.id.productName);
         shareBtn = view.findViewById(R.id.shareBtn);
         favouriteBtn = view.findViewById(R.id.favouriteBtn);
@@ -94,7 +94,6 @@ public class ProductViewFragment extends Fragment {
             /*
               Getting all data about product
              */
-
             productViewModel.getProductDetailsFromId(productId).observe(getViewLifecycleOwner(), new Observer<ProductItem>() {
 
                 @Override
@@ -164,7 +163,9 @@ public class ProductViewFragment extends Fragment {
                 }
             });
 
-            // Checking if product is favourite
+            /*
+            Checking if product is favourite
+            */
             productViewModel.checkIfFav(FirebaseAuth.getInstance().getUid(), productId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean isFav) {
@@ -181,6 +182,21 @@ public class ProductViewFragment extends Fragment {
                 }
             });
 
+            /*
+            Checking if product is added to cart
+            */
+            productViewModel.checkIfAddedToCart(FirebaseAuth.getInstance().getUid(), productId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isAdded) {
+                    if (isAdded){
+                        addToCartBtn.setText("GO TO CART");
+                    }else {
+                        addToCartBtn.setText("ADD TO CART");
+                    }
+                    isCart = isAdded;
+                }
+            });
+
         }
 
         //Add to cart product item
@@ -189,6 +205,11 @@ public class ProductViewFragment extends Fragment {
             public void onClick(View view) {
                 if (!isCart) {
                     productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
+                }else {
+                    FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                    fragmentTransaction
+                            .setReorderingAllowed(true).addToBackStack("cart").replace(R.id.fragmentContainerView, new CartFragment());
+                    fragmentTransaction.commit();
                 }
             }
         });
@@ -240,6 +261,12 @@ public class ProductViewFragment extends Fragment {
 
     private void display(int number) {
         integer_number.setText("" + number);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        display(productNo);
     }
 
 }

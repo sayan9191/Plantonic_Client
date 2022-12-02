@@ -2,6 +2,7 @@ package com.example.plantonic.repo;
 
 
 import static com.example.plantonic.utils.constants.DatabaseConstants.getParticularProductReference;
+import static com.example.plantonic.utils.constants.DatabaseConstants.getSpecificUserCartItemReference;
 import static com.example.plantonic.utils.constants.DatabaseConstants.getUserFavouriteProductReference;
 
 import android.util.Log;
@@ -104,6 +105,32 @@ public class ProductDetailsRepo {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         _isFav.postValue(false);
+                    }
+                });
+    }
+
+
+    /**
+     * Checking if item is in favourites or not
+     */
+    MutableLiveData<Boolean> _isAddedToCart = new MutableLiveData<>();
+    public LiveData<Boolean> isAddedToCart = _isAddedToCart;
+
+    public void checkIfAddedToCart(String userId, String productId){
+        getSpecificUserCartItemReference(userId, productId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            _isAddedToCart.postValue(true);
+                        }else {
+                            _isAddedToCart.postValue(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        _isAddedToCart.postValue(false);
                     }
                 });
     }

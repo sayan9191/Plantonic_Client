@@ -37,4 +37,9 @@ public class ProductViewModel extends ViewModel {
         CartItem item = new CartItem(userId, productId, quantity, System.currentTimeMillis());
         cartRepository.addToCart(item);
     }
+
+    public LiveData<Boolean> checkIfAddedToCart(String userId, String productId){
+        repository.checkIfAddedToCart(userId, productId);
+        return repository.isAddedToCart;
+    }
 }
