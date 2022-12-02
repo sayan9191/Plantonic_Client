@@ -95,8 +95,6 @@ public class CartFragment extends Fragment implements CartListner {
                 }
             }
         });
-
-
         return binding.getRoot();
     }
 
