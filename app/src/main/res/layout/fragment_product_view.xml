@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/green"
-        >
+        android:background="@drawable/product_details_toolbar_background"
+        android:elevation="2dp">
 
         <ImageView
             android:id="@+id/backBtn"
@@ -20,7 +20,8 @@
             android:layout_height="30dp"
             android:src="@drawable/back_btn_icon"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/productDetails"
@@ -31,6 +32,7 @@
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textColor="@color/white"
+
             android:layout_marginStart="20dp"/>
     </LinearLayout>
 
@@ -39,18 +41,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
-        android:layout_below="@id/linear_layout1">
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:background="#3AD176"/>
+
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/productImages"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:layout_marginTop="5dp"
                 app:iss_auto_cycle="true"
                 app:iss_delay="2000"
                 app:iss_period="2000"
@@ -139,6 +146,7 @@
                            android:layout_height="wrap_content"
                            android:layout_gravity="center"
                            android:text="₹ 500/-"
+
                            android:textColor="@color/black"
                            android:textSize="20sp"
                            android:textStyle="bold" />
