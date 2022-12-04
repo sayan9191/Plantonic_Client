@@ -5,6 +5,8 @@ package com.example.plantonic.ui.profile;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plantonic.BuildConfig;
+import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ProfileFragment extends Fragment {
@@ -26,6 +30,7 @@ public class ProfileFragment extends Fragment {
     ImageView orderBtn, wishlistBtn, cartBtn, profileBtn, helpCenterBtn, feedbackBtm;
     TextView versionCode;
     View view;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +44,8 @@ public class ProfileFragment extends Fragment {
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
         feedbackBtm = view.findViewById(R.id.feedbackBtn);
         versionCode = view.findViewById(R.id.versionCode);
+
+
 
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +97,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Profile")
                         .replace(R.id.fragmentContainerView, new EditProfileFragment())
                         .commit();
-                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Profile", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -30,6 +30,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildscript {
+        ext.kotlin_version = "1.7.20"
+        repositories {
+            google()
+            mavenCentral()
+        }
+        dependencies {
+            classpath "com.android.tools.build:gradle:4.2.2"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        }
+    }
 }
 
 dependencies {
@@ -42,10 +55,17 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
-    implementation 'com.google.firebase:firebase-firestore:24.4.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    //life cycle
+    implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
+
+    // Kotlin
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.20'
 
     // Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -67,8 +87,7 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-auth:21.1.0'
 
     //viewModel
-    def lifecycle_version = "2.5.0-rc02"
-    def arch_version = "2.1.0"
+    def lifecycle_version = "2.6.0-alpha03"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
