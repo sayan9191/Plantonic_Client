@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
 
-                android:background="#3AD176"/>
+                android:background="@color/green"/>
 
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/productImages"

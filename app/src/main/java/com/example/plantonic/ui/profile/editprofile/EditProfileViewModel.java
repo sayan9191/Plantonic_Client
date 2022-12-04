@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.profile;
+package com.example.plantonic.ui.profile.editprofile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.repo.ProfileRepository;
 
-public class ProfileViewModel extends ViewModel {
+public class EditProfileViewModel extends ViewModel {
+
     private ProfileRepository profileRepository = new ProfileRepository();
 
     public LiveData<UserItem> getUser(String userId){
@@ -14,4 +15,9 @@ public class ProfileViewModel extends ViewModel {
         profileRepository.getUser(userId);
         return profileRepository.currentUser;
     }
+
+    public void updateUser(UserItem userItem){
+        profileRepository.updateUser(userItem);
+    }
+
 }

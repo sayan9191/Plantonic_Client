@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.profile;
+package com.example.plantonic.ui.profile.editprofile;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.profile.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,7 +35,7 @@ public class EditProfileFragment extends Fragment {
     TextView updateProfile;
 
     View view;
-    ProfileViewModel profileViewModel;
+    EditProfileViewModel profileViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +56,7 @@ public class EditProfileFragment extends Fragment {
 
 
         // Initialize viewModel
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
 
         // GetProfileData
         profileViewModel.getUser(FirebaseAuth.getInstance().getUid()).observe(this.getViewLifecycleOwner(), new Observer<UserItem>() {

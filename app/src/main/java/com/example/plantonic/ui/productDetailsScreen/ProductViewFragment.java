@@ -3,6 +3,8 @@ package com.example.plantonic.ui.productDetailsScreen;
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -15,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -75,6 +79,7 @@ public class ProductViewFragment extends Fragment {
         increase = view.findViewById(R.id.increase);
         productDetailsScrollView = view.findViewById(R.id.productDetailsScrollView);
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
+
 
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -267,6 +272,19 @@ public class ProductViewFragment extends Fragment {
     public void onStart() {
         super.onStart();
         display(productNo);
+
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.green));
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
+    }
 }
