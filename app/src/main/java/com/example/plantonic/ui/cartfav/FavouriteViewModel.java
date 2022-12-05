@@ -29,6 +29,6 @@ public class FavouriteViewModel extends ViewModel {
     public void addToCart(String userId, String productId){
         CartItem item = new CartItem(userId, productId, 1L, System.currentTimeMillis());
         cartRepository.addToCart(item);
-        productDetailsRepo.removeFav(userId, productId);
+//        productDetailsRepo.removeFav(userId, productId);
     }
 }
