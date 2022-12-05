@@ -6,33 +6,35 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:autoTransition="animateToStart"
+        motion:autoTransition="animateToEnd"
         motion:duration="1000">
+
        <KeyFrameSet>
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="0"
+               motion:framePosition="100"
                android:scaleX="1" />
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="0"
+               motion:framePosition="100"
                android:scaleY="1" />
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="30"
+               motion:framePosition="70"
                android:scaleX="0.8" />
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="30"
+               motion:framePosition="70"
                android:scaleY="0.8" />
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="100"
+               motion:framePosition="0"
                android:scaleX="100" />
            <KeyAttribute
                motion:motionTarget="@+id/circleImageView"
-               motion:framePosition="100"
+               motion:framePosition="0"
                android:scaleY="100" />
+
        </KeyFrameSet>
     </Transition>
 
