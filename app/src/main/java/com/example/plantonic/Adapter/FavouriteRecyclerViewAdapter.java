@@ -30,7 +30,6 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         this.favouriteListener = favouriteListener;
         this.context = context;
         this.favouriteViewModel = viewModel;
-
     }
 
     @NonNull
