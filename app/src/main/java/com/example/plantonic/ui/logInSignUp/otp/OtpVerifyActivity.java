@@ -101,8 +101,8 @@ public class OtpVerifyActivity extends AppCompatActivity {
 
 
                 if (VerificationId!= null){
-                    progressBar1.setVisibility(view.VISIBLE);
-                    verifyBtn.setVisibility(view.INVISIBLE);
+                    progressBar1.setVisibility(View.VISIBLE);
+                    verifyBtn.setVisibility(View.GONE);
 
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(VerificationId,code);
 
@@ -140,6 +140,9 @@ public class OtpVerifyActivity extends AppCompatActivity {
                                         });
                                     }
                                     else{
+                                        progressBar1.setVisibility(View.GONE);
+                                        verifyBtn.setVisibility(View.VISIBLE);
+
                                         Toast.makeText(OtpVerifyActivity.this,"Invalid OTP" + task.getException(),Toast.LENGTH_SHORT).show();
                                         Log.d("Invalid----", task.getException().toString());
                                     }
