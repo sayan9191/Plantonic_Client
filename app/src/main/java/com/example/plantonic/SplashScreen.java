@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
 import com.example.plantonic.ui.logInSignUp.login.LoginViewModel;
@@ -19,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     MotionLayout motionLayout;
 
-    Boolean userExist = false;
+    Boolean userExist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,13 @@ public class SplashScreen extends AppCompatActivity {
         // Initialize viewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
-        checkUser();
         motionLayout.transitionToEnd();
+
 
         motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
             @Override
             public void onTransitionStarted(MotionLayout motionLayout, int startId, int endId) {
+
 
             }
 
@@ -47,7 +48,6 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-
                 if (userExist){
                     startActivity(new Intent(SplashScreen.this, HomeActivity.class));
                     finish();
@@ -62,14 +62,16 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         });
+
+        checkUser();
     }
 
 
     private void checkUser() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser!= null){
 
-            loginViewModel.checkIfUserExists(firebaseUser.getUid()).observe(this, new Observer<Boolean>() {
+        if (FirebaseAuth.getInstance().getUid() != null && !FirebaseAuth.getInstance().getUid().equals("")){
+
+            loginViewModel.checkIfUserExists(FirebaseAuth.getInstance().getUid()).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean userExists) {
                     if (userExists){
