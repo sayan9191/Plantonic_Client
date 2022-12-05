@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
 
     private FirebaseAuth firebaseAuth;
-    private LoginViewModel loginViewModel;
+
 
     private static final String TAG = "GOOGLE_SIGN_IN_TAG";
 
@@ -61,8 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         googleSignInBtn = findViewById(R.id.btnSignInGoogle);
         progressBar = findViewById(R.id.progressbar);
 
-        // Initialize viewModel
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
 
 
         //configure Google signIn
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
-        checkUser();
+//        checkUser();
 
         //google button
         googleSignInBtn.setOnClickListener(new View.OnClickListener() {
@@ -140,21 +139,14 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void checkUser() {
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser!= null){
-
-            loginViewModel.checkIfUserExists(firebaseUser.getUid()).observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean userExists) {
-                    if (userExists){
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
-                    }
-                }
-            });
-        }
-    }
+//    private void checkUser() {
+//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//        if (firebaseUser!= null){
+//
+//            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//            finish();
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

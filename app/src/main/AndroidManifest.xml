@@ -18,32 +18,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.example.plantonic.ui.logInSignUp.otp.OtpVerifyActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="com.example.plantonic.HomeActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="com.example.plantonic.ui.logInSignUp.ResetPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.plantonic.ui.logInSignUp.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.plantonic.ui.logInSignUp.SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.plantonic.ui.logInSignUp.login.LoginActivity"
+            android:name=".SplashScreen"
             android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +30,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.plantonic.MainActivity"
+            android:name=".ui.logInSignUp.otp.OtpVerifyActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.logInSignUp.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.logInSignUp.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.logInSignUp.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.logInSignUp.login.LoginActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
     </application>
 
