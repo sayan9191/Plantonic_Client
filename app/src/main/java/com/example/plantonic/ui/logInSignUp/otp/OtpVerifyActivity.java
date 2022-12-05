@@ -1,32 +1,33 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.logInSignUp.otp;
 
-import static com.example.plantonic.R.id.progressbar1;
-
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.ui.logInSignUp.LoginActivity;
+import com.example.plantonic.HomeActivity;
+import com.example.plantonic.R;
+import com.example.plantonic.firebaseClasses.UserItem;
+import com.example.plantonic.ui.logInSignUp.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -37,11 +38,18 @@ public class OtpVerifyActivity extends AppCompatActivity {
     ProgressBar progressBar1;
     String VerificationId;
 
+    VerifyOtpViewModel viewModel;
+
+    String fullName, email, phoneNo;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verify);
+
+        // initialize the viewModel
+        viewModel = new ViewModelProvider(this).get(VerifyOtpViewModel.class);
 
         input1 = findViewById(R.id.input1);
         input2 = findViewById(R.id.input2);
@@ -55,9 +63,24 @@ public class OtpVerifyActivity extends AppCompatActivity {
         resendOtpBtn = findViewById(R.id.textSendOtp);
 
         mobile = findViewById(R.id.textMobile);
-        mobile.setText(String.format("+91-%s", getIntent().getStringExtra("phoneNumber")));
+
 
         VerificationId = getIntent().getStringExtra("verificationId");
+
+        phoneNo = getIntent().getStringExtra("phoneNumber");
+        mobile.setText(String.format("+91-%s", phoneNo));
+
+        try {
+            fullName = getIntent().getStringExtra("fullName");
+            email = getIntent().getStringExtra("email");
+        }catch (Exception e){
+            e.getStackTrace();
+            fullName = null;
+            email = null;
+        }
+
+        // Start the resend countdown
+        startCountdown();
 
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,12 +110,34 @@ public class OtpVerifyActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBar1.setVisibility(view.GONE);
-                                    verifyBtn.setVisibility(view.VISIBLE);
+
                                     if (task.isSuccessful()){
-                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
+
+                                        if (email != null && fullName != null){
+                                            viewModel.registerUser(new UserItem(phoneNo, fullName.split(" ")[0], fullName.split(" ")[1], email, task.getResult().getUser().getUid(), "phoneNo"));
+                                        }
+
+                                        viewModel.checkIfUserExists(task.getResult().getUser().getUid()).observe(OtpVerifyActivity.this, new Observer<Boolean>() {
+                                            @Override
+                                            public void onChanged(Boolean userExists) {
+
+                                                if (userExists){ // If user already registered
+
+                                                    progressBar1.setVisibility(view.GONE);
+                                                    verifyBtn.setVisibility(view.VISIBLE);
+
+                                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                }else{
+                                                    Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                                                    Toast.makeText(OtpVerifyActivity.this, "User does not exist. Please sign up.", Toast.LENGTH_SHORT).show();
+                                                    FirebaseAuth.getInstance().signOut();
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        });
                                     }
                                     else{
                                         Toast.makeText(OtpVerifyActivity.this,"Invalid OTP" + task.getException(),Toast.LENGTH_SHORT).show();
@@ -107,6 +152,9 @@ public class OtpVerifyActivity extends AppCompatActivity {
         resendOtpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                resendOtpBtn.setClickable(false);
+
                 PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + getIntent().getStringExtra("phoneNumber"),
                         60L,
                         TimeUnit.SECONDS,
@@ -127,6 +175,7 @@ public class OtpVerifyActivity extends AppCompatActivity {
                             public void onCodeSent(@NonNull String newVerificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                 VerificationId = newVerificationId;
                                 Toast.makeText(OtpVerifyActivity.this,"OTP sent",Toast.LENGTH_SHORT).show();
+                                startCountdown();
                             }
                         });
             }
@@ -135,6 +184,8 @@ public class OtpVerifyActivity extends AppCompatActivity {
         setupOTPInputs();
 
     }
+
+
     private void setupOTPInputs(){
         input1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -228,5 +279,26 @@ public class OtpVerifyActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void startCountdown(){
+        resendOtpBtn.setClickable(false);
+
+        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                resendOtpBtn.setText("wait until: " + millisUntilFinished/1000 + " sec");
+            }
+
+            @Override
+            public void onFinish() {
+                resendOtpBtn.setText("Resend");
+                resendOtpBtn.setClickable(true);
+            }
+
+        };
+
+        timer.start();
     }
 }

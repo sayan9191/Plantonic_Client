@@ -5,6 +5,8 @@ package com.example.plantonic.ui.profile;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +16,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plantonic.BuildConfig;
+import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.profile.editprofile.EditProfileFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ProfileFragment extends Fragment {
 
     ImageView orderBtn, wishlistBtn, cartBtn, profileBtn, helpCenterBtn, feedbackBtm;
-    TextView versionCode;
+    TextView versionCode, userName;
     View view;
+
+    ProfileViewModel profileViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +46,20 @@ public class ProfileFragment extends Fragment {
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
         feedbackBtm = view.findViewById(R.id.feedbackBtn);
         versionCode = view.findViewById(R.id.versionCode);
+        userName = view.findViewById(R.id.userNameGreetings);
+
+        // Initialize viewModel
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        // Get Current User Name
+        profileViewModel.getUser(FirebaseAuth.getInstance().getUid()).observe(getViewLifecycleOwner(), new Observer<UserItem>() {
+            @Override
+            public void onChanged(UserItem userItem) {
+                if (userItem != null){
+                    userName.setText(userItem.getFirstName() + " " + userItem.getLastName());
+                }
+            }
+        });
 
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +99,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("HelpCenter")
                         .replace(R.id.fragmentContainerView, new HelpCenterFragment())
                         .commit();
-                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Help Center", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,7 +111,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Profile")
                         .replace(R.id.fragmentContainerView, new EditProfileFragment())
                         .commit();
-                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Profile", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -102,7 +123,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Feedback")
                         .replace(R.id.fragmentContainerView, new FeedbackFragment())
                         .commit();
-                Toast.makeText(getContext(), "HelpCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
             }
         });
 

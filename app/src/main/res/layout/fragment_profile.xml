@@ -25,9 +25,9 @@
             android:textColor="#454343"/>
 
         <TextView
+            android:id="@+id/userNameGreetings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAYAN MONDAL"
             android:textSize="24dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
