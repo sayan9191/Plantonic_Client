@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
                 app:cardCornerRadius="15dp"
+                android:visibility="gone"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -84,7 +85,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
-                            android:text="565656/-"
+                            android:text="6/-"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +115,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
-                            android:text="9000/-"
+                            android:text="0/-"
                             android:textSize="16sp"
                             android:textColor="@color/green"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +145,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
-                            android:text="100/-"
+                            android:text="0/-"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +181,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
-                            android:text="10000/-"
+                            android:text="0/-"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
@@ -211,7 +212,7 @@
                             android:id="@+id/savePrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" $1000/-"
+                            android:text=" $0/-"
                             android:textSize="16sp"
                             android:textColor="@color/green"
                             android:textStyle="bold"/>
@@ -249,8 +250,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-
-        android:layout_margin="5dp"
+        android:visibility="gone"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/floating_background"
         android:elevation="10dp">
 
@@ -271,7 +275,7 @@
 
                 android:background="@drawable/striking_text"
                 android:paddingTop="2dp"
-                android:text="$98769/-"
+                android:text="0/-"
                 android:textSize="14sp" />
 
             <TextView
@@ -279,7 +283,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="$198769/-"
+                android:text="0/-"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />

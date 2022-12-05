@@ -29,7 +29,7 @@ import java.util.List;
 
 public class CartFragment extends Fragment implements CartListner {
 
-    RecyclerView cartRecyclerView;
+
     FragmentCartBinding binding;
     CartViewModel cartViewModel;
     private CartRecyclerViewAdapter cartRecyclerViewAdapter;
@@ -77,6 +77,10 @@ public class CartFragment extends Fragment implements CartListner {
                 }
                 else{
                     binding.noCartView.setVisibility(View.GONE);
+                    binding.placeOrderLabel.setVisibility(View.VISIBLE);
+                    binding.priceDetails.setVisibility(View.VISIBLE);
+
+
                     Long totalPrice=0L;
                     Long actualPrice= 0L;
                     Long discountPrice = 0L;
