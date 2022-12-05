@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
@@ -20,7 +21,6 @@ public class SplashScreen extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     MotionLayout motionLayout;
 
-    Boolean userExist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,6 @@ public class SplashScreen extends AppCompatActivity {
 
         // Initialize viewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
-        motionLayout.transitionToEnd();
 
 
         motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
@@ -48,13 +46,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
-                if (userExist){
-                    startActivity(new Intent(SplashScreen.this, HomeActivity.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
-                    finish();
-                }
+                checkUser();
             }
 
             @Override
@@ -62,33 +54,35 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         });
-
-        checkUser();
     }
 
 
     private void checkUser() {
 
-        if (FirebaseAuth.getInstance().getUid() != null && !FirebaseAuth.getInstance().getUid().equals("")){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
             loginViewModel.checkIfUserExists(FirebaseAuth.getInstance().getUid()).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean userExists) {
-                    if (userExists){
 
-                        userExist = true;
-                        motionLayout.transitionToStart();
-                    }else {
-
-                        userExist = false;
-                        motionLayout.transitionToStart();
+                    if (userExists) {
+                        startActivity(new Intent(SplashScreen.this, HomeActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+                        finish();
                     }
+
+
                 }
             });
-        }else {
+        } else {
 
-            userExist = false;
-            motionLayout.transitionToStart();
+
+            startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+            finish();
+
+
         }
     }
 }
