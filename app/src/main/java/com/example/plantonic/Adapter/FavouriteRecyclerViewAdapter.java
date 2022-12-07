@@ -1,5 +1,7 @@
 package com.example.plantonic.Adapter;
 
+import static com.example.plantonic.utils.constants.DatabaseConstants.getSpecificUserCartItemReference;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.cartfav.FavouriteViewModel;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.utils.constants.DatabaseConstants;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +66,54 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             }
         });
 
-        holder.cartBtn.setOnClickListener(new View.OnClickListener() {
+
+        //On Product Clicked
+        holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favouriteViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
+                favouriteListener.onProductClicked(productItem);
             }
         });
+
+        holder.productName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favouriteListener.onProductClicked(productItem);
+            }
+        });
+
+        // Check if already added to cart
+        getSpecificUserCartItemReference(FirebaseAuth.getInstance().getUid(), productItem.getProductId())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (!snapshot.exists()){
+                                    holder.cartBtn.setText("Add to Cart");
+
+                                    holder.cartBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            favouriteViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
+                                        }
+                                    });
+                                }else {
+                                    holder.cartBtn.setText("Go to Cart");
+
+                                    holder.cartBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
+                            }
+                        });
+
     }
 
     @Override

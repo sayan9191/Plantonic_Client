@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.editprofile.EditProfileFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -83,11 +86,10 @@ public class ProfileFragment extends Fragment {
         cartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.setReorderingAllowed(true)
-                        .addToBackStack("cartFragment")
-                        .replace(R.id.fragmentContainerView, new CartFragment());
-                fragmentTransaction.commit();
+
+                CartUtil.lastFragment = "profile";
+                Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+
                 Toast.makeText(getContext(), "Your Cart Items!", Toast.LENGTH_SHORT).show();
             }
         });

@@ -53,6 +53,23 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.cartActualPrice.setText("₹" +productItem.listedPrice+"/-");
         holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
 
+        // On Cart Item Clicked
+        holder.cartProductImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartListner.onCartItemClicked(productItem);
+            }
+        });
+
+        holder.cartProductName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartListner.onCartItemClicked(productItem);
+            }
+        });
+
+
+
         //remove button from cart item
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +77,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
                 cartListner.onRemoveFromCartClicked(productItem);
             }
         });
+
         //Increase product Items
         holder.cartIncreaseProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +85,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
                 cartViewModel.addIncreaseCartQuantity(FirebaseAuth.getInstance().getUid(), productItem.getProductId(), Long.parseLong(holder.cartProductItemNo.getText().toString()));
             }
         });
+
         // decrease product Items
         holder.cartDecreaseProduct.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardMaxElevation="5dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -86,7 +86,7 @@
                         android:background="@drawable/button_design"
                         android:backgroundTint="@color/green"
                         android:gravity="center"
-                        android:text="Add to Cart"
+                        android:text="Loading"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="5dp"
                         android:textAlignment="center"
