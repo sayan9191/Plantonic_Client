@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,11 +32,14 @@ import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CartFragment extends Fragment implements CartListner {
 
