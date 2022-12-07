@@ -2,9 +2,13 @@ package com.example.plantonic.ui.homeFragment;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,8 +33,10 @@ import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
 import com.example.plantonic.ui.search.SearchFragment;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.utils.CartUtil;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment implements OnProductListener {
@@ -120,6 +126,27 @@ public class HomeFragment extends Fragment implements OnProductListener {
                 .addToBackStack("detailsScreen")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+    }
+
+
+    //backspaced backstack
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+
+
+                if (Objects.equals(CartUtil.lastFragment, "")){
+                    requireActivity().finish();
+                }
+
+                manager.popBackStackImmediate();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
 }

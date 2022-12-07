@@ -34,6 +34,8 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+
+
 //        replaceFragment(new HomeFragment());
 
 //        binding.bottomNavigationView.setOnItemSelectedListener(item -> {

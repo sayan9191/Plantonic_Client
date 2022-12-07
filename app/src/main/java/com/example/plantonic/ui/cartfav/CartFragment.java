@@ -1,17 +1,27 @@
 package com.example.plantonic.ui.cartfav;
 
+import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
+
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
@@ -114,5 +124,68 @@ public class CartFragment extends Fragment implements CartListner {
     @Override
     public void onRemoveFromCartClicked(ProductItem productItem) {
         cartViewModel.removeFromCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
+    }
+
+    @Override
+    public void onCartItemClicked(ProductItem productItem) {
+        ProductViewFragment productViewFragment = new ProductViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(PRODUCT_ID, productItem.productId);
+        productViewFragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction
+                .setReorderingAllowed(true)
+                .addToBackStack("detailsScreen")
+                .replace(R.id.fragmentContainerView, productViewFragment);
+        fragmentTransaction.commit();
+    }
+
+
+    //backspaced backstack
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                try {
+                    FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
+
+
+                    if (manager.getBackStackEntryCount() > 1) {
+                        if (Objects.equals(CartUtil.lastFragment, "fav")) {
+                            CartUtil.lastFragment = "";
+                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                            navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        }else
+                            if (Objects.equals(CartUtil.lastFragment, "profile")){
+                            CartUtil.lastFragment = "";
+                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                            navController.navigate(R.id.profileFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        }else{
+                                CartUtil.lastFragment = "";
+                                NavController navController = Navigation.findNavController(binding.getRoot());
+                                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+                            }
+
+                        manager.popBackStackImmediate();
+
+                    } else {
+
+                        manager.popBackStackImmediate();
+                        NavController navController = Navigation.findNavController(binding.getRoot());
+                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+
+                    }
+                } catch (Exception e) {
+                    e.getStackTrace();
+
+                }
+
+
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 }
