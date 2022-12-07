@@ -1,8 +1,11 @@
 package com.example.plantonic.ui.cartfav;
 
+import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +22,7 @@ import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
 
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -65,5 +69,28 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
 
         return view;
+    }
+
+    @Override
+    public void onGoToCartBtnClicked(String productId) {
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction
+                .setReorderingAllowed(true).addToBackStack("cart").replace(R.id.fragmentContainerView, new CartFragment());
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onProductClicked(ProductItem productItem) {
+        ProductViewFragment productViewFragment = new ProductViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(PRODUCT_ID, productItem.productId);
+        productViewFragment.setArguments(bundle);
+
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction
+                .setReorderingAllowed(true)
+                .addToBackStack("detailsScreen")
+                .replace(R.id.fragmentContainerView, productViewFragment);
+        fragmentTransaction.commit();
     }
 }

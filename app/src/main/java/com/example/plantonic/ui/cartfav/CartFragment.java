@@ -1,8 +1,12 @@
 package com.example.plantonic.ui.cartfav;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -106,4 +110,27 @@ public class CartFragment extends Fragment implements CartListner {
     public void onRemoveFromCartClicked(ProductItem productItem) {
         cartViewModel.removeFromCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
     }
+
+    //backspaced backstack
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
+//
+//                if (manager.getBackStackEntryCount() > 1)
+//                    manager.popBackStackImmediate();
+//                else {
+//
+//                    manager.clearBackStack("cart");
+//                    manager.popBackStack();
+////                    manager.getPrimaryNavigationFragment().getParentFragmentManager().popBackStack();
+////                    requireActivity().onBackPressed();
+//                }
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+//    }
 }

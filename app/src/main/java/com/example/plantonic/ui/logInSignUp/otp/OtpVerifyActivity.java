@@ -156,6 +156,7 @@ public class OtpVerifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                startCountdown();
                 resendOtpBtn.setClickable(false);
 
                 PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + getIntent().getStringExtra("phoneNumber"),
@@ -178,7 +179,6 @@ public class OtpVerifyActivity extends AppCompatActivity {
                             public void onCodeSent(@NonNull String newVerificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                 VerificationId = newVerificationId;
                                 Toast.makeText(OtpVerifyActivity.this,"OTP sent",Toast.LENGTH_SHORT).show();
-                                startCountdown();
                             }
                         });
             }
