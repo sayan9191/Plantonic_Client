@@ -2,11 +2,16 @@
 
 package com.example.plantonic.ui.profile;
 
+import android.content.Context;
 import android.os.Bundle;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
@@ -19,14 +24,15 @@ import android.widget.Toast;
 
 import com.example.plantonic.BuildConfig;
 import com.example.plantonic.firebaseClasses.UserItem;
-import com.example.plantonic.ui.cartfav.CartFragment;
-import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.editprofile.EditProfileFragment;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.constants.HomeUtil;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 
 public class ProfileFragment extends Fragment {
@@ -74,11 +80,8 @@ public class ProfileFragment extends Fragment {
         wishlistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.setReorderingAllowed(true)
-                        .addToBackStack("HelpCenter")
-                        .replace(R.id.fragmentContainerView, new FavouriteFragment());
-                fragmentTransaction.commit();
+                CartUtil.lastFragment = "profile";
+                Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.favouriteFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                 Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -88,9 +91,11 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
 
                 CartUtil.lastFragment = "profile";
-                Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
 
                 Toast.makeText(getContext(), "Your Cart Items!", Toast.LENGTH_SHORT).show();
+
+
             }
         });
         helpCenterBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +107,7 @@ public class ProfileFragment extends Fragment {
                         .replace(R.id.fragmentContainerView, new HelpCenterFragment())
                         .commit();
                 Toast.makeText(getContext(), "Help Center", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -114,6 +120,7 @@ public class ProfileFragment extends Fragment {
                         .replace(R.id.fragmentContainerView, new EditProfileFragment())
                         .commit();
                 Toast.makeText(getContext(), "Profile", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -126,11 +133,48 @@ public class ProfileFragment extends Fragment {
                         .replace(R.id.fragmentContainerView, new FeedbackFragment())
                         .commit();
                 Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
+
             }
         });
 
         versionCode.setText(String.valueOf(BuildConfig.VERSION_NAME));
         return view;
+    }
+
+
+    //backspaced backstack
+
+    //backspaced backstack
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
+
+
+                if (manager.getBackStackEntryCount() > 1){
+
+                    if (!Objects.equals(HomeUtil.lastFragment, "")){
+                        NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
+                        HomeUtil.lastFragment = "";
+                    }
+
+                    manager.popBackStackImmediate();
+                }else {
+                    manager.popBackStackImmediate();
+
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+                    HomeUtil.lastFragment = "";
+                }
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
 

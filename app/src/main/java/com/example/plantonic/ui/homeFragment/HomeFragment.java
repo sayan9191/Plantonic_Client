@@ -34,6 +34,8 @@ import com.example.plantonic.firebaseClasses.CategoryItem;
 import com.example.plantonic.ui.search.SearchFragment;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.FavUtil;
+import com.example.plantonic.utils.constants.HomeUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -99,6 +101,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
                 fragmentTransaction.addToBackStack("searchFragment")
                         .setReorderingAllowed(true).replace(R.id.fragmentContainerView, new SearchFragment());
                 fragmentTransaction.commit();
+                HomeUtil.lastFragment = "search";
             }
         });
 
@@ -126,8 +129,15 @@ public class HomeFragment extends Fragment implements OnProductListener {
                 .addToBackStack("detailsScreen")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+
+        HomeUtil.lastFragment = "product";
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        HomeUtil.lastFragment = "";
+    }
 
     //backspaced backstack
     @Override
@@ -139,7 +149,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
 
 
-                if (Objects.equals(CartUtil.lastFragment, "")){
+                if (Objects.equals(CartUtil.lastFragment, "") || Objects.equals(FavUtil.lastFragment, "") || Objects.equals(HomeUtil.lastFragment, "")){
                     requireActivity().finish();
                 }
 

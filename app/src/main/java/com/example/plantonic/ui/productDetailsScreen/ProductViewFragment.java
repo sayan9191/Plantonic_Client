@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,7 @@ import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -215,10 +218,8 @@ public class ProductViewFragment extends Fragment {
                 if (!isCart) {
                     productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
                 }else {
-                    FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                    fragmentTransaction
-                            .setReorderingAllowed(true).addToBackStack("cart").replace(R.id.fragmentContainerView, new CartFragment());
-                    fragmentTransaction.commit();
+                    CartUtil.lastFragment = "home";
+                    Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                 }
             }
         });

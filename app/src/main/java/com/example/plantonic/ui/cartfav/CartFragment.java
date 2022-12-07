@@ -141,7 +141,7 @@ public class CartFragment extends Fragment implements CartListner {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction
                 .setReorderingAllowed(true)
-                .addToBackStack("detailsScreen")
+                .addToBackStack("detailsScreenFromCart")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
     }
@@ -171,7 +171,7 @@ public class CartFragment extends Fragment implements CartListner {
                         }else{
                                 CartUtil.lastFragment = "";
                                 NavController navController = Navigation.findNavController(binding.getRoot());
-                                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+                                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                             }
 
                         manager.popBackStackImmediate();
