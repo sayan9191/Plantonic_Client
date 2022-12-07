@@ -13,14 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
@@ -29,11 +29,14 @@ import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
+import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.Util;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CartFragment extends Fragment implements CartListner {
 
@@ -41,6 +44,7 @@ public class CartFragment extends Fragment implements CartListner {
     FragmentCartBinding binding;
     CartViewModel cartViewModel;
     private CartRecyclerViewAdapter cartRecyclerViewAdapter;
+    private Util util = new Util();
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,32 +82,31 @@ public class CartFragment extends Fragment implements CartListner {
             public void onChanged(List<ProductItem> productItems) {
                 cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
 
-                if (productItems.size()==0){
+                if (productItems.size() == 0) {
                     binding.noCartView.setVisibility(View.VISIBLE);
                     binding.placeOrderLabel.setVisibility(View.GONE);
                     binding.priceDetails.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     binding.noCartView.setVisibility(View.GONE);
                     binding.placeOrderLabel.setVisibility(View.VISIBLE);
                     binding.priceDetails.setVisibility(View.VISIBLE);
 
 
-                    Long totalPrice=0L;
-                    Long actualPrice= 0L;
+                    Long totalPrice = 0L;
+                    Long actualPrice = 0L;
                     Long discountPrice = 0L;
-                    for (int i=0; i<productItems.size(); i++ ){
+                    for (int i = 0; i < productItems.size(); i++) {
                         totalPrice = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + totalPrice;
                         actualPrice = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + actualPrice;
-                        discountPrice = actualPrice-totalPrice;
+                        discountPrice = actualPrice - totalPrice;
                     }
-                    binding.priceTotal.setText(String.valueOf("₹"+actualPrice+"/-"));
-                    binding.discountPrice.setText(String.valueOf("₹"+discountPrice+"/-"));
-                    binding.deliverPrice.setText("₹"+ 50+"/-");
-                    binding.totalAmount.setText(String.valueOf("₹"+(totalPrice+50)+"/-"));
-                    binding.placeOrderTotalAmount.setText("₹"+actualPrice+"/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹"+(totalPrice+50)+"/-"));
-                    binding.savePrice.setText(String.valueOf("₹"+discountPrice+"/-"));
+                    binding.priceTotal.setText(String.valueOf("₹" + actualPrice + "/-"));
+                    binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.deliverPrice.setText("₹" + 50 + "/-");
+                    binding.totalAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
+                    binding.placeOrderTotalAmount.setText("₹" + actualPrice + "/-");
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
+                    binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
                 }
             }
         });
@@ -130,26 +133,51 @@ public class CartFragment extends Fragment implements CartListner {
         fragmentTransaction.commit();
     }
 
+
     //backspaced backstack
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
-//
-//                if (manager.getBackStackEntryCount() > 1)
-//                    manager.popBackStackImmediate();
-//                else {
-//
-//                    manager.clearBackStack("cart");
-//                    manager.popBackStack();
-////                    manager.getPrimaryNavigationFragment().getParentFragmentManager().popBackStack();
-////                    requireActivity().onBackPressed();
-//                }
-//            }
-//        };
-//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-//    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                try {
+                    FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
+
+
+                    if (manager.getBackStackEntryCount() > 1) {
+                        if (Objects.equals(CartUtil.lastFragment, "fav")) {
+                            CartUtil.lastFragment = "";
+                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                            navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        }else
+                            if (Objects.equals(CartUtil.lastFragment, "profile")){
+                            CartUtil.lastFragment = "";
+                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                            navController.navigate(R.id.profileFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        }else{
+                                CartUtil.lastFragment = "";
+                                NavController navController = Navigation.findNavController(binding.getRoot());
+                                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+                            }
+
+                        manager.popBackStackImmediate();
+
+                    } else {
+
+                        manager.popBackStackImmediate();
+                        NavController navController = Navigation.findNavController(binding.getRoot());
+                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+
+                    }
+                } catch (Exception e) {
+                    e.getStackTrace();
+
+                }
+
+
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+    }
 }

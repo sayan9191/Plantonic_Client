@@ -2,12 +2,19 @@ package com.example.plantonic.ui.cartfav;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +30,7 @@ import com.example.plantonic.R;
 
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -73,11 +81,11 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
     @Override
     public void onGoToCartBtnClicked(String productId) {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction
-                .setReorderingAllowed(true).addToBackStack("cart").replace(R.id.fragmentContainerView, new CartFragment());
-        fragmentTransaction.commit();
+
+        CartUtil.lastFragment = "fav";
+        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
     }
+
 
     @Override
     public void onProductClicked(ProductItem productItem) {
@@ -92,5 +100,40 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
                 .addToBackStack("detailsScreen")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+    }
+
+    //backspaced backstack
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
+
+
+                if (manager.getBackStackEntryCount() > 1){
+                    manager.popBackStackImmediate();
+                }else {
+                    manager.popBackStackImmediate();
+
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+
+//                    getActivity().getSupportFragmentManager().popBackStack();
+//                    getActivity().getSupportFragmentManager().clearBackStack("favourite");
+//                    manager.clearBackStack("favourite");
+                }
+
+
+
+//                manager.clearBackStack(R.id.favouriteFragment);
+//                    manager.popBackStack();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 }
