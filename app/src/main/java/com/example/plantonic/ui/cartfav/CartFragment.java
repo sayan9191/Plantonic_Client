@@ -3,20 +3,19 @@ package com.example.plantonic.ui.cartfav;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
+import com.example.plantonic.CheckOutOne;
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
@@ -97,6 +96,16 @@ public class CartFragment extends Fragment implements CartListner {
                     binding.placeOrderPayAmount.setText(String.valueOf("₹"+(totalPrice+50)+"/-"));
                     binding.savePrice.setText(String.valueOf("₹"+discountPrice+"/-"));
                 }
+            }
+        });
+        binding.placeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction.setReorderingAllowed(true)
+                        .addToBackStack("checkout1")
+                        .replace(R.id.fragmentContainerView, new CheckOutOne());
+                fragmentTransaction.commit();
             }
         });
         return binding.getRoot();

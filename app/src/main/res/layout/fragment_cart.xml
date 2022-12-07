@@ -295,7 +295,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-
             android:background="@drawable/offer_background"
             android:backgroundTint="#FFC107"
             android:elevation="1dp"
@@ -306,7 +305,7 @@
             android:text="Place Order"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
