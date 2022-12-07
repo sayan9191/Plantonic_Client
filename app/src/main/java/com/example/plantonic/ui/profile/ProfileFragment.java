@@ -86,11 +86,6 @@ public class ProfileFragment extends Fragment {
         cartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.setReorderingAllowed(true)
-                        .addToBackStack("cartFragment")
-                        .replace(R.id.fragmentContainerView, new CartFragment());
-                fragmentTransaction.commit();
 
                 CartUtil.lastFragment = "profile";
                 Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
