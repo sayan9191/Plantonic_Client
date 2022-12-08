@@ -28,6 +28,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.plantonic.Adapter.CategoryAdapter;
 import com.example.plantonic.Adapter.listeners.OnProductListener;
 import com.example.plantonic.Adapter.PopularItemAdapter;
+import com.example.plantonic.HomeActivity;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
@@ -137,6 +138,8 @@ public class HomeFragment extends Fragment implements OnProductListener {
     public void onResume() {
         super.onResume();
         HomeUtil.lastFragment = "";
+        CartUtil.lastFragment = "";
+        ((HomeActivity)requireActivity()).showBottomNavBar();
     }
 
     //backspaced backstack

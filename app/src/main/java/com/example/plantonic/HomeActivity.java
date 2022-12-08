@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.plantonic.databinding.ActivityHomeBinding;
 import com.example.plantonic.ui.cartfav.CartFragment;
@@ -37,6 +38,10 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
+
+
 
 
 //        replaceFragment(new HomeFragment());
@@ -69,6 +74,15 @@ public class HomeActivity extends AppCompatActivity {
 //                manager.popBackStack();
 //            }
 //        }
+    }
+
+
+    public void hideBottomNavBar(){
+        binding.bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomNavBar(){
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }
 

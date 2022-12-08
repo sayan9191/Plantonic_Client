@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.plantonic.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
@@ -219,6 +220,7 @@ public class ProductViewFragment extends Fragment {
                     productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
                 }else {
                     CartUtil.lastFragment = "home";
+//                    Navigation.findNavController(ProductViewFragment.this.view).popBackStack(R.id.homeFragment, true);
                     Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                 }
             }
@@ -282,6 +284,9 @@ public class ProductViewFragment extends Fragment {
         Window window = requireActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.green));
+
+        // Hide the nav bar
+        ((HomeActivity)requireActivity()).hideBottomNavBar();
     }
 
     @Override
@@ -291,7 +296,13 @@ public class ProductViewFragment extends Fragment {
         Window window = requireActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.white));
+
+        // Show the nav bar
+        if (!Objects.equals(CartUtil.lastFragment, "home")){
+            ((HomeActivity)requireActivity()).showBottomNavBar();
+        }
     }
+
 
     //backspaced backstack
     @Override

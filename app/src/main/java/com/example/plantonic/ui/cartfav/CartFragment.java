@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
 import com.example.plantonic.CheckOutOne;
+import com.example.plantonic.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
@@ -145,6 +146,14 @@ public class CartFragment extends Fragment implements CartListner {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Objects.equals(CartUtil.lastFragment, "home")){
+            ((HomeActivity)requireActivity()).hideBottomNavBar();
+        }
+    }
+
 
     //backspaced backstack
     @Override
@@ -164,6 +173,8 @@ public class CartFragment extends Fragment implements CartListner {
                     NavController navController = Navigation.findNavController(binding.getRoot());
                     navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                     manager.popBackStackImmediate();
+                    ((HomeActivity)requireActivity()).showBottomNavBar();
+
 
 
 //                    }
