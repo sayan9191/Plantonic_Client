@@ -84,32 +84,31 @@ public class CartFragment extends Fragment implements CartListner {
             public void onChanged(List<ProductItem> productItems) {
                 cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
 
-                if (productItems.size()==0){
+                if (productItems.size() == 0) {
                     binding.noCartView.setVisibility(View.VISIBLE);
                     binding.placeOrderLabel.setVisibility(View.GONE);
                     binding.priceDetails.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     binding.noCartView.setVisibility(View.GONE);
                     binding.placeOrderLabel.setVisibility(View.VISIBLE);
                     binding.priceDetails.setVisibility(View.VISIBLE);
 
 
-                    Long totalPrice=0L;
-                    Long actualPrice= 0L;
+                    Long totalPrice = 0L;
+                    Long actualPrice = 0L;
                     Long discountPrice = 0L;
-                    for (int i=0; i<productItems.size(); i++ ){
+                    for (int i = 0; i < productItems.size(); i++) {
                         totalPrice = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + totalPrice;
                         actualPrice = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + actualPrice;
-                        discountPrice = actualPrice-totalPrice;
+                        discountPrice = actualPrice - totalPrice;
                     }
-                    binding.priceTotal.setText(String.valueOf("₹"+actualPrice+"/-"));
-                    binding.discountPrice.setText(String.valueOf("₹"+discountPrice+"/-"));
-                    binding.deliverPrice.setText("₹"+ 50+"/-");
-                    binding.totalAmount.setText(String.valueOf("₹"+(totalPrice+50)+"/-"));
-                    binding.placeOrderTotalAmount.setText("₹"+actualPrice+"/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹"+(totalPrice+50)+"/-"));
-                    binding.savePrice.setText(String.valueOf("₹"+discountPrice+"/-"));
+                    binding.priceTotal.setText(String.valueOf("₹" + actualPrice + "/-"));
+                    binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.deliverPrice.setText("₹" + 50 + "/-");
+                    binding.totalAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
+                    binding.placeOrderTotalAmount.setText("₹" + actualPrice + "/-");
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
+                    binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
                 }
             }
         });
@@ -155,34 +154,19 @@ public class CartFragment extends Fragment implements CartListner {
             @Override
             public void handleOnBackPressed() {
                 try {
-                    FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
 
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                    if (manager.getBackStackEntryCount() > 1) {
-                        if (Objects.equals(CartUtil.lastFragment, "fav")) {
-                            CartUtil.lastFragment = "";
-                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                            navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
-                        }else
-                            if (Objects.equals(CartUtil.lastFragment, "profile")){
-                            CartUtil.lastFragment = "";
-                            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                            navController.navigate(R.id.profileFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
-                        }else{
-                                CartUtil.lastFragment = "";
-                                NavController navController = Navigation.findNavController(binding.getRoot());
-                                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
-                            }
-
+                    if (manager.getBackStackEntryCount() > 1 && !Objects.equals(CartUtil.lastFragment, "")) {
                         manager.popBackStackImmediate();
-
-                    } else {
-
-                        manager.popBackStackImmediate();
-                        NavController navController = Navigation.findNavController(binding.getRoot());
-                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
-
+                        CartUtil.lastFragment = "";
                     }
+                    NavController navController = Navigation.findNavController(binding.getRoot());
+                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                    manager.popBackStackImmediate();
+
+
+//                    }
                 } catch (Exception e) {
                     e.getStackTrace();
 

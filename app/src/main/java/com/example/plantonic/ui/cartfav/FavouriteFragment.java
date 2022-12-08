@@ -85,7 +85,8 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     public void onGoToCartBtnClicked(String productId) {
 
         CartUtil.lastFragment = "fav";
-        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+
     }
 
 
@@ -114,28 +115,24 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
 
+                FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                if (manager.getBackStackEntryCount() > 1){
-
-                    if (Objects.equals(FavUtil.lastFragment, "product")){
-                        NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
-                        CartUtil.lastFragment = "";
-                    }
-
+                while(manager.getBackStackEntryCount() > 1 && !Objects.equals(FavUtil.lastFragment, "")){
                     manager.popBackStackImmediate();
-                }else {
-                    manager.popBackStackImmediate();
-
-                    NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
+                    FavUtil.lastFragment = "";
                 }
+
+
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+                manager.popBackStackImmediate();
             }
         };
 
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
+
+
 }
