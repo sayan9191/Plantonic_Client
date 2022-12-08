@@ -10,23 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.cartfav.CartFragment;
-import com.example.plantonic.ui.cartfav.FavouriteViewModel;
+import com.example.plantonic.ui.fav.FavouriteViewModel;
 import com.example.plantonic.firebaseClasses.ProductItem;
-import com.example.plantonic.utils.constants.DatabaseConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.cart.CartFragment"
-    >
+    tools:context=".ui.cart.activity.CartActivity">
+
 
     <TextView
-        android:id="@+id/cartHeading"
+        android:id="@+id/activityCartHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My Cart"
@@ -24,7 +24,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cartHeading"
+        android:layout_below="@id/activityCartHeading"
         >
 
         <LinearLayout
@@ -34,14 +34,14 @@
             android:paddingBottom="70dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cartRecyclerView"
+                android:id="@+id/activityCartRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cartHeading"
                 />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/priceDetails"
+                android:id="@+id/activityPriceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
@@ -82,7 +82,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/priceTotal"
+                            android:id="@+id/activityPriceTotal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
@@ -112,7 +112,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/discountPrice"
+                            android:id="@+id/activityDiscountPrice"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
@@ -142,7 +142,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/deliverPrice"
+                            android:id="@+id/activityDeliverPrice"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
@@ -178,7 +178,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/totalAmount"
+                            android:id="@+id/activityTotalAmount"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="viewEnd"
@@ -210,7 +210,7 @@
                             android:textColor="@color/green"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/savePrice"
+                            android:id="@+id/activitySavePrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=" $0/-"
@@ -234,7 +234,7 @@
 
 
     <TextView
-        android:id="@+id/noCartView"
+        android:id="@+id/activityNoCartView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -246,7 +246,7 @@
         android:paddingEnd="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/placeOrderLabel"
+        android:id="@+id/activityPlaceOrderLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -270,7 +270,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/placeOrderTotalAmount"
+                android:id="@+id/activityPlaceOrderTotalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -280,7 +280,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/placeOrderPayAmount"
+                android:id="@+id/activityPlaceOrderPayAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -291,7 +291,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/placeOrderBtn"
+            android:id="@+id/activityPlaceOrderBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

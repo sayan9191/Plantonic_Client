@@ -29,8 +29,6 @@ import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.editprofile.EditProfileFragment;
 import com.example.plantonic.utils.CartUtil;
-import com.example.plantonic.utils.FavUtil;
-import com.example.plantonic.utils.constants.HomeUtil;
 import com.example.plantonic.utils.constants.ProfileUtil;
 import com.google.firebase.auth.FirebaseAuth;
 

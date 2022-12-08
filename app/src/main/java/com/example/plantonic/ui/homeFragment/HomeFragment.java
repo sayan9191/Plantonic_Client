@@ -35,7 +35,7 @@ import com.example.plantonic.ui.search.SearchFragment;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
-import com.example.plantonic.utils.constants.HomeUtil;
+import com.example.plantonic.utils.HomeUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -136,7 +136,19 @@ public class HomeFragment extends Fragment implements OnProductListener {
     @Override
     public void onResume() {
         super.onResume();
+        FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
         HomeUtil.lastFragment = "";
+        CartUtil.homeStackCount = 0;
+        CartUtil.lastFragment = "";
+
+        while (manager.getBackStackEntryCount() > 1){
+            try{
+                manager.popBackStackImmediate();
+            } catch (Exception e){
+                e.getStackTrace();
+            }
+
+        }
     }
 
     //backspaced backstack

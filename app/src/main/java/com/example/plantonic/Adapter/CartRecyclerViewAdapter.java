@@ -11,13 +11,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.L;
 import com.bumptech.glide.Glide;
 import com.example.plantonic.Adapter.listeners.CartListner;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
-import com.example.plantonic.ui.cartfav.CartViewModel;
+import com.example.plantonic.ui.cart.CartViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;

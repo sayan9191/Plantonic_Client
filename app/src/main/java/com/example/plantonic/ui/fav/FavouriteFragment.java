@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.cartfav;
+package com.example.plantonic.ui.fav;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,7 +82,12 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
     @Override
     public void onGoToCartBtnClicked(String productId) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
 
+        if (Objects.equals(CartUtil.lastFragment, "home")){
+            CartUtil.homeStackCount +=1;
+        }
+        CartUtil.homeStackCount +=1;
         CartUtil.lastFragment = "fav";
         Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
 

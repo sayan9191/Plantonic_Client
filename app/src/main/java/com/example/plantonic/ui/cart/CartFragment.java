@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.cartfav;
+package com.example.plantonic.ui.cart;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
@@ -17,13 +17,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
@@ -145,6 +142,17 @@ public class CartFragment extends Fragment implements CartListner {
         fragmentTransaction.commit();
     }
 
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        FragmentManager manager = getActivity().getSupportFragmentManager();
+//        if (Objects.equals(CartUtil.lastFragment, "home")){
+//            if(CartUtil.homeStackCount > 0){
+//                manager.popBackStack(R.id.cartFragment, POP_BACK_STACK_INCLUSIVE);
+//                CartUtil.homeStackCount -= 1;
+//            }
+//        }
+//    }
 
     //backspaced backstack
     @Override
@@ -157,16 +165,24 @@ public class CartFragment extends Fragment implements CartListner {
 
                     FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                    if (manager.getBackStackEntryCount() > 1 && !Objects.equals(CartUtil.lastFragment, "")) {
-                        manager.popBackStackImmediate();
+                    while (manager.getBackStackEntryCount() > 1 && !Objects.equals(CartUtil.lastFragment, "") ) {
+
                         CartUtil.lastFragment = "";
+                        manager.popBackStackImmediate();
+
                     }
+
+
                     NavController navController = Navigation.findNavController(binding.getRoot());
                     navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                     manager.popBackStackImmediate();
 
 
+//                    while (CartUtil.homeStackCount >0 && manager.getBackStackEntryCount() > 1){
+//                        manager.popBackStackImmediate();
+//                        CartUtil.homeStackCount -= 1;
 //                    }
+
                 } catch (Exception e) {
                     e.getStackTrace();
 

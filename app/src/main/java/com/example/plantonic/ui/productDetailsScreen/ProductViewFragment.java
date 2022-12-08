@@ -4,8 +4,6 @@ import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -25,18 +23,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.plantonic.R;
-import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.cart.activity.CartActivity;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
 import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -218,8 +214,16 @@ public class ProductViewFragment extends Fragment {
                 if (!isCart) {
                     productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
                 }else {
+                    if (Objects.equals(CartUtil.lastFragment, "home")){
+                        FragmentManager manager = getActivity().getSupportFragmentManager();
+                        if (manager.getBackStackEntryCount() > 1)
+                            manager.popBackStackImmediate();
+                    }
                     CartUtil.lastFragment = "home";
-                    Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                    CartUtil.homeStackCount += 1;
+                    Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build());
+
+//                    startActivity(new Intent(requireContext(), CartActivity.class));
                 }
             }
         });
@@ -292,6 +296,17 @@ public class ProductViewFragment extends Fragment {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.white));
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (Objects.equals(CartUtil.lastFragment, "home")){
+//            FragmentManager manager = getActivity().getSupportFragmentManager();
+//            if (manager.getBackStackEntryCount() > 2){
+//                manager.popBackStackImmediate();
+//            }
+//        }
+//    }
 
     //backspaced backstack
     @Override
