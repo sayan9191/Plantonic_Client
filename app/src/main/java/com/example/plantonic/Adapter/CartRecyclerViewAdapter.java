@@ -53,6 +53,11 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.cartActualPrice.setText("₹" +productItem.listedPrice+"/-");
         holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
 
+        int realPrice = Integer.parseInt(productItem.listedPrice);
+        int price = Integer.parseInt(productItem.actualPrice);
+        int discount = (realPrice - price) * 100 / realPrice;
+        holder.cartProductOffer.setText(discount + "% off");
+
         // On Cart Item Clicked
         holder.cartProductImage.setOnClickListener(new View.OnClickListener() {
             @Override

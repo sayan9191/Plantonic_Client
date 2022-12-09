@@ -123,6 +123,16 @@ public class CartFragment extends Fragment implements CartListner {
                 fragmentTransaction.commit();
             }
         });
+
+
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -151,6 +161,9 @@ public class CartFragment extends Fragment implements CartListner {
         super.onStart();
         if (Objects.equals(CartUtil.lastFragment, "home")){
             ((HomeActivity)requireActivity()).hideBottomNavBar();
+            binding.backBtn.setVisibility(View.VISIBLE);
+        }else{
+            binding.backBtn.setVisibility(View.GONE);
         }
     }
 
