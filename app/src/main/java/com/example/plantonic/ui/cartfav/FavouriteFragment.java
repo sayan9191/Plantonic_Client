@@ -31,9 +31,11 @@ import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.FavUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class FavouriteFragment extends Fragment implements FavouriteListener {
@@ -83,7 +85,8 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     public void onGoToCartBtnClicked(String productId) {
 
         CartUtil.lastFragment = "fav";
-        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+
     }
 
 
@@ -97,43 +100,39 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction
                 .setReorderingAllowed(true)
-                .addToBackStack("detailsScreen")
+                .addToBackStack("detailsScreenFromFav")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+
+        FavUtil.lastFragment = "product";
     }
 
-    //backspaced backstack
 
+    //backspaced backstack
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager manager = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment().getChildFragmentManager();
 
+                FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                if (manager.getBackStackEntryCount() > 1){
+                while(manager.getBackStackEntryCount() > 1 && !Objects.equals(FavUtil.lastFragment, "")){
                     manager.popBackStackImmediate();
-                }else {
-                    manager.popBackStackImmediate();
-
-                    NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(navController.getGraph().getStartDestination(), true).build());
-
-//                    getActivity().getSupportFragmentManager().popBackStack();
-//                    getActivity().getSupportFragmentManager().clearBackStack("favourite");
-//                    manager.clearBackStack("favourite");
+                    FavUtil.lastFragment = "";
                 }
 
 
-
-//                manager.clearBackStack(R.id.favouriteFragment);
-//                    manager.popBackStack();
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
+                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+                manager.popBackStackImmediate();
             }
         };
 
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
+
+
 }

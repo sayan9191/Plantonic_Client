@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +33,13 @@ import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.plantonic.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -215,10 +219,9 @@ public class ProductViewFragment extends Fragment {
                 if (!isCart) {
                     productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
                 }else {
-                    FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                    fragmentTransaction
-                            .setReorderingAllowed(true).addToBackStack("cart").replace(R.id.fragmentContainerView, new CartFragment());
-                    fragmentTransaction.commit();
+                    CartUtil.lastFragment = "home";
+//                    Navigation.findNavController(ProductViewFragment.this.view).popBackStack(R.id.homeFragment, true);
+                    Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                 }
             }
         });
@@ -281,6 +284,9 @@ public class ProductViewFragment extends Fragment {
         Window window = requireActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.green));
+
+        // Hide the nav bar
+        ((HomeActivity)requireActivity()).hideBottomNavBar();
     }
 
     @Override
@@ -290,7 +296,13 @@ public class ProductViewFragment extends Fragment {
         Window window = requireActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.white));
+
+        // Show the nav bar
+        if (!Objects.equals(CartUtil.lastFragment, "home")){
+            ((HomeActivity)requireActivity()).showBottomNavBar();
+        }
     }
+
 
     //backspaced backstack
     @Override

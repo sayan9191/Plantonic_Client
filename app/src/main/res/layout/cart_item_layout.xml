@@ -135,16 +135,18 @@
                             android:layout_width="40dp"
                             android:layout_height="30dp"
                             android:textAlignment="center"
+                            android:gravity="center"
                             android:background="#B5B5B5"
                             android:text="-"
                             android:textColor="@color/white"
-                            android:textSize="22sp"/>
+                            android:textSize="20sp"/>
                         <TextView
                             android:id="@+id/cartProductItemNo"
                             android:layout_width="50dp"
                             android:layout_height="match_parent"
                             android:text="1"
                             android:textAlignment="center"
+                            android:gravity="center"
                             android:textSize="17sp"
                             android:background="@color/white"
                             android:layout_marginTop="1dp"
@@ -156,10 +158,11 @@
                             android:layout_width="40dp"
                             android:layout_height="30dp"
                             android:textAlignment="center"
+                            android:gravity="center"
                             android:background="@color/green"
                             android:text="+"
                             android:textColor="@color/white"
-                            android:textSize="22sp"/>
+                            android:textSize="20sp"/>
                     </LinearLayout>
                 </LinearLayout>
 
