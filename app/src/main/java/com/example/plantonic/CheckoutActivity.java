@@ -33,12 +33,12 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         proceedToPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPayment();
+                startPayment(payablePriceLoad);
             }
         });
 
     }
-    private void startPayment() {
+    private void startPayment(Long price) {
         /**
          * Instantiate Checkout
          */
@@ -67,7 +67,7 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
 //            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
-            options.put("amount", "50000");//pass amount in currency subunits
+            options.put("amount", price*100);//pass amount in currency subunits
             options.put("prefill.email", "plantonic@gmail.com");
             options.put("prefill.contact","8240251373");
             JSONObject retryObj = new JSONObject();

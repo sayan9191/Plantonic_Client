@@ -96,22 +96,23 @@ public class CartFragment extends Fragment implements CartListner {
                     binding.priceDetails.setVisibility(View.VISIBLE);
 
 
-                    Long totalPrice = 0L;
-                    Long actualPrice = 0L;
+                    Long actualAmount = 0L;
+                    Long totalAmount = 0L;
                     Long discountPrice = 0L;
                     for (int i = 0; i < productItems.size(); i++) {
-                        totalPrice = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + totalPrice;
-                        actualPrice = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + actualPrice;
-                        discountPrice = actualPrice - totalPrice;
+                        actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
+                        totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
+                        discountPrice = totalAmount - actualAmount;
                     }
-                    binding.priceTotal.setText(String.valueOf("₹" + actualPrice + "/-"));
+                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
                     binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
                     binding.deliverPrice.setText("₹" + 50 + "/-");
-                    binding.totalAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
-                    binding.placeOrderTotalAmount.setText("₹" + actualPrice + "/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
-                    payablePrice = actualPrice+ 50;
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
+                    binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
                     binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+
+                    payablePrice = actualAmount + 50;
                 }
             }
         });
