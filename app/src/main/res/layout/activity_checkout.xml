@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AddressGivenFragment">
-    <LinearLayout
+    tools:context=".CheckoutActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/enterAddressTxtView"
+            android:id="@+id/checkout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="Enter Your Address"
+            android:text="CheckOut Item"
             android:textColor="@color/green"
             android:textSize="24sp"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/enterYourAddressTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="Enter your address"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addressFullNameEditTxt"
@@ -28,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/enterAddressTxtView"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             android:hint="Enter Your Full Name(Required)*">
 
@@ -36,6 +50,9 @@
                 android:id="@+id/addressFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -46,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressFullNameEditTxt"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             android:hint="Enter Your Phone No.(Required)*">
 
@@ -54,6 +71,9 @@
                 android:id="@+id/addressPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:maxLines="1"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,14 +84,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressPhoneNoEditTxt"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
-            android:hint="Pin Code(Required)*">
+            android:hint="Enter your PinCode(Required)*">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addressPinCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="6"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -81,14 +103,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressPinCodeEditTxt"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
-            android:hint="Enter YourState(Required)*">
+            android:hint="Enter Your State(Required)*">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addressState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -98,14 +122,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressStateEditTxt"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
-            android:hint="Pin Code(Required)*">
+            android:hint="Enter Your City(Required)*">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addressCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,14 +142,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressCityEditTxt"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             android:hint="Enter your Area,Colony name(Required)*">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name"
+                android:id="@+id/addressAreaName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="3"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,6 +172,7 @@
             android:layout_marginStart="32dp"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/homeTypeAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_design"
@@ -156,6 +184,7 @@
                 android:drawableStart="@drawable/address_black_icon"/>
 
             <TextView
+                android:id="@+id/officeTypeAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_design"
@@ -167,6 +196,24 @@
                 android:padding="10dp"
                 android:drawableStart="@drawable/address_office_icon"/>
         </LinearLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/proceedToPaymentBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/offer_background"
+            android:text="Proceed to Payment"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

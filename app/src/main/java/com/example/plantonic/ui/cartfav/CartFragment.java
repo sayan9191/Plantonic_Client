@@ -3,6 +3,7 @@ package com.example.plantonic.ui.cartfav;
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -17,17 +18,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
-import com.example.plantonic.CheckOutOne;
+
+import com.example.plantonic.CheckoutActivity;
 import com.example.plantonic.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentCartBinding;
@@ -47,6 +47,7 @@ public class CartFragment extends Fragment implements CartListner {
 
     FragmentCartBinding binding;
     CartViewModel cartViewModel;
+    Long payablePrice= 0L;
     private CartRecyclerViewAdapter cartRecyclerViewAdapter;
 
 
@@ -95,32 +96,33 @@ public class CartFragment extends Fragment implements CartListner {
                     binding.priceDetails.setVisibility(View.VISIBLE);
 
 
-                    Long totalPrice = 0L;
-                    Long actualPrice = 0L;
+                    Long actualAmount = 0L;
+                    Long totalAmount = 0L;
                     Long discountPrice = 0L;
                     for (int i = 0; i < productItems.size(); i++) {
-                        totalPrice = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + totalPrice;
-                        actualPrice = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + actualPrice;
-                        discountPrice = actualPrice - totalPrice;
+                        actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
+                        totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
+                        discountPrice = totalAmount - actualAmount;
                     }
-                    binding.priceTotal.setText(String.valueOf("₹" + actualPrice + "/-"));
+                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
                     binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
                     binding.deliverPrice.setText("₹" + 50 + "/-");
-                    binding.totalAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
-                    binding.placeOrderTotalAmount.setText("₹" + actualPrice + "/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (totalPrice + 50) + "/-"));
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
+                    binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
                     binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+
+                    payablePrice = actualAmount + 50;
                 }
             }
         });
         binding.placeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.setReorderingAllowed(true)
-                        .addToBackStack("checkout1")
-                        .replace(R.id.fragmentContainerView, new CheckOutOne());
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getContext(), CheckoutActivity.class);
+                // trying to set total price in razorpay
+                intent.putExtra("payablePrice", payablePrice);
+                startActivity(intent);
             }
         });
 
@@ -129,7 +131,6 @@ public class CartFragment extends Fragment implements CartListner {
             @Override
             public void onClick(View v) {
                 requireActivity().onBackPressed();
-
             }
         });
 
