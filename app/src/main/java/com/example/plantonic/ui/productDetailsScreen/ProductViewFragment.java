@@ -230,10 +230,7 @@ public class ProductViewFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction
-                        .setReorderingAllowed(true).addToBackStack("back").replace(R.id.fragmentContainerView, new HomeFragment());
-                fragmentTransaction.commit();
+                requireActivity().onBackPressed();
             }
         });
 

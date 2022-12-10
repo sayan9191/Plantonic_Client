@@ -42,6 +42,7 @@ android {
 
         }
     }
+    namespace 'com.example.plantonic'
 }
 
 dependencies {
@@ -129,5 +130,9 @@ dependencies {
 
     //Authentication
     implementation 'com.google.firebase:firebase-auth:21.1.0'
+
+
+    //Razorpay Dependencies
+    implementation 'com.razorpay:checkout:1.6.12'
 
 }
