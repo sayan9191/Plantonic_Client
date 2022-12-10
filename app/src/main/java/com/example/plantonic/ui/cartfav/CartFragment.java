@@ -105,10 +105,10 @@ public class CartFragment extends Fragment implements CartListner {
                         discountPrice = totalAmount - actualAmount;
                     }
                     binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
-                    binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
                     binding.deliverPrice.setText("₹" + 50 + "/-");
                     binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
-                    binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
+                    binding.placeOrderTotalAmount.setText("+ ₹" + totalAmount + "/-");
                     binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
                     binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
 

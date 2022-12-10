@@ -45,19 +45,19 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
                     addressFullName.requestFocus();
                     Toast.makeText(getApplicationContext(),"Full name is missing",Toast.LENGTH_SHORT).show();
                 }
-                else if (addressPhoneNo.toString().equals("")){
+                else if (addressPhoneNo.getText().toString().equals("")){
                     addressFullName.requestFocus();
                     Toast.makeText(getApplicationContext(),"Phone Number is missing",Toast.LENGTH_SHORT).show();
                 }
-                else if (addressPinCode.toString().equals("")){
+                else if (addressPinCode.getText().toString().equals("")){
                     addressPinCode.requestFocus();
                     Toast.makeText(getApplicationContext(),"Pin code is missing",Toast.LENGTH_SHORT).show();
                 }
-                else if (addressState.toString().equals("")){
+                else if (addressState.getText().toString().equals("")){
                     addressState.requestFocus();
                     Toast.makeText(getApplicationContext(),"State is missing",Toast.LENGTH_SHORT).show();
                 }
-                else if (addressCity.toString().equals("")){
+                else if (addressCity.getText().toString().equals("")){
                     addressCity.requestFocus();
                     Toast.makeText(getApplicationContext(),"City is missing",Toast.LENGTH_SHORT).show();
                 }
