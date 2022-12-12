@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 
 public class CheckoutActivity extends AppCompatActivity implements PaymentResultListener {
     TextView proceedToPaymentBtn;
+    com.google.android.material.textfield.TextInputEditText addressFullName, addressPhoneNo, addressPinCode, addressState, addressCity,addressAreaName;
     String TAG= "checkout";
 
     @Override
@@ -23,6 +25,12 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         proceedToPaymentBtn = findViewById(R.id.proceedToPaymentBtn);
+        addressFullName = findViewById(R.id.addressFullName);
+        addressPhoneNo = findViewById(R.id.addressPhoneNo);
+        addressPinCode = findViewById(R.id.addressPinCode);
+        addressState = findViewById(R.id.addressState);
+        addressCity = findViewById(R.id.addressCity);
+        addressAreaName = findViewById(R.id.addressAreaName);
 
         Checkout.preload(getApplicationContext());
 
@@ -33,7 +41,33 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         proceedToPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPayment(payablePriceLoad);
+                if (addressFullName.getText().toString().equals("")){
+                    addressFullName.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Full name is missing",Toast.LENGTH_SHORT).show();
+                }
+                else if (addressPhoneNo.getText().toString().equals("")){
+                    addressFullName.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Phone Number is missing",Toast.LENGTH_SHORT).show();
+                }
+                else if (addressPinCode.getText().toString().equals("")){
+                    addressPinCode.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Pin code is missing",Toast.LENGTH_SHORT).show();
+                }
+                else if (addressState.getText().toString().equals("")){
+                    addressState.requestFocus();
+                    Toast.makeText(getApplicationContext(),"State is missing",Toast.LENGTH_SHORT).show();
+                }
+                else if (addressCity.getText().toString().equals("")){
+                    addressCity.requestFocus();
+                    Toast.makeText(getApplicationContext(),"City is missing",Toast.LENGTH_SHORT).show();
+                }
+                else if (addressAreaName.getText().toString().equals("")){
+                    addressAreaName.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Address is missing",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    startPayment(payablePriceLoad);
+                }
             }
         });
 
