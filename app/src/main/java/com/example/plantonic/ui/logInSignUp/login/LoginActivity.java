@@ -3,8 +3,6 @@ package com.example.plantonic.ui.logInSignUp.login;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.logInSignUp.otp.OtpVerifyActivity;
 import com.example.plantonic.ui.logInSignUp.SignUpActivity;

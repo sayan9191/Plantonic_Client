@@ -1,20 +1,17 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 
+import com.example.plantonic.R;
 import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
 import com.example.plantonic.ui.logInSignUp.login.LoginViewModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
 

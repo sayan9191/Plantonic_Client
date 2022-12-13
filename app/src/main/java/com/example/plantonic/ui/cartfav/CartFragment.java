@@ -27,10 +27,9 @@ import android.view.ViewGroup;
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
 
-import com.example.plantonic.CheckoutActivity;
-import com.example.plantonic.HomeActivity;
+import com.example.plantonic.ui.activity.CheckoutActivity;
+import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
-import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;

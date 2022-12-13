@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.HomeActivity;
+import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.logInSignUp.SignUpActivity;

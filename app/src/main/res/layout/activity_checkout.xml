@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckoutActivity">
+    tools:context=".ui.activity.CheckoutActivity">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -147,13 +147,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Payment method" />
+                    android:text="Order summary" />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Order Placed" />
+                    android:text="Payment" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

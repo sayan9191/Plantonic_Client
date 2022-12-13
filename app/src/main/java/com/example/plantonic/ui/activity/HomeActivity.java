@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,6 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.plantonic.R;
 import com.example.plantonic.databinding.ActivityHomeBinding;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.cartfav.FavouriteFragment;

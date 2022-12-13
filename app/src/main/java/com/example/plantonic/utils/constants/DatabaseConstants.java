@@ -9,6 +9,7 @@ public class DatabaseConstants {
     private static final String PRODUCTS = "products";
     private static final String FAVOURITES = "fav";
     private static final String CART = "cart";
+    private static final String ADDRESS = "address";
 
     public static DatabaseReference getAllCategoriesReference(){
         return FirebaseDatabase.getInstance().getReference(CATEGORY);
@@ -40,5 +41,10 @@ public class DatabaseConstants {
 
     public static DatabaseReference getSpecificUserCartItemReference(String userId, String productId){
         return FirebaseDatabase.getInstance().getReference(CART).child(userId).child(productId);
+    }
+
+    // Address
+    public static DatabaseReference getUserAddressReference(String userId){
+        return FirebaseDatabase.getInstance().getReference(ADDRESS).child(userId);
     }
 }

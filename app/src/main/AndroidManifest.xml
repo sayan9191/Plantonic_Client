@@ -33,7 +33,15 @@
 
 
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".ui.activity.CheckoutActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".ui.activity.OrderSummaryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -69,7 +77,7 @@
 
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.activity.SplashScreen"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -89,7 +97,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.activity.HomeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -107,10 +115,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.logInSignUp.login.LoginActivity"
-            android:exported="false"></activity>
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>

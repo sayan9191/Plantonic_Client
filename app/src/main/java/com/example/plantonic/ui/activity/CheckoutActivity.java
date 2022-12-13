@@ -1,6 +1,7 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.plantonic.R;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -19,6 +21,7 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
     TextView proceedToPaymentBtn;
     com.google.android.material.textfield.TextInputEditText addressFullName, addressPhoneNo, addressPinCode, addressState, addressCity,addressAreaName;
     String TAG= "checkout";
+    private CheckoutActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         addressState = findViewById(R.id.addressState);
         addressCity = findViewById(R.id.addressCity);
         addressAreaName = findViewById(R.id.addressAreaName);
+
+        viewModel = new ViewModelProvider(this).get(CheckoutActivityViewModel.class);
 
         Checkout.preload(getApplicationContext());
 
@@ -66,7 +71,8 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
                     Toast.makeText(getApplicationContext(),"Address is missing",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    startPayment(payablePriceLoad);
+//                    startPayment(payablePriceLoad);
+                    startActivity(new Intent(CheckoutActivity.this, OrderSummaryActivity.class));
                 }
             }
         });
@@ -99,7 +105,7 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
             options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
 //            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
-            options.put("theme.color", "#3399cc");
+            options.put("theme.color", "#37AC6C");
             options.put("currency", "INR");
             options.put("amount", price*100);//pass amount in currency subunits
             options.put("prefill.email", "plantonic@gmail.com");
