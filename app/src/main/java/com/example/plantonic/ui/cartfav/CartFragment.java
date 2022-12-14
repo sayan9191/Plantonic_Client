@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import com.example.plantonic.Adapter.CartRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.CartListner;
 
+import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.ui.activity.CheckoutActivity;
 import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
@@ -104,7 +105,7 @@ public class CartFragment extends Fragment implements CartListner {
                         discountPrice = totalAmount - actualAmount;
                     }
                     binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
-                    binding.discountPrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
                     binding.deliverPrice.setText("₹" + 50 + "/-");
                     binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
                     binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");

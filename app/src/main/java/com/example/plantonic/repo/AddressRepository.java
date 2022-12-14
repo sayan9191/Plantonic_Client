@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.plantonic.firebaseClasses.AddressItem;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,12 @@ public class AddressRepository {
                     public void onSuccess(Void unused) {
                         _userAddress.postValue(addressItem);
                     }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        _userAddress.postValue(null);
+                    }
                 });
     }
 
@@ -36,6 +43,8 @@ public class AddressRepository {
                     if (address != null){
                         _userAddress.postValue(address);
                     }
+                }else {
+                    _userAddress.postValue(null);
                 }
             }
 
