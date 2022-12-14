@@ -38,7 +38,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".ui.activity.CheckoutActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,6 +52,14 @@
                 <action android:name="rzp.device_token.share" />
             </intent-filter>
         </receiver>
+
+
+        <activity android:name=".ui.activity.OrderSummaryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <activity
             android:name="com.razorpay.CheckoutActivity"
@@ -112,9 +120,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.logInSignUp.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
     </application>
 
