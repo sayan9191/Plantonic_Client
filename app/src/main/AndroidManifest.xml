@@ -16,7 +16,6 @@
         </intent>
     </queries>
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
@@ -30,8 +29,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Plantonic"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".ThankYouOrderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".CheckoutActivity"
             android:exported="false">
@@ -65,8 +69,6 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="your_key_here" />
-
-
 
         <activity
             android:name=".SplashScreen"
@@ -107,7 +109,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.logInSignUp.login.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
