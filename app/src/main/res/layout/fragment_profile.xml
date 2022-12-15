@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Your Order"
+                android:text="My Orders"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@color/green"/>

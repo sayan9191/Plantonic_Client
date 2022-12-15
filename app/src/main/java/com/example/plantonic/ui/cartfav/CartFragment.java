@@ -130,7 +130,11 @@ public class CartFragment extends Fragment implements CartListner {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().onBackPressed();
+                try {
+                    requireActivity().onBackPressed();
+                }catch (Exception e){
+                    e.getStackTrace();
+                }
             }
         });
 

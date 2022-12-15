@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+
+    // Migrating to kotlin
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -57,6 +60,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation 'com.google.firebase:firebase-firestore:24.4.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -76,7 +80,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Lottie
-    def lottieVersion = "3.4.0"
+    def lottieVersion = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     // Firebase
@@ -134,5 +138,9 @@ dependencies {
 
     //Razorpay Dependencies
     implementation 'com.razorpay:checkout:1.6.12'
+
+
+    // Kotlin Migration
+    implementation 'androidx.core:core-ktx:1.9.0'
 
 }
