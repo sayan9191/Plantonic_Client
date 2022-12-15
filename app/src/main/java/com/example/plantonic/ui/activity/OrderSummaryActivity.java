@@ -11,9 +11,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.plantonic.Adapter.OrderSummaryRVAdapter;
 import com.example.plantonic.R;
+import com.example.plantonic.ThankYouOrderActivity;
 import com.example.plantonic.databinding.ActivityOrderSummaryBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
@@ -176,11 +178,15 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
     public void onPaymentSuccess(String s) {
         binding.summaryProgressBar.setVisibility(View.GONE);
         Log.d(TAG, "onPaymentSuccess: "+s);
+
+        startActivity(new Intent(this, ThankYouOrderActivity.class));
+
     }
 
     @Override
     public void onPaymentError(int i, String s) {
         binding.summaryProgressBar.setVisibility(View.GONE);
         Log.d(TAG, "onPaymentError: "+s);
+        Toast.makeText(this, "Payment failed. Try again", Toast.LENGTH_SHORT).show();
     }
 }
