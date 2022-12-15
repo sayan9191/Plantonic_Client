@@ -64,6 +64,10 @@ public class DatabaseConstants {
         return FirebaseDatabase.getInstance().getReference(ORDERS).child(orderId);
     }
 
+    public static DatabaseReference getAllUserOrdersReference(String userId){
+        return FirebaseDatabase.getInstance().getReference(USER_ORDERS).child(userId);
+    }
+
     public static DatabaseReference getSpecificUserOrderReference(String userId, String orderId){
         return FirebaseDatabase.getInstance().getReference(USER_ORDERS).child(userId).child(orderId);
     }
