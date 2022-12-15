@@ -10,15 +10,22 @@ public class DatabaseConstants {
     private static final String FAVOURITES = "fav";
     private static final String CART = "cart";
     private static final String ADDRESS = "address";
+    private static final String ORDERS = "orders";
+    private static final String USER_ORDERS = "userOrders";
+    private static final String MERCHANT_ORDERS = "merchantOrders";
 
+
+    // Categories
     public static DatabaseReference getAllCategoriesReference(){
         return FirebaseDatabase.getInstance().getReference(CATEGORY);
     }
 
+    // Popular product
     public static DatabaseReference getAllPopularProductsReference(){
         return FirebaseDatabase.getInstance().getReference(POPULAR_PRODUCTS);
     }
 
+    // Product
     public static DatabaseReference getParticularProductReference(String productId) {
         return FirebaseDatabase.getInstance().getReference(PRODUCTS).child(productId);
     }
@@ -46,5 +53,22 @@ public class DatabaseConstants {
     // Address
     public static DatabaseReference getUserAddressReference(String userId){
         return FirebaseDatabase.getInstance().getReference(ADDRESS).child(userId);
+    }
+
+    // Orders
+    public static DatabaseReference getAllOrdersReference(){
+        return FirebaseDatabase.getInstance().getReference(ORDERS);
+    }
+
+    public static DatabaseReference getSpecificOrderReference(String orderId){
+        return FirebaseDatabase.getInstance().getReference(ORDERS).child(orderId);
+    }
+
+    public static DatabaseReference getSpecificUserOrderReference(String userId, String orderId){
+        return FirebaseDatabase.getInstance().getReference(USER_ORDERS).child(userId).child(orderId);
+    }
+
+    public static DatabaseReference getSpecificMerchantOrderReference(String merchantId, String orderId){
+        return FirebaseDatabase.getInstance().getReference(MERCHANT_ORDERS).child(merchantId).child(orderId);
     }
 }

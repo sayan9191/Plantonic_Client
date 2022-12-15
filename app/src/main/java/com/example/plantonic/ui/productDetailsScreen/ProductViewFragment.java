@@ -158,8 +158,8 @@ public class ProductViewFragment extends Fragment {
                         if (!Objects.equals(productItem.imageUrl3, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl3, ScaleTypes.CENTER_CROP));
                         }
-                        if (!Objects.equals(productItem.imageUrl4, "")) {
-                            slideModels.add(new SlideModel(productItem.imageUrl4, ScaleTypes.CENTER_CROP));
+                        if (!Objects.equals(productItem.getImageUrl4(), "")) {
+                            slideModels.add(new SlideModel(productItem.getImageUrl4(), ScaleTypes.CENTER_CROP));
                         }
                         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
                     } else {

@@ -29,6 +29,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     private CartViewModel cartViewModel;
     CartListner cartListner;
     Context context;
+    Long totalPayable;
 
     public CartRecyclerViewAdapter(Context context,CartListner cartListner, CartViewModel cartViewModel ){
         this.cartListner = cartListner;
@@ -57,6 +58,12 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         int price = Integer.parseInt(productItem.actualPrice);
         int discount = (realPrice - price) * 100 / realPrice;
         holder.cartProductOffer.setText(discount + "% off");
+
+        if (totalPayable >= 500L){
+            holder.deliveryPrice.setText("FREE");
+        }else{
+            holder.deliveryPrice.setText("₹" + productItem.getDeliveryCharge() + "/-");
+        }
 
         // On Cart Item Clicked
         holder.cartProductImage.setOnClickListener(new View.OnClickListener() {
@@ -108,13 +115,19 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
     @Override
     public int getItemCount() {
-        return allCartProductItems.size();
+        if (allCartItems.size() == allCartProductItems.size()){
+            return allCartItems.size();
+        }else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cartProductImage,removeBtn;
         TextView cartProductName, cartProductPrice, cartActualPrice, cartProductOffer;
         TextView cartDecreaseProduct, cartProductItemNo,cartIncreaseProduct;
+        TextView deliveryPrice;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cartProductImage = itemView.findViewById(R.id.cartProductImage);
@@ -126,6 +139,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             cartDecreaseProduct = itemView.findViewById(R.id.cartDecreaseProduct);
             cartProductItemNo = itemView.findViewById(R.id.cartProductItemNo);
             cartIncreaseProduct = itemView.findViewById(R.id.cartIncreaseProduct);
+            deliveryPrice = itemView.findViewById(R.id.productDeliveryAmount);
         }
     }
     public void updateAllCartProductItems(List<ProductItem> list){
@@ -137,6 +151,11 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     public void updateAllCartItems(List<CartItem> list){
         allCartItems.clear();
         allCartItems.addAll(list);
+        this.notifyDataSetChanged();
+    }
+
+    public void updateTotalPayable(Long totalPayable){
+        this.totalPayable = totalPayable;
         this.notifyDataSetChanged();
     }
 }

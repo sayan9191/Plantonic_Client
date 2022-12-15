@@ -11,11 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.plantonic.Adapter.listeners.CartListner;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
-import com.example.plantonic.ui.cartfav.CartViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,7 @@ public class OrderSummaryRVAdapter extends RecyclerView.Adapter<OrderSummaryRVAd
     ArrayList<ProductItem> allCartProductItems = new ArrayList<>();
     ArrayList<CartItem> allCartItems = new ArrayList<>();
     Context context;
+    Long totalPayable;
 
     public OrderSummaryRVAdapter(Context context) {
         this.context = context;
@@ -51,18 +50,28 @@ public class OrderSummaryRVAdapter extends RecyclerView.Adapter<OrderSummaryRVAd
         int price = Integer.parseInt(productItem.actualPrice);
         int discount = (realPrice - price) * 100 / realPrice;
         holder.summaryProductOffer.setText(discount + "% off");
+
+        if (totalPayable >= 500L){
+            holder.deliveryCharge.setText("FREE");
+        }else{
+            holder.deliveryCharge.setText("₹" + productItem.getDeliveryCharge() + "/-");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return allCartProductItems.size();
+        if (allCartItems.size() == allCartProductItems.size()){
+            return allCartItems.size();
+        }else {
+            return 0;
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView summaryProductImage;
         TextView summaryProductName, summaryProductPrice, summaryActualPrice, summaryProductOffer;
-        TextView summaryProductQuantity;
+        TextView summaryProductQuantity, deliveryCharge;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +81,7 @@ public class OrderSummaryRVAdapter extends RecyclerView.Adapter<OrderSummaryRVAd
             summaryActualPrice = itemView.findViewById(R.id.summaryOrderActualPrice);
             summaryProductOffer = itemView.findViewById(R.id.summaryOrderProductOffer);
             summaryProductQuantity = itemView.findViewById(R.id.summaryOrderQuantity);
+            deliveryCharge = itemView.findViewById(R.id.summaryProductDeliveryAmount);
 
         }
     }
@@ -85,6 +95,11 @@ public class OrderSummaryRVAdapter extends RecyclerView.Adapter<OrderSummaryRVAd
     public void updateAllCartItems(List<CartItem> list){
         allCartItems.clear();
         allCartItems.addAll(list);
+        this.notifyDataSetChanged();
+    }
+
+    public void updatePayable(Long totalPayable){
+        this.totalPayable = totalPayable;
         this.notifyDataSetChanged();
     }
 }

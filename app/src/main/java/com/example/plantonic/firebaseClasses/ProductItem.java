@@ -10,8 +10,55 @@ public class ProductItem {
     public String imageUrl1;
     public String imageUrl2;
     public String imageUrl3;
-    public String imageUrl4;
+    private String imageUrl4;
+    private Long currentStock;
+    private String deliveryCharge;
 
+    public ProductItem() {
+        this.productId = "";
+        this.merchantId = "";
+        this.productName = "";
+        this.productDescription = "";
+        this.listedPrice = "";
+        this.actualPrice = "";
+        this.imageUrl1 = "";
+        this.imageUrl2 = "";
+        this.imageUrl3 = "";
+        this.imageUrl4 = "";
+        this.currentStock = 0L;
+        this.deliveryCharge = "";
+    }
+
+    public ProductItem(String productId, String merchantId, String productName, String productDescription, String listedPrice, String actualPrice, String imageUrl1, String imageUrl2, String imageUrl3, String imageUrl4, Long currentStock, String deliveryCharge) {
+        this.productId = productId;
+        this.merchantId = merchantId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.listedPrice = listedPrice;
+        this.actualPrice = actualPrice;
+        this.imageUrl1 = imageUrl1;
+        this.imageUrl2 = imageUrl2;
+        this.imageUrl3 = imageUrl3;
+        this.imageUrl4 = imageUrl4;
+        this.currentStock = currentStock;
+        this.deliveryCharge = deliveryCharge;
+    }
+
+    public Long getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Long currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public String getDeliveryCharge() {
+        return deliveryCharge;
+    }
+
+    public void setDeliveryCharge(String deliveryCharge) {
+        this.deliveryCharge = deliveryCharge;
+    }
 
     public String getProductId() {
         return productId;

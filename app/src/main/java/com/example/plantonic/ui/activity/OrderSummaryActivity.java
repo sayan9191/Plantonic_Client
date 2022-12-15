@@ -18,6 +18,7 @@ import com.example.plantonic.R;
 import com.example.plantonic.ThankYouOrderActivity;
 import com.example.plantonic.databinding.ActivityOrderSummaryBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
+import com.example.plantonic.firebaseClasses.OrderItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.utils.constants.IntentConstants;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class OrderSummaryActivity extends AppCompatActivity  implements PaymentResultListener {
 
@@ -38,6 +40,13 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
     OrderSummaryViewModel viewModel;
     String TAG= "checkout";
     Long payable;
+
+    String orderId = UUID.randomUUID().toString();
+    ArrayList<CartItem> allCartItems = new ArrayList<>();
+    ArrayList<ProductItem> allProductItems = new ArrayList<>();
+
+    // User Details
+    String fullName, address, phoneNo, addressType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +58,17 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
 
         // Get the intent values of address
         Intent intent = getIntent();
-        binding.deliverToName.setText(intent.getStringExtra(IntentConstants.DELIVERY_NAME));
-        binding.deliveryAddress.setText(intent.getStringExtra(IntentConstants.DELIVERY_ADDRESS));
-        binding.deliverToPhoneNo.setText(intent.getStringExtra(IntentConstants.DELIVERY_PHONE));
-        binding.deliverToAddressType.setText(intent.getStringExtra(IntentConstants.ADDRESS_TYPE));
+        fullName = intent.getStringExtra(IntentConstants.DELIVERY_NAME);
+        address = intent.getStringExtra(IntentConstants.DELIVERY_ADDRESS);
+        phoneNo = intent.getStringExtra(IntentConstants.DELIVERY_PHONE);
+        addressType = intent.getStringExtra(IntentConstants.ADDRESS_TYPE);
         payable = intent.getLongExtra(IntentConstants.PAY_AMOUNT,0L);
+
+        binding.deliverToName.setText(fullName);
+        binding.deliveryAddress.setText(address);
+        binding.deliverToPhoneNo.setText(phoneNo);
+        binding.deliverToAddressType.setText(addressType);
+
 
         // Initialize the viewModel
         viewModel = new ViewModelProvider(this).get(OrderSummaryViewModel.class);
@@ -80,7 +95,6 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         LiveData<List<ProductItem>> productItems = (LiveData<List<ProductItem>>) Array.get(list, 1);
 
 
-        ArrayList<CartItem> allCartItems = new ArrayList<>();
 
         cartItems.observe(this, new Observer<List<CartItem>>() {
             @Override
@@ -96,6 +110,8 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
             public void onChanged(List<ProductItem> productItems) {
 
                 adapter.updateAllCartProductItems(productItems);
+                allProductItems.clear();
+                allProductItems.addAll(productItems);
 
                 if (productItems.size() == 0) {
                     binding.priceDetails.setVisibility(View.GONE);
@@ -106,20 +122,31 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
                     Long actualAmount = 0L;
                     Long totalAmount = 0L;
                     Long discountPrice = 0L;
+                    Long deliveryCharge = 0L;
+
                     for (int i = 0; i < productItems.size(); i++) {
                         actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
                         totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
                         discountPrice = totalAmount - actualAmount;
+
+                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
                     }
                     binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
                     binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
-                    binding.deliverPrice.setText("₹" + 50 + "/-");
-                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
-//                    binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
-//                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
+                    if (actualAmount >= 500) {
+                        deliveryCharge = 0L;
+                    }
+
+                    if (deliveryCharge == 0L){
+                        binding.deliverPrice.setText("FREE");
+                    }else{
+                        binding.deliverPrice.setText("₹" + deliveryCharge + "/-");
+                    }
+
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
                     binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
 
-//                    payablePrice = actualAmount + 50;
+                    adapter.updatePayable(actualAmount + deliveryCharge);
                 }
 
             }
@@ -179,6 +206,32 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         binding.summaryProgressBar.setVisibility(View.GONE);
         Log.d(TAG, "onPaymentSuccess: "+s);
 
+        for (int i = 0; i < allProductItems.size(); i++){
+
+            CartItem currentCartItem = allCartItems.get(i);
+            ProductItem currentProductItem = allProductItems.get(i);
+
+            Long deliveryCharge;
+
+            if (payable >= 500){
+                deliveryCharge = 0L;
+            }else{
+                deliveryCharge = Long.parseLong(currentProductItem.getDeliveryCharge());
+            }
+
+            orderId = UUID.randomUUID().toString();
+
+            viewModel.placeOrder(new OrderItem(orderId, currentProductItem.getMerchantId(),
+                    currentProductItem.getProductId(),
+                    currentCartItem.getUserId(),
+                    fullName, address, addressType, phoneNo,
+                    "online/razorpay",
+                    currentCartItem.getQuantity(), "order placed",
+                    s, System.currentTimeMillis(),
+                    String.valueOf(Long.parseLong(currentProductItem.getActualPrice()) * currentCartItem.getQuantity()),
+                    String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
+                    String.valueOf(deliveryCharge)));
+        }
         startActivity(new Intent(this, ThankYouOrderActivity.class));
 
     }

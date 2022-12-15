@@ -84,12 +84,14 @@ public class CartFragment extends Fragment implements CartListner {
         productItems.observe(getViewLifecycleOwner(), new Observer<List<ProductItem>>() {
             @Override
             public void onChanged(List<ProductItem> productItems) {
+
                 cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
 
                 if (productItems.size() == 0) {
                     binding.noCartView.setVisibility(View.VISIBLE);
                     binding.placeOrderLabel.setVisibility(View.GONE);
                     binding.priceDetails.setVisibility(View.GONE);
+
                 } else {
                     binding.noCartView.setVisibility(View.GONE);
                     binding.placeOrderLabel.setVisibility(View.VISIBLE);
@@ -99,20 +101,36 @@ public class CartFragment extends Fragment implements CartListner {
                     Long actualAmount = 0L;
                     Long totalAmount = 0L;
                     Long discountPrice = 0L;
+                    Long deliveryCharge = 0L;
+
                     for (int i = 0; i < productItems.size(); i++) {
                         actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
                         totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
                         discountPrice = totalAmount - actualAmount;
+
+                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
                     }
+
+                    if (actualAmount >= 500){
+                        deliveryCharge = 0L;
+                    }
+
                     binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
                     binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
-                    binding.deliverPrice.setText("₹" + 50 + "/-");
-                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
+
+                    if (deliveryCharge == 0L){
+                        binding.deliverPrice.setText("FREE");
+                    }else{
+                        binding.deliverPrice.setText("₹" + deliveryCharge + "/-");
+                    }
+
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
                     binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + 50) + "/-"));
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
                     binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
 
-                    payablePrice = actualAmount + 50;
+                    payablePrice = actualAmount + deliveryCharge;
+                    cartRecyclerViewAdapter.updateTotalPayable(payablePrice);
                 }
             }
         });
