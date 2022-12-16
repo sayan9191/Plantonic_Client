@@ -48,6 +48,9 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
     // User Details
     String fullName, address, phoneNo, addressType;
 
+    // Last order
+    String lastOrder = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,13 +206,17 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
 
     @Override
     public void onPaymentSuccess(String s) {
-        binding.summaryProgressBar.setVisibility(View.GONE);
+
         Log.d(TAG, "onPaymentSuccess: "+s);
 
         for (int i = 0; i < allProductItems.size(); i++){
 
+
+
             CartItem currentCartItem = allCartItems.get(i);
             ProductItem currentProductItem = allProductItems.get(i);
+
+            this.lastOrder = currentProductItem.getProductId();
 
             Long deliveryCharge;
 
@@ -232,7 +239,16 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
                     String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
                     String.valueOf(deliveryCharge)));
         }
-        startActivity(new Intent(this, ThankYouOrderActivity.class));
+
+        viewModel.getLastPlacedOrderId().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String placedOrderId) {
+                if (Objects.equals(OrderSummaryActivity.this.lastOrder, placedOrderId)){
+                    binding.summaryProgressBar.setVisibility(View.GONE);
+                    startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
+                }
+            }
+        });
 
     }
 

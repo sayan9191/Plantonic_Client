@@ -14,8 +14,12 @@ class OrderRepository {
 
     private val cartRepository = CartRepository()
 
+    private val _lastOrder : MutableLiveData<String> = MutableLiveData();
+    val lastOrder : LiveData<String> = _lastOrder
+
     private val _allOrderItems: MutableLiveData<List<OrderItem>> = MutableLiveData()
     val allOrderItems: LiveData<List<OrderItem>> = _allOrderItems
+
     private val allOrdersMap: HashMap<String, OrderItem> = HashMap()
     private val allUserOrdersMap: HashMap<String, UserOrderItem> = HashMap()
 
@@ -108,6 +112,7 @@ class OrderRepository {
                     userOrderItem.customerId,
                     userOrderItem.productId
                 )
+                _lastOrder.postValue(userOrderItem.productId)
             }
     }
 }

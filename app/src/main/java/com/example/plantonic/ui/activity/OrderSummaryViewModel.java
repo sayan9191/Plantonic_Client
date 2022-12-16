@@ -20,4 +20,8 @@ public class OrderSummaryViewModel extends ViewModel {
     public void placeOrder(OrderItem orderItem){
         orderRepository.updateOrder(orderItem);
     }
+
+    public LiveData<String> getLastPlacedOrderId(){
+        return orderRepository.getLastOrder();
+    }
 }
