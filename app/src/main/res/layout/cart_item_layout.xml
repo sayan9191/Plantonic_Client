@@ -27,7 +27,6 @@
                 android:src="@drawable/face_icon"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
-
                 tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
             <LinearLayout
