@@ -25,14 +25,18 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.FavUtil;
+import com.example.plantonic.utils.ProductUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -41,7 +45,7 @@ import java.util.Objects;
 
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
-    TextView addToCartBtn;
+    TextView addToCartBtn, goToCartBtn;
     TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount;
     ImageView backBtn;
     com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn, favouriteBtn;
@@ -58,6 +62,7 @@ public class ProductViewFragment extends Fragment {
     private boolean isFavourite = false;
     private boolean isCart = false;
 
+    final int[] callBack = {0};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +72,7 @@ public class ProductViewFragment extends Fragment {
         imageSlider = view.findViewById(R.id.productImages);
         backBtn = view.findViewById(R.id.backBtn);
         addToCartBtn = view.findViewById(R.id.addToCartBtn);
+        goToCartBtn = view.findViewById(R.id.goToCartBtn);
         name = view.findViewById(R.id.productName);
         shareBtn = view.findViewById(R.id.shareBtn);
         favouriteBtn = view.findViewById(R.id.favouriteBtn);
@@ -82,13 +88,13 @@ public class ProductViewFragment extends Fragment {
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
 
 
-
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
 
         try {
             productId = getArguments().getString(PRODUCT_ID);
             progressBar.setVisibility(View.VISIBLE);
             productDetailsScrollView.setVisibility(View.GONE);
+            addToCartBtn.setVisibility(View.GONE);
         } catch (Exception e) {
             productId = null;
             getParentFragmentManager().popBackStackImmediate();
@@ -107,6 +113,7 @@ public class ProductViewFragment extends Fragment {
                     if (productItem != null && Objects.equals(productItem.productId, productId)) {
                         productDetailsScrollView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
+                        addToCartBtn.setVisibility(View.VISIBLE);
 
                         productDetails.setText(productItem.productName);
                         name.setText(productItem.productName);
@@ -133,6 +140,7 @@ public class ProductViewFragment extends Fragment {
                         });
 
 
+                        // Adding listener to
                         // favourite Button of Product
 
                         favouriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +154,7 @@ public class ProductViewFragment extends Fragment {
                                 }
                             }
                         });
+
 
                         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
@@ -163,6 +172,7 @@ public class ProductViewFragment extends Fragment {
                         }
                         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
                     } else {
+                        addToCartBtn.setVisibility(View.GONE);
                         productDetailsScrollView.setVisibility(View.GONE);
                         progressBar.setVisibility(View.VISIBLE);
                     }
@@ -194,28 +204,65 @@ public class ProductViewFragment extends Fragment {
             productViewModel.checkIfAddedToCart(FirebaseAuth.getInstance().getUid(), productId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean isAdded) {
-                    if (isAdded){
-                        addToCartBtn.setText("GO TO CART");
-                    }else {
-                        addToCartBtn.setText("ADD TO CART");
+                    if (isAdded) {
+                        goToCartBtn.setVisibility(View.VISIBLE);
+
+                    } else {
+                        goToCartBtn.setVisibility(View.GONE);
                     }
                     isCart = isAdded;
                 }
             });
 
+
+
+            /*
+             * If added to the cart then
+             * Get the cart quantity
+             * Everytime added
+             * */
+            productViewModel.getCurrentCartQuantity(FirebaseAuth.getInstance().getUid(), productId);
+
+            // Current Cart Quantity
+            productViewModel.currentCartQuantity.observe(getViewLifecycleOwner(), new Observer<CartItem>() {
+                @Override
+                public void onChanged(CartItem cartItem) {
+                    if (cartItem != null && Objects.equals(cartItem.getProductId(), productId) && cartItem.getQuantity() > 0L) {
+                        if (callBack[0] > 0) {
+                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
+                        }
+                        callBack[0] += 1;
+                    }
+                }
+
+            });
+
         }
+
 
         //Add to cart product item
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isCart) {
-                    productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
-                }else {
+                productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
+            }
+        });
+
+        // Go to cart btn click
+        goToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Objects.equals(FavUtil.lastFragment, "product") || Objects.equals(FavUtil.lastFragment, "cart")){
+                    CartUtil.lastFragment = "product";
+                    FavUtil.lastFragment = "cart";
+                }else if (Objects.equals(ProductUtil.lastFragment, "cart")){
+                    ProductUtil.lastFragment = "";
+                }else{
                     CartUtil.lastFragment = "home";
-//                    Navigation.findNavController(ProductViewFragment.this.view).popBackStack(R.id.homeFragment, true);
-                    Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                 }
+//                    Navigation.findNavController(ProductViewFragment.this.view).popBackStack(R.id.homeFragment, true);
+                Navigation.findNavController(ProductViewFragment.this.view).navigate(R.id.cartFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+
             }
         });
 
@@ -276,7 +323,9 @@ public class ProductViewFragment extends Fragment {
         window.setStatusBarColor(getResources().getColor(R.color.green));
 
         // Hide the nav bar
-        ((HomeActivity)requireActivity()).hideBottomNavBar();
+        ((HomeActivity) requireActivity()).hideBottomNavBar();
+
+        callBack[0] = 0;
     }
 
     @Override
@@ -288,11 +337,18 @@ public class ProductViewFragment extends Fragment {
         window.setStatusBarColor(getResources().getColor(R.color.white));
 
         // Show the nav bar
-        if (!Objects.equals(CartUtil.lastFragment, "home")){
-            ((HomeActivity)requireActivity()).showBottomNavBar();
+        if (!Objects.equals(CartUtil.lastFragment, "home")) {
+            ((HomeActivity) requireActivity()).showBottomNavBar();
         }
+
+        callBack[0] = 0;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        callBack[0] = 0;
+    }
 
     //backspaced backstack
     @Override
@@ -301,6 +357,15 @@ public class ProductViewFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+
+                if (Objects.equals(ProductUtil.lastFragment, "cart")) {
+                    ProductUtil.lastFragment = "";
+                }
+
+//                if (Objects.equals(CartUtil.lastFragment, "")){
+//                    FavUtil.lastFragment = "";
+//                }
+
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 manager.popBackStackImmediate();
             }

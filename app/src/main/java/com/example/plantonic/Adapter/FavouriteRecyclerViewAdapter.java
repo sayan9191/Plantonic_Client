@@ -89,6 +89,9 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (!snapshot.exists()){
                                     holder.cartBtn.setText("Add to Cart");
+                                    holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.yellow, context.getTheme()));
+
+                                    holder.alreadyInCartText.setVisibility(View.GONE);
 
                                     holder.cartBtn.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -98,6 +101,9 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
                                     });
                                 }else {
                                     holder.cartBtn.setText("Go to Cart");
+                                    holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.green, context.getTheme()));
+
+                                    holder.alreadyInCartText.setVisibility(View.VISIBLE);
 
                                     holder.cartBtn.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -125,6 +131,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         ImageView productImage;
         TextView productName,productPrice,actualPrice;
         TextView cartBtn, removeBtn;
+        TextView alreadyInCartText;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);
@@ -133,6 +140,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             actualPrice = itemView.findViewById(R.id.actualPrice);
             cartBtn = itemView.findViewById(R.id.moveToCartBtn);
             removeBtn = itemView.findViewById(R.id.removeBtn);
+            alreadyInCartText = itemView.findViewById(R.id.alreadyInCartTextView);
 
         }
     }

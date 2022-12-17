@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.plantonic.Adapter.FavouriteRecyclerViewAdapter;
@@ -29,6 +30,7 @@ import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
 
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
@@ -41,6 +43,7 @@ import java.util.Objects;
 public class FavouriteFragment extends Fragment implements FavouriteListener {
     RecyclerView favouriteRecyclerView;
     TextView noFavView;
+    ImageView backBtn;
     View view;
     FavouriteViewModel viewModel;
 
@@ -52,6 +55,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         view =  inflater.inflate(R.layout.fragment_favourite, container, false);
         noFavView = view.findViewById(R.id.noFavView);
         favouriteRecyclerView = view.findViewById(R.id.favouriteRecyclerView);
+        backBtn = view.findViewById(R.id.favBackBtn);
 
         // Initialize viewModel
         viewModel = new ViewModelProvider(this).get(FavouriteViewModel.class);
@@ -77,12 +81,25 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
             }
         });
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
+
 
         return view;
     }
 
     @Override
     public void onGoToCartBtnClicked(String productId) {
+
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+
+        if (Objects.equals(FavUtil.lastFragment, "cart")){
+            manager.popBackStackImmediate();
+        }
 
         CartUtil.lastFragment = "fav";
         Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
@@ -108,6 +125,17 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Objects.equals(FavUtil.lastFragment, "cart")){
+            backBtn.setVisibility(View.VISIBLE);
+            ((HomeActivity)requireActivity()).hideBottomNavBar();
+        }else{
+            backBtn.setVisibility(View.GONE);
+        }
+    }
+
     //backspaced backstack
     @Override
     public void onAttach(@NonNull Context context) {
@@ -118,6 +146,9 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
                 FragmentManager manager = getActivity().getSupportFragmentManager();
 
+                if (Objects.equals(FavUtil.lastFragment, "cart")){
+                    manager.popBackStackImmediate();
+                }
                 while(manager.getBackStackEntryCount() > 1 && !Objects.equals(FavUtil.lastFragment, "")){
                     manager.popBackStackImmediate();
                     FavUtil.lastFragment = "";

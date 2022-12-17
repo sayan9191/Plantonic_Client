@@ -1,4 +1,4 @@
-package com.example.plantonic.utils.constants;
+package com.example.plantonic.utils;
 
 public class HomeUtil {
     public static String lastFragment = "";

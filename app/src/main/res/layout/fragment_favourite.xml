@@ -6,6 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.cartfav.FavouriteFragment">
 
+    <ImageView
+        android:id="@+id/favBackBtn"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:layout_alignBottom="@+id/favouriteText"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:visibility="visible"
+        android:elevation="4dp"
+        android:src="@drawable/back_btn_icon"
+        app:tint="@color/green" />
 
     <TextView
         android:id="@+id/favouriteText"
@@ -28,7 +42,7 @@
         android:layout_marginStart="-2dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="0dp"
-        android:background="#CFCFCF"
+        android:background="@color/light_gray"
         tools:listitem="@layout/favourite_item" />
 
     <TextView
