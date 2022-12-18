@@ -97,9 +97,9 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
         FragmentManager manager = getActivity().getSupportFragmentManager();
 
-        if (Objects.equals(FavUtil.lastFragment, "cart")){
-            manager.popBackStackImmediate();
-        }
+//        if (Objects.equals(FavUtil.lastFragment, "cart")){
+//            manager.popBackStackImmediate();
+//        }
 
         CartUtil.lastFragment = "fav";
         Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
@@ -146,7 +146,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
                 FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                if (Objects.equals(FavUtil.lastFragment, "cart")){
+                if (Objects.equals(FavUtil.lastFragment, "cart") || Objects.equals(CartUtil.lastFragment, "fav")){
                     manager.popBackStackImmediate();
                 }
                 while(manager.getBackStackEntryCount() > 1 && !Objects.equals(FavUtil.lastFragment, "")){
