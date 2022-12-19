@@ -16,9 +16,9 @@ public class ProductItem {
     private String category;
     private Long timestamp;
 
-    public ProductItem(String category, Long timestamp) {
-        this.category = category;
-        this.timestamp = timestamp;
+    public ProductItem() {
+        this.category = "";
+        this.timestamp = -1L;
         this.productId = "";
         this.merchantId = "";
         this.productName = "";

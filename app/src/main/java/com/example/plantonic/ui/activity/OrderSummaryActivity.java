@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.plantonic.Adapter.OrderSummaryRVAdapter;
 import com.example.plantonic.R;
-import com.example.plantonic.ThankYouOrderActivity;
 import com.example.plantonic.databinding.ActivityOrderSummaryBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.OrderItem;

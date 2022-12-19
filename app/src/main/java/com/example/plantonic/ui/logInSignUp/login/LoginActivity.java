@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendCode(EditText phoneNumber) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNumber.getText().toString(),
+        PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNumber.getText().toString().trim(),
                 60L,
                 TimeUnit.SECONDS,
                 LoginActivity.this,

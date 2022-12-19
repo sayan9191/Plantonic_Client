@@ -99,6 +99,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
 //        if (Objects.equals(FavUtil.lastFragment, "cart")){
 //            manager.popBackStackImmediate();
+//            FavUtil.lastFragment = "";
 //        }
 
         CartUtil.lastFragment = "fav";

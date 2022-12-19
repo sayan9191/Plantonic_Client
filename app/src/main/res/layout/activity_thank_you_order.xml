@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThankYouOrderActivity"
+    tools:context=".ui.activity.ThankYouOrderActivity"
     android:background="@drawable/order_placed_background">
 
     <Button

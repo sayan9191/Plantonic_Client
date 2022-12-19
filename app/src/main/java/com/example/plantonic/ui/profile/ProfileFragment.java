@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.plantonic.BuildConfig;
 import com.example.plantonic.firebaseClasses.UserItem;
+import com.example.plantonic.ui.orders.YourOrderFragment;
 import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
@@ -134,6 +135,30 @@ public class ProfileFragment extends Fragment {
                         .commit();
                 Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .addToBackStack("Orders")
+                        .replace(R.id.fragmentContainerView, new YourOrderFragment())
+                        .commit();
+                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .addToBackStack("Orders")
+                        .replace(R.id.fragmentContainerView, new YourOrderFragment())
+                        .commit();
+                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
             }
         });
 

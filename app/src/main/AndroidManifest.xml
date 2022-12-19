@@ -31,7 +31,7 @@
         android:theme="@style/Theme.Plantonic"
         tools:targetApi="31">
         <activity
-            android:name=".ThankYouOrderActivity"
+            android:name=".ui.activity.ThankYouOrderActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

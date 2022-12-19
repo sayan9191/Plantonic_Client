@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.plantonic.databinding.ActivityThankYouOrderBinding;
-import com.example.plantonic.ui.activity.HomeActivity;
-import com.example.plantonic.ui.activity.OrderSummaryActivity;
 
 public class ThankYouOrderActivity extends AppCompatActivity {
     ActivityThankYouOrderBinding binding;

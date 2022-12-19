@@ -1,4 +1,4 @@
-package com.example.plantonic;
+package com.example.plantonic.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,16 +7,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class YourOrderViewAdapter extends RecyclerView.Adapter<YourOrderViewAdapter.ViewHolder> {
+import com.example.plantonic.R;
+
+public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrderRecyclerViewAdapter.ViewHolder> {
     @NonNull
     @Override
-    public YourOrderViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public YourOrderRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delivery_item_layout,parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull YourOrderViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull YourOrderRecyclerViewAdapter.ViewHolder holder, int position) {
 
     }
 
