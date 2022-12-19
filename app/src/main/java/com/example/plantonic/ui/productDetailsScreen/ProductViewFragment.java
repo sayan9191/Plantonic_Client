@@ -25,7 +25,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -34,8 +33,7 @@ import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
-import com.example.plantonic.ui.bottomSheet.BottomSheet;
-import com.example.plantonic.ui.bottomSheet.CartBottomSheet;
+import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomSheet;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
@@ -232,7 +230,7 @@ public class ProductViewFragment extends Fragment {
                     if (cartItem != null && Objects.equals(cartItem.getProductId(), productId) && cartItem.getQuantity() > 0L) {
                         if (callBack[0] > 0) {
 //                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
-                            CartBottomSheet cartBottomSheet = new CartBottomSheet();
+                            ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
                             cartBottomSheet.show(requireActivity().getSupportFragmentManager(),"TAG");
                         }
                         callBack[0] += 1;

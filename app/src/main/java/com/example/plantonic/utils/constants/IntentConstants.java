@@ -7,4 +7,5 @@ public class IntentConstants {
     public static String DELIVERY_NAME = "delivery_name";
     public static String DELIVERY_PHONE = "deliverToPhoneNo";
     public static String ADDRESS_TYPE = "addressType";
+    public static String PRODUCT_QUANTITY = "productQuantity";
 }
