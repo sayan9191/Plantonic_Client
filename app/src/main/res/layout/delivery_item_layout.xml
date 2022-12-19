@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -19,7 +19,7 @@
             android:background="@drawable/cart_item_background">
 
             <ImageView
-                android:id="@+id/cartProductImage"
+                android:id="@+id/deliveredItemImageView"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/face_icon"
@@ -34,6 +34,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/deliveredItemProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
@@ -41,6 +42,51 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/deliveredItemDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Product Description"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/deliveredItemPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Price: 748/-"
+                android:textSize="18sp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order placed on"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/orderPlacedDateTxtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25th december"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -37,6 +37,7 @@ import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomShe
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
+import com.example.plantonic.utils.constants.IntentConstants;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -231,6 +232,10 @@ public class ProductViewFragment extends Fragment {
                         if (callBack[0] > 0) {
 //                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
                             ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(PRODUCT_ID, cartItem.getProductId());
+                            bundle.putString(IntentConstants.PRODUCT_QUANTITY, cartItem.getQuantity().toString());
+                            cartBottomSheet.setArguments(bundle);
                             cartBottomSheet.show(requireActivity().getSupportFragmentManager(),"TAG");
                         }
                         callBack[0] += 1;
