@@ -119,6 +119,8 @@ public class CartRepository {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (!snapshot.exists()){
                             addProductToCart(cartItem);
+                        }else {
+                            increaseCartQuantity(cartItem, cartItem.getQuantity());
                         }
                     }
 
@@ -129,7 +131,7 @@ public class CartRepository {
                 });
     }
 
-    public void increaseCartQuantity(CartItem cartItem) {
+    public void increaseCartQuantity(CartItem cartItem, Long increaseQuantity) {
 
         getSpecificUserCartItemReference(cartItem.getUserId(), cartItem.getProductId())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,7 +140,7 @@ public class CartRepository {
                         if (snapshot.exists()){
                             Long quantity = (Long) snapshot.child("quantity").getValue();
                             if (quantity != null){
-                                snapshot.child("quantity").getRef().setValue(quantity + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                snapshot.child("quantity").getRef().setValue(quantity + increaseQuantity).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "increased quantity");

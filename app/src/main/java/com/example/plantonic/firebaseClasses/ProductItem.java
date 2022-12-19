@@ -13,8 +13,12 @@ public class ProductItem {
     private String imageUrl4;
     private Long currentStock;
     private String deliveryCharge;
+    private String category;
+    private Long timestamp;
 
-    public ProductItem() {
+    public ProductItem(String category, Long timestamp) {
+        this.category = category;
+        this.timestamp = timestamp;
         this.productId = "";
         this.merchantId = "";
         this.productName = "";
@@ -29,7 +33,7 @@ public class ProductItem {
         this.deliveryCharge = "";
     }
 
-    public ProductItem(String productId, String merchantId, String productName, String productDescription, String listedPrice, String actualPrice, String imageUrl1, String imageUrl2, String imageUrl3, String imageUrl4, Long currentStock, String deliveryCharge) {
+    public ProductItem(String productId, String merchantId, String productName, String productDescription, String listedPrice, String actualPrice, String imageUrl1, String imageUrl2, String imageUrl3, String imageUrl4, Long currentStock, String deliveryCharge, String category, Long timestamp) {
         this.productId = productId;
         this.merchantId = merchantId;
         this.productName = productName;
@@ -42,6 +46,8 @@ public class ProductItem {
         this.imageUrl4 = imageUrl4;
         this.currentStock = currentStock;
         this.deliveryCharge = deliveryCharge;
+        this.category = category;
+        this.timestamp = timestamp;
     }
 
     public Long getCurrentStock() {
@@ -141,4 +147,19 @@ public class ProductItem {
     }
 
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

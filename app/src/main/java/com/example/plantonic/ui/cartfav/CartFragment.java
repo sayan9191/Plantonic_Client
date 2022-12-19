@@ -35,6 +35,8 @@ import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.FavUtil;
+import com.example.plantonic.utils.ProductUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
@@ -177,12 +179,17 @@ public class CartFragment extends Fragment implements CartListner {
                 .addToBackStack("detailsScreenFromCart")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+
+        if (Objects.equals(CartUtil.lastFragment, "")){
+            ProductUtil.lastFragment = "cart";
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (Objects.equals(CartUtil.lastFragment, "home")){
+
+        if (Objects.equals(CartUtil.lastFragment, "home") || Objects.equals(CartUtil.lastFragment, "product") || (Objects.equals(FavUtil.lastFragment, "cart") && Objects.equals(CartUtil.lastFragment, "fav"))){
             ((HomeActivity)requireActivity()).hideBottomNavBar();
             binding.backBtn.setVisibility(View.VISIBLE);
         }else{
@@ -200,14 +207,23 @@ public class CartFragment extends Fragment implements CartListner {
             public void handleOnBackPressed() {
                 try {
 
+                    String lastFragment = CartUtil.lastFragment;
+
                     FragmentManager manager = getActivity().getSupportFragmentManager();
 
                     if (manager.getBackStackEntryCount() > 1 && !Objects.equals(CartUtil.lastFragment, "")) {
                         manager.popBackStackImmediate();
                         CartUtil.lastFragment = "";
                     }
+
                     NavController navController = Navigation.findNavController(binding.getRoot());
-                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                    if (Objects.equals(lastFragment, "product")){
+                        navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        CartUtil.lastFragment = "";
+                    }else{
+                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                    }
+
                     manager.popBackStackImmediate();
                     ((HomeActivity)requireActivity()).showBottomNavBar();
 

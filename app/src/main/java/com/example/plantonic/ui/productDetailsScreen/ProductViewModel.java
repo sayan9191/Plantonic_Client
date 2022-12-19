@@ -42,4 +42,10 @@ public class ProductViewModel extends ViewModel {
         repository.checkIfAddedToCart(userId, productId);
         return repository.isAddedToCart;
     }
+
+    public LiveData<CartItem> currentCartQuantity = repository.currentCartQuantity;
+    public void getCurrentCartQuantity(String userId, String productId){
+        repository.grtCurrentCartQuantity(userId, productId);
+    }
+
 }

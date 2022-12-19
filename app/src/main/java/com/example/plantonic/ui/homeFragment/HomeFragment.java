@@ -36,7 +36,7 @@ import com.example.plantonic.ui.search.SearchFragment;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
-import com.example.plantonic.utils.constants.HomeUtil;
+import com.example.plantonic.utils.HomeUtil;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -139,6 +139,7 @@ public class HomeFragment extends Fragment implements OnProductListener {
         super.onResume();
         HomeUtil.lastFragment = "";
         CartUtil.lastFragment = "";
+        FavUtil.lastFragment = "";
         ((HomeActivity)requireActivity()).showBottomNavBar();
     }
 
