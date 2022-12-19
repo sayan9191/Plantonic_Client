@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardMaxElevation="2dp"
@@ -27,7 +28,6 @@
                 android:src="@drawable/face_icon"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
-
                 tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
             <LinearLayout
@@ -148,5 +148,20 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/proceedToPaymentBtn"
+        android:layout_below="@+id/cardView"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_design"
+        android:backgroundTint="@color/green"
+        android:gravity="center"
+        android:text="Proceed to Payment"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
 
 </RelativeLayout>

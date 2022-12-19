@@ -34,6 +34,8 @@ import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.bottomSheet.BottomSheet;
+import com.example.plantonic.ui.bottomSheet.CartBottomSheet;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
@@ -229,7 +231,9 @@ public class ProductViewFragment extends Fragment {
                 public void onChanged(CartItem cartItem) {
                     if (cartItem != null && Objects.equals(cartItem.getProductId(), productId) && cartItem.getQuantity() > 0L) {
                         if (callBack[0] > 0) {
-                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
+                            CartBottomSheet cartBottomSheet = new CartBottomSheet();
+                            cartBottomSheet.show(requireActivity().getSupportFragmentManager(),"TAG");
                         }
                         callBack[0] += 1;
                     }
