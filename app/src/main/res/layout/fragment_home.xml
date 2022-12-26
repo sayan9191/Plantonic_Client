@@ -37,13 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:layout_below="@+id/linear_layout"
-            />
+
 
 
         <androidx.cardview.widget.CardView
@@ -67,16 +61,26 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal"
+            android:layout_below="@+id/linear_layout"
+            />
+
         <TextView
             android:id="@+id/popularProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardView1"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
 
-            android:background="@drawable/gradiant"
+            android:background="@color/green"
+
             android:padding="10dp"
             android:textSize="18dp"
             android:text="Popular Items"

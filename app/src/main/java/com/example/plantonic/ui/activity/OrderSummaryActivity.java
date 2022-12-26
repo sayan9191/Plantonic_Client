@@ -236,7 +236,7 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
                     s, System.currentTimeMillis(),
                     String.valueOf(Long.parseLong(currentProductItem.getActualPrice()) * currentCartItem.getQuantity()),
                     String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
-                    String.valueOf(deliveryCharge)));
+                    String.valueOf(deliveryCharge), -1L));
         }
 
         viewModel.getLastPlacedOrderId().observe(this, new Observer<String>() {

@@ -222,27 +222,27 @@ public class ProductViewFragment extends Fragment {
              * Get the cart quantity
              * Everytime added
              * */
-            productViewModel.getCurrentCartQuantity(FirebaseAuth.getInstance().getUid(), productId);
+//            productViewModel.getCurrentCartQuantity(FirebaseAuth.getInstance().getUid(), productId);
 
             // Current Cart Quantity
-            productViewModel.currentCartQuantity.observe(getViewLifecycleOwner(), new Observer<CartItem>() {
-                @Override
-                public void onChanged(CartItem cartItem) {
-                    if (cartItem != null && Objects.equals(cartItem.getProductId(), productId) && cartItem.getQuantity() > 0L) {
-                        if (callBack[0] > 0) {
-//                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
-                            ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
-                            Bundle bundle = new Bundle();
-                            bundle.putString(PRODUCT_ID, cartItem.getProductId());
-                            bundle.putString(IntentConstants.PRODUCT_QUANTITY, cartItem.getQuantity().toString());
-                            cartBottomSheet.setArguments(bundle);
-                            cartBottomSheet.show(requireActivity().getSupportFragmentManager(),"TAG");
-                        }
-                        callBack[0] += 1;
-                    }
-                }
-
-            });
+//            productViewModel.currentCartQuantity.observe(getViewLifecycleOwner(), new Observer<CartItem>() {
+//                @Override
+//                public void onChanged(CartItem cartItem) {
+//                    if (cartItem != null && Objects.equals(cartItem.getProductId(), productId) && cartItem.getQuantity() > 0L) {
+//                        if (callBack[0] > 0) {
+////                            Toast.makeText(requireContext(), "Added product: " + cartItem.getQuantity() + " items", Toast.LENGTH_SHORT).show();
+//                            ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString(PRODUCT_ID, cartItem.getProductId());
+//                            bundle.putString(IntentConstants.PRODUCT_QUANTITY, cartItem.getQuantity().toString());
+//                            cartBottomSheet.setArguments(bundle);
+//                            cartBottomSheet.show(requireActivity().getSupportFragmentManager(),"TAG");
+//                        }
+//                        callBack[0] += 1;
+//                    }
+//                }
+//
+//            });
 
         }
 
@@ -252,6 +252,14 @@ public class ProductViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
+                if (isCart) {
+                    ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString(PRODUCT_ID, productId);
+//                    bundle.putString(IntentConstants.PRODUCT_QUANTITY, "4");
+//                    cartBottomSheet.setArguments(bundle);
+                    cartBottomSheet.show(requireActivity().getSupportFragmentManager(), "TAG");
+                }
             }
         });
 
@@ -259,12 +267,12 @@ public class ProductViewFragment extends Fragment {
         goToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Objects.equals(FavUtil.lastFragment, "product") || Objects.equals(FavUtil.lastFragment, "cart")){
+                if (Objects.equals(FavUtil.lastFragment, "product") || Objects.equals(FavUtil.lastFragment, "cart")) {
                     CartUtil.lastFragment = "product";
                     FavUtil.lastFragment = "cart";
-                }else if (Objects.equals(ProductUtil.lastFragment, "cart")){
+                } else if (Objects.equals(ProductUtil.lastFragment, "cart")) {
                     ProductUtil.lastFragment = "";
-                }else{
+                } else {
                     CartUtil.lastFragment = "home";
                 }
 //                    Navigation.findNavController(ProductViewFragment.this.view).popBackStack(R.id.homeFragment, true);
@@ -332,7 +340,7 @@ public class ProductViewFragment extends Fragment {
         // Hide the nav bar
         ((HomeActivity) requireActivity()).hideBottomNavBar();
 
-        callBack[0] = 0;
+//        callBack[0] = 0;
     }
 
     @Override
@@ -348,14 +356,14 @@ public class ProductViewFragment extends Fragment {
             ((HomeActivity) requireActivity()).showBottomNavBar();
         }
 
-        callBack[0] = 0;
+//        callBack[0] = 0;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        callBack[0] = 0;
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        callBack[0] = 0;
+//    }
 
     //backspaced backstack
     @Override

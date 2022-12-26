@@ -1,24 +1,32 @@
 package com.example.plantonic.ui.bottomSheet.proceedToCheckout
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.Observer
+import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plantonic.Adapter.ProceedToRVAdapter
 import com.example.plantonic.R
 import com.example.plantonic.databinding.ProceedToBottomSheetBinding
-import com.example.plantonic.utils.constants.IntentConstants
-import kotlin.properties.Delegates
+import com.example.plantonic.firebaseClasses.CartItem
+import com.example.plantonic.firebaseClasses.ProductItem
+import com.example.plantonic.utils.CartUtil
+import com.example.plantonic.utils.FavUtil
+import com.example.plantonic.utils.ProductUtil
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class ProceedToBottomSheet : BottomSheetDialogFragment() {
 
-    lateinit var binding : ProceedToBottomSheetBinding
+    private lateinit var binding : ProceedToBottomSheetBinding
     private lateinit var viewModel : ProceedToBottomSheetViewModel
-    lateinit var productId : String
-    lateinit var quantity : String
+    lateinit var adapter : ProceedToRVAdapter
+//    lateinit var productId : String
+//    lateinit var quantity : String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,20 +37,53 @@ class ProceedToBottomSheet : BottomSheetDialogFragment() {
         viewModel = ViewModelProvider(this)[ProceedToBottomSheetViewModel::class.java]
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
 
-        productId = arguments?.getString(IntentConstants.PRODUCT_ID).toString()
-        quantity = arguments?.getString(IntentConstants.PRODUCT_QUANTITY).toString()
 
-        binding.proceedToProductItem.summaryProductDeliveryAmount.visibility = View.GONE
-        binding.proceedToProductItem.summaryOrderProductOffer.visibility = View.GONE
+        adapter = ProceedToRVAdapter((requireContext()))
+        binding.proceedToRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.proceedToRecyclerView.adapter = this.adapter
 
 
-        viewModel.getProductDetailsFromId(productId)?.observe(this, Observer {
-            Glide.with(requireContext()).load(it?.imageUrl1).into(binding.proceedToProductItem.summaryOrderProductImage)
-            binding.proceedToProductItem.summaryOrderProductName.text = it?.productName
-            binding.proceedToProductItem.summaryOrderQuantity.text = quantity
-            binding.proceedToProductItem.summaryOrderProductPrice.text = it?.listedPrice
-            binding.proceedToProductItem.summaryOrderActualPrice.text = it?.actualPrice
-        })
+        // Get summary details
+        // Get summary details
+        val list: Array<LiveData<*>>? =
+            FirebaseAuth.getInstance().uid?.let { viewModel.getAllCartItems(it) }
+
+        val cartItems = list?.get(0) as LiveData<List<CartItem>>
+        val productItems = list[1] as LiveData<List<ProductItem>>
+
+
+
+        cartItems.observe(
+            this
+        ) { cartItems ->
+            adapter.updateAllCartItems(cartItems)
+        }
+
+        productItems.observe(
+            this
+        ) { productItems ->
+            adapter.updateAllCartProductItems(productItems)
+
+        }
+
+
+        binding.proceedToPaymentBtn.setOnClickListener {
+            if (FavUtil.lastFragment == "product" || FavUtil.lastFragment == "cart") {
+                CartUtil.lastFragment = "product"
+                FavUtil.lastFragment = "cart"
+            } else if (ProductUtil.lastFragment == "cart") {
+                ProductUtil.lastFragment = ""
+            } else {
+                CartUtil.lastFragment = "home"
+            }
+
+            NavHostFragment.findNavController(this).navigate(
+                R.id.cartFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build()
+            )
+            this.dismiss()
+        }
 
 
         return binding.root
