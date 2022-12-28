@@ -15,6 +15,7 @@ import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
@@ -57,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
 
-    public void updateCategories(ArrayList<CategoryItem> list){
+    public void updateCategories(List<CategoryItem> list){
         allCategories.clear();
         allCategories.addAll(list);
         this.notifyDataSetChanged();

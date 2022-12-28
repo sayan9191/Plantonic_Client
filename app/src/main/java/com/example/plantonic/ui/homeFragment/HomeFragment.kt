@@ -94,7 +94,7 @@ class HomeFragment : Fragment(), OnProductListener {
         recyclerView2.layoutManager = GridLayoutManager(this.context, 2)
         recyclerView2.adapter = popularItemAdapter
         viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
-            categoryAdapter.updateCategories(categoryItems)
+            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
             Log.d("-----------", categoryItems[0].categoryName)
         }
 
