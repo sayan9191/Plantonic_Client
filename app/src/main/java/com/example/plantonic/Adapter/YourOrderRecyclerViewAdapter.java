@@ -21,7 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrderRecyclerViewAdapter.ViewHolder> {
@@ -56,9 +61,29 @@ public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrder
                         }else {
                             holder.deliveredItemDescription.setText(item.getProductDescription());
                         }
+
+
+
                         holder.deliveredItemPrice.setText("Price: "+currentItem.getPayable());
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        String dateString = formatter.format(new Date(currentItem.getTimeStamp()));
+
+                        holder.orderPlacedDateTxtView.setText(dateString);
 
 
+                        Calendar c = Calendar.getInstance();
+                        try {
+                            c.setTime(formatter.parse(dateString));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        c.add(Calendar.DATE, 21);
+
+                        Date resultDate = new Date(c.getTimeInMillis());
+
+
+
+                        holder.deliveryDate.setText(formatter.format(resultDate));
 
                         Log.d("------------------", item.productName);
                     }

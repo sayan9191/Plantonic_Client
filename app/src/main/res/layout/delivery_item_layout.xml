@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order placed on"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="25th december"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delivered by"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:text="25th december"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
