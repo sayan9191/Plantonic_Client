@@ -1,19 +1,20 @@
 package com.example.plantonic.ui.orders
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantonic.Adapter.YourOrderRecyclerViewAdapter
+import com.example.plantonic.R
 import com.example.plantonic.databinding.FragmentYourOrderBinding
+import com.example.plantonic.ui.profile.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 class YourOrderFragment : Fragment() {
 
@@ -35,6 +36,12 @@ class YourOrderFragment : Fragment() {
             adapter.updateAllOrders(it)
         })
 
+        binding.btnBack.setOnClickListener {
+            val fragmentTransaction = parentFragmentManager.beginTransaction()
+            fragmentTransaction
+                .setReorderingAllowed(true).addToBackStack("Your Order")
+                .replace(R.id.fragmentContainerView, ProfileFragment())
+            fragmentTransaction.commit()}
 
         return binding.root
     }

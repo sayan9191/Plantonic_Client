@@ -39,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:text="Product Name"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/deliveredItemDescription"
@@ -56,18 +56,18 @@
                 android:id="@+id/deliveredItemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="Price: 748/-"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="25th december"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
@@ -90,7 +90,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:text="25th december"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/black"/>
             </LinearLayout>

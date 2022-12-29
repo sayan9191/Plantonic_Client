@@ -64,7 +64,7 @@ public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrder
 
 
 
-                        holder.deliveredItemPrice.setText("Price: "+currentItem.getPayable());
+                        holder.deliveredItemPrice.setText("Price: "+currentItem.getPayable()+"/-");
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String dateString = formatter.format(new Date(currentItem.getTimeStamp()));
 
@@ -80,8 +80,6 @@ public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrder
                         c.add(Calendar.DATE, 21);
 
                         Date resultDate = new Date(c.getTimeInMillis());
-
-
 
                         holder.deliveryDate.setText(formatter.format(resultDate));
 
