@@ -31,9 +31,12 @@ import com.example.plantonic.utils.FavUtil
 import com.example.plantonic.ui.activity.HomeActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.plantonic.Adapter.listeners.CategoryListener
+import com.example.plantonic.firebaseClasses.CategoryItem
+import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
 import java.util.ArrayList
 
-class HomeFragment : Fragment(), OnProductListener {
+class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     private lateinit var imageSlider: ImageSlider
     lateinit var recyclerView1: RecyclerView
     lateinit var recyclerView2: RecyclerView
@@ -83,7 +86,7 @@ class HomeFragment : Fragment(), OnProductListener {
         imageSlider.setImageList(slideModels, ScaleTypes.FIT)
 
         //Adapters
-        categoryAdapter = CategoryAdapter(this.context)
+        categoryAdapter = CategoryAdapter(this.context, this)
         popularItemAdapter = PopularItemAdapter(this.context, this)
         recyclerView1.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -127,6 +130,22 @@ class HomeFragment : Fragment(), OnProductListener {
             .replace(R.id.fragmentContainerView, productViewFragment)
         fragmentTransaction.commit()
         HomeUtil.lastFragment = "product"
+    }
+
+    // On category item clicked
+    override fun onCategoryItemClicked(categoryItem: CategoryItem) {
+        val categoryFragment = CategoryItemsFragment()
+        val bundle : Bundle = Bundle()
+        bundle.putString(IntentConstants.CATEGORY_ID, categoryItem.categoryId)
+        categoryFragment.arguments = bundle
+
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction
+            .setReorderingAllowed(true)
+            .addToBackStack("categoryItemScreen")
+            .replace(R.id.fragmentContainerView, categoryFragment)
+        fragmentTransaction.commit()
+        HomeUtil.lastFragment = "category"
     }
 
     override fun onResume() {

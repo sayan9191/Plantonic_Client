@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.plantonic.Adapter.listeners.CategoryListener;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
 
@@ -21,9 +22,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     ArrayList<CategoryItem> allCategories = new ArrayList<>();
     Context context;
+    CategoryListener listener;
 
-    public CategoryAdapter(Context context){
+    public CategoryAdapter(Context context, CategoryListener categoryListener){
         this.context = context;
+        this.listener = categoryListener;
     }
 
     @NonNull
@@ -38,6 +41,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         CategoryItem currentItem = allCategories.get(position);
         Glide.with(context).load(currentItem.categoryImage).centerCrop().into(holder.categoriesImageview);
         holder.categoriesTxtView.setText(currentItem.categoryName);
+
+        holder.categoriesImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onCategoryItemClicked(currentItem);
+            }
+        });
     }
 
 
