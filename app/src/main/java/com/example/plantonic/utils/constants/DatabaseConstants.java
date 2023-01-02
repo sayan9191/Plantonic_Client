@@ -1,5 +1,7 @@
 package com.example.plantonic.utils.constants;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -13,11 +15,17 @@ public class DatabaseConstants {
     private static final String ORDERS = "orders";
     private static final String USER_ORDERS = "userOrders";
     private static final String MERCHANT_ORDERS = "merchantOrders";
+    private static final String CATEGORY_ITEMS = "categoryItems";
 
 
     // Categories
     public static DatabaseReference getAllCategoriesReference(){
         return FirebaseDatabase.getInstance().getReference(CATEGORY);
+    }
+
+    // Individual Categories
+    public static DatabaseReference getParticularCategoryItems(String categoryId){
+        return FirebaseDatabase.getInstance().getReference(CATEGORY_ITEMS).child(categoryId);
     }
 
     // Popular product

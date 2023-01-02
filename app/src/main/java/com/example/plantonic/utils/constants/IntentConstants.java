@@ -8,4 +8,5 @@ public class IntentConstants {
     public static String DELIVERY_PHONE = "deliverToPhoneNo";
     public static String ADDRESS_TYPE = "addressType";
     public static String PRODUCT_QUANTITY = "productQuantity";
+    public static String CATEGORY_ID = "categoryId";
 }
