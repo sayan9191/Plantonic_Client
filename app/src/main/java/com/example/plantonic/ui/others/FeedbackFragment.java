@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.ProfileFragment;
@@ -50,10 +51,24 @@ public class FeedbackFragment extends Fragment {
         feedbackSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction
-                        .setReorderingAllowed(true).addToBackStack("Feedback").replace(R.id.fragmentContainerView, new ThankYouFragment());
-                fragmentTransaction.commit();
+                if (name.getText().toString().trim().isEmpty() && emailId.getText().toString().trim().isEmpty() && feedBack.getText().toString().isEmpty()){
+                    Toast.makeText(requireContext(), "Enter Your details first", Toast.LENGTH_SHORT).show();
+                }
+                else if (name.getText().toString().trim().isEmpty()){
+                    Toast.makeText(requireContext(), "Enter Your Name", Toast.LENGTH_SHORT).show();
+                }
+                else if (emailId.getText().toString().trim().isEmpty()){
+                    Toast.makeText(requireContext(), "Enter Your email", Toast.LENGTH_SHORT).show();
+                }
+                else if (feedBack.getText().toString().trim().isEmpty()){
+                    Toast.makeText(requireContext(), "Enter Your feedback", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                    fragmentTransaction
+                            .setReorderingAllowed(true).addToBackStack("Feedback").replace(R.id.fragmentContainerView, new ThankYouFragment());
+                    fragmentTransaction.commit();
+                }
             }
         });
         return view;

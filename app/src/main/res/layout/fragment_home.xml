@@ -16,12 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:background="@color/green"
+            android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PLANTONIC"
-                android:textColor="@color/green"
+                android:textColor="@color/white"
                 android:textSize="24dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +35,8 @@
                 android:layout_gravity="end"
                 android:src="@drawable/search_icon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -65,9 +67,9 @@
             android:id="@+id/recyclerView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="horizontal"
             android:layout_below="@+id/linear_layout"
+            android:paddingBottom="10dp"
             />
 
         <TextView
@@ -76,7 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardView1"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
             android:textAlignment="center"
 
             android:background="@color/green"
