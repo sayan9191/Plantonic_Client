@@ -28,7 +28,7 @@
                 app:cardUseCompatPadding="true"
                 android:elevation="2dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/categoriesImageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

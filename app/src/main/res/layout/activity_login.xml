@@ -17,7 +17,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
 
-            android:src="@drawable/myschoolwear" />
+            android:src="@drawable/myschoolwear_logo" />
 
     <LinearLayout
         android:id="@+id/linerLayout2"

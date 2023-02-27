@@ -50,11 +50,11 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         orderBtn = view.findViewById(R.id.orderViewBtn);
-        wishlistBtn = view.findViewById(R.id.wishlistBtn);
+//        wishlistBtn = view.findViewById(R.id.wishlistBtn);
         cartBtn = view.findViewById(R.id.cartBtn);
         profileBtn = view.findViewById(R.id.profileBtn);
         helpCenterBtn = view.findViewById(R.id.helpCenterBtn);
-        feedbackBtm = view.findViewById(R.id.feedbackBtn);
+//        feedbackBtm = view.findViewById(R.id.feedbackBtn);
         versionCode = view.findViewById(R.id.versionCode);
         userName = view.findViewById(R.id.userNameGreetings);
 
@@ -78,16 +78,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        wishlistBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CartUtil.lastFragment = "profile";
-                ProfileUtil.lastFragment = "fav";
-
-                Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.favouriteFragment,null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
-                Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        wishlistBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CartUtil.lastFragment = "profile";
+//                ProfileUtil.lastFragment = "fav";
+//
+//                Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.homeFragment,null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
+//                Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         cartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,18 +125,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        feedbackBtm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .addToBackStack("Feedback")
-                        .replace(R.id.fragmentContainerView, new FeedbackFragment())
-                        .commit();
-                Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        feedbackBtm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getParentFragmentManager().beginTransaction()
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("Feedback")
+//                        .replace(R.id.fragmentContainerView, new FeedbackFragment())
+//                        .commit();
+//                Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override

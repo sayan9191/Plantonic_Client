@@ -15,7 +15,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:padding="20dp"
-        android:src="@drawable/myschoolwear" />
+        android:src="@drawable/myschoolwear_logo" />
 
     <TextView
         android:id="@+id/loginTextView"

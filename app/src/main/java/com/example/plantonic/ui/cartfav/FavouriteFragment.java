@@ -103,7 +103,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 //        }
 
         CartUtil.lastFragment = "fav";
-        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build());
 
     }
 
@@ -157,7 +157,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 
 
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView);
-                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+                navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build());
                 manager.popBackStackImmediate();
             }
         };

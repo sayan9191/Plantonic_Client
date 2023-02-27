@@ -11,11 +11,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/favouriteFragment"
-        android:name="com.example.plantonic.ui.cartfav.FavouriteFragment"
-        android:label="fragment_favouriate"
-        tools:layout="@layout/fragment_favourite" />
-    <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.plantonic.ui.cartfav.CartFragment"
         android:label="fragment_cart"

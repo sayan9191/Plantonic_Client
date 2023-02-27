@@ -166,7 +166,7 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         /**
          * Set your logo here
          */
-        checkout.setImage(R.drawable.icon);
+        checkout.setImage(R.drawable.myschoolwear_logo);
 
         /**
          * Reference to current activity

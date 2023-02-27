@@ -221,7 +221,7 @@ public class CartFragment extends Fragment implements CartListner {
 
                     NavController navController = Navigation.findNavController(binding.getRoot());
                     if (Objects.equals(lastFragment, "product") || Objects.equals(FavUtil.lastFragment, "cart")){
-                        navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+                        navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                         CartUtil.lastFragment = "";
                     }else{
                         navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());

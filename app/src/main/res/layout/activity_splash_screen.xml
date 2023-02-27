@@ -13,8 +13,7 @@
         android:id="@+id/circleImageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/myschoolwear_square"
-
+        android:src="@drawable/myschoolwear_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
