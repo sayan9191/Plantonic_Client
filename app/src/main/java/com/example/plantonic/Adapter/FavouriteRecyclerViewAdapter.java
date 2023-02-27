@@ -2,6 +2,7 @@ package com.example.plantonic.Adapter;
 
 import static com.example.plantonic.utils.constants.DatabaseConstants.getSpecificUserCartItemReference;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,6 +146,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateAllFavItems(List<ProductItem> list){
         allFavItems.clear();
         allFavItems.addAll(list);

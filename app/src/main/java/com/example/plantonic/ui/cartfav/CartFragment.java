@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class CartFragment extends Fragment implements CartListner {
         cartItems.observe(getViewLifecycleOwner(), new Observer<List<CartItem>>() {
             @Override
             public void onChanged(List<CartItem> cartItems) {
+                Log.d("------Cart---", cartItems.get(0).getProductId());
                 cartRecyclerViewAdapter.updateAllCartItems(cartItems);
                 allCartItems.clear();
                 allCartItems.addAll(cartItems);
@@ -86,6 +88,7 @@ public class CartFragment extends Fragment implements CartListner {
         productItems.observe(getViewLifecycleOwner(), new Observer<List<ProductItem>>() {
             @Override
             public void onChanged(List<ProductItem> productItems) {
+                Log.d("------Cart---", productItems.get(0).getProductId());
 
                 cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
 

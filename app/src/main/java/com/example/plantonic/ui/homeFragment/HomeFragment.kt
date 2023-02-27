@@ -31,6 +31,7 @@ import com.example.plantonic.utils.FavUtil
 import com.example.plantonic.ui.activity.HomeActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.plantonic.Adapter.listeners.CategoryListener
 import com.example.plantonic.firebaseClasses.CategoryItem
 import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
@@ -38,11 +39,11 @@ import java.util.ArrayList
 
 class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     private lateinit var imageSlider: ImageSlider
-    lateinit var recyclerView1: RecyclerView
+//    lateinit var recyclerView1: RecyclerView
     lateinit var recyclerView2: RecyclerView
     lateinit var searchBtn: ImageView
     private lateinit var viewModel: HomeFragmentViewModel
-    private lateinit var categoryAdapter: CategoryAdapter
+//    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var popularItemAdapter: PopularItemAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,56 +51,56 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        imageSlider = view.findViewById(R.id.imageSlider)
-        recyclerView1 = view.findViewById(R.id.recyclerView1)
+//        imageSlider = view.findViewById(R.id.imageSlider)
+//        recyclerView1 = view.findViewById(R.id.recyclerView1)
         recyclerView2 = view.findViewById(R.id.searchResultRecyclerView)
         searchBtn = view.findViewById(R.id.searchBtn)
         viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
 
 
         //Slider of offers
-        val slideModels = ArrayList<SlideModel>()
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        imageSlider.setImageList(slideModels, ScaleTypes.FIT)
+//        val slideModels = ArrayList<SlideModel>()
+//        slideModels.add(
+//            SlideModel(
+//                "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__480.jpg",
+//                ScaleTypes.FIT
+//            )
+//        )
+//        slideModels.add(
+//            SlideModel(
+//                "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__480.jpg",
+//                ScaleTypes.FIT
+//            )
+//        )
+//        slideModels.add(
+//            SlideModel(
+//                "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+//                ScaleTypes.FIT
+//            )
+//        )
+//        slideModels.add(
+//            SlideModel(
+//                "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175__480.jpg",
+//                ScaleTypes.FIT
+//            )
+//        )
+//        imageSlider.setImageList(slideModels, ScaleTypes.FIT)
 
         //Adapters
-        categoryAdapter = CategoryAdapter(this.context, this)
+//        categoryAdapter = CategoryAdapter(this.context, this)
         popularItemAdapter = PopularItemAdapter(this.context, this)
-        recyclerView1.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        recyclerView1.adapter = categoryAdapter
-        recyclerView2.layoutManager = GridLayoutManager(this.context, 2)
+//        recyclerView1.layoutManager = LinearLayoutManager(
+//            requireContext(),
+//            LinearLayoutManager.HORIZONTAL,
+//            false
+//        )
+//        recyclerView1.adapter = categoryAdapter
+        recyclerView2.layoutManager = GridLayoutManager( this.requireContext(), 2)
         recyclerView2.adapter = popularItemAdapter
-        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
-            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
-            Log.d("-----------", categoryItems[0].categoryName)
-        }
+//        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
+//            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
+//            Log.d("-----------", categoryItems[0].categoryName)
+//        }
 
         //Search Button of products
         searchBtn.setOnClickListener(View.OnClickListener {
@@ -110,6 +111,7 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
             HomeUtil.lastFragment = "search"
         })
         viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
+            Log.d("-------Poroduct--", popularProductItems[0].productName)
             popularItemAdapter.updatePopularProducts(
                 popularProductItems
             )

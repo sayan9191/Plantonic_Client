@@ -51,7 +51,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-
                 android:background="@color/green"/>
 
             <com.denzcoskun.imageslider.ImageSlider
@@ -241,6 +240,68 @@
                     android:textColor="@color/white"
                     android:textSize="22sp"/>
             </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_size"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text=" Size"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp">
+
+                <TextView
+                    android:id="@+id/size_s"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@drawable/border_layout"
+                    android:text="S"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/size_m"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@drawable/border_layout"
+                    android:text="M"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/size_l"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@drawable/border_layout"
+                    android:text="L"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/size_xl"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@drawable/border_layout"
+                    android:text="XL"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -57,6 +57,8 @@ public class ProductViewFragment extends Fragment {
     TextView decrease, increase;
     View view;
 
+    TextView sizeS, sizeM, sizeL, sizeXl;
+
 
     String productId;
     private ProductViewModel productViewModel;
@@ -87,6 +89,51 @@ public class ProductViewFragment extends Fragment {
         increase = view.findViewById(R.id.increase);
         productDetailsScrollView = view.findViewById(R.id.productDetailsScrollView);
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
+        sizeS = view.findViewById(R.id.size_s);
+        sizeM = view.findViewById(R.id.size_m);
+        sizeL = view.findViewById(R.id.size_l);
+        sizeXl = view.findViewById(R.id.size_xl);
+
+
+        sizeS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sizeS.setBackgroundColor(getResources().getColor(R.color.green, requireContext().getTheme()));
+                sizeM.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeL.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeXl.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+            }
+        });
+
+        sizeM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sizeS.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeM.setBackgroundColor(getResources().getColor(R.color.green, requireContext().getTheme()));
+                sizeL.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeXl.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+            }
+        });
+
+        sizeL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sizeS.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeM.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeL.setBackgroundColor(getResources().getColor(R.color.green, requireContext().getTheme()));
+                sizeXl.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+            }
+        });
+
+        sizeXl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sizeS.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeM.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeL.setBackgroundColor(getResources().getColor(R.color.white, requireContext().getTheme()));
+                sizeXl.setBackgroundColor(getResources().getColor(R.color.green, requireContext().getTheme()));
+            }
+        });
 
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -159,9 +206,9 @@ public class ProductViewFragment extends Fragment {
 
                         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
-                        if (!Objects.equals(productItem.imageUrl1, "")) {
-                            slideModels.add(new SlideModel(productItem.imageUrl1, ScaleTypes.CENTER_CROP));
-                        }
+//                        if (!Objects.equals(productItem.imageUrl1, "")) {
+//                            slideModels.add(new SlideModel(productItem.imageUrl1, ScaleTypes.CENTER_CROP));
+//                        }
                         if (!Objects.equals(productItem.imageUrl2, "")) {
                             slideModels.add(new SlideModel(productItem.imageUrl2, ScaleTypes.CENTER_CROP));
                         }

@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PLANTONIC"
+                android:text="My School Wear"
                 android:textColor="@color/green"
                 android:textSize="24dp"
                 android:textStyle="bold"
@@ -41,7 +41,7 @@
 
 
 
-        <androidx.cardview.widget.CardView
+<!--        <androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:padding="10dp"
             android:textSize="18dp"
             android:text="Popular Items"
-            android:textColor="@color/white" />
+            android:textColor="@color/white" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchResultRecyclerView"

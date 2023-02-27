@@ -67,8 +67,8 @@
 
             <ImageView
                 android:id="@+id/orderViewBtn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
                 android:src="@drawable/order_icon" />
 
             <TextView
@@ -101,8 +101,8 @@
 
             <ImageView
                 android:id="@+id/wishlistBtn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
                 android:src="@drawable/wishlist_icon" />
 
             <TextView
@@ -142,8 +142,8 @@
 
                     <ImageView
                         android:id="@+id/cartBtn"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
                         android:src="@drawable/cart_icon" />
 
                     <TextView
@@ -176,8 +176,8 @@
 
                     <ImageView
                         android:id="@+id/profileBtn"
-                        android:layout_width="150dp"
-                        android:layout_height="101dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
                         android:src="@drawable/profile_icon" />
 
                     <TextView
@@ -219,8 +219,8 @@
 
                     <ImageView
                         android:id="@+id/helpCenterBtn"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
                         android:src="@drawable/help_center_icon" />
 
                     <TextView
@@ -255,8 +255,8 @@
 
                     <ImageView
                         android:id="@+id/feedbackBtn"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
                         android:src="@drawable/feedback_icon" />
 
                     <TextView
