@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "171985324980",
-    "firebase_url": "https://plantonic-cc6d5-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "plantonic-cc6d5",
-    "storage_bucket": "plantonic-cc6d5.appspot.com"
+    "project_number": "45494454819",
+    "firebase_url": "https://myschoolwear-4027f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "myschoolwear-4027f",
+    "storage_bucket": "myschoolwear-4027f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:171985324980:android:2a517570592d6c4b9040e1",
+        "mobilesdk_app_id": "1:45494454819:android:712d3f16357f4c8575ff96",
         "android_client_info": {
-          "package_name": "com.example.plantonic"
+          "package_name": "com.example.myschoolwearclient"
         }
       },
       "oauth_client": [
         {
-          "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
+          "client_id": "45494454819-0jq6401lrldi253odrqeqdjt4rvujcp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myschoolwearclient",
+            "certificate_hash": "772846a28490f3eb6a8c4251f6c70764212b950e"
+          }
+        },
+        {
+          "client_id": "45494454819-8dut9u6gl11bnhsngbtgsspgpfk3kg6t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC75CHTHGGlHAIdd3WtOvt3MG-bzsLiiMQ"
+          "current_key": "AIzaSyBnrA_Ozue0xtCRz9JBNbOVla-9brGKCTY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "171985324980-4m89f63p7t9cmdintg3guv6bp79ste9s.apps.googleusercontent.com",
+              "client_id": "45494454819-8dut9u6gl11bnhsngbtgsspgpfk3kg6t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -37,35 +45,51 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:171985324980:android:7d4da8ef69a10a769040e1",
+        "mobilesdk_app_id": "1:45494454819:android:b36ce2b4d9138d8675ff96",
         "android_client_info": {
-          "package_name": "com.technicalmeaw.plantonic"
+          "package_name": "com.technicalmeaw.myschoolwear"
         }
       },
       "oauth_client": [
         {
-          "client_id": "171985324980-tnqr9lr7ejd21g4gqa93lmhtqh8qp9mr.apps.googleusercontent.com",
+          "client_id": "45494454819-c76rebdg1vdoalhv3ckk03li7esr4dhl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.technicalmeaw.plantonic",
+            "package_name": "com.technicalmeaw.myschoolwear",
             "certificate_hash": "4cd9f6701bf9bb969fcf8df643d24ba8a3d81ed0"
           }
         },
         {
-          "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
+          "client_id": "45494454819-lqlm9lburn1lhjv0a5u2211485tggbsh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technicalmeaw.myschoolwear",
+            "certificate_hash": "772846a28490f3eb6a8c4251f6c70764212b950e"
+          }
+        },
+        {
+          "client_id": "45494454819-s1pfqtaqmddld9h0t2vpudp1jv1bek52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technicalmeaw.myschoolwear",
+            "certificate_hash": "ae5298e10a77e5222cbd8b6ae6d92a64b2d93358"
+          }
+        },
+        {
+          "client_id": "45494454819-8dut9u6gl11bnhsngbtgsspgpfk3kg6t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC75CHTHGGlHAIdd3WtOvt3MG-bzsLiiMQ"
+          "current_key": "AIzaSyBnrA_Ozue0xtCRz9JBNbOVla-9brGKCTY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "171985324980-4m89f63p7t9cmdintg3guv6bp79ste9s.apps.googleusercontent.com",
+              "client_id": "45494454819-8dut9u6gl11bnhsngbtgsspgpfk3kg6t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

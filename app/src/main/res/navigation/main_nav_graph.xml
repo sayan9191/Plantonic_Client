@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.plantonic.ui.homeFragment.HomeFragment"
+        android:name="com.example.myschoolwearclient.ui.homeFragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.plantonic.ui.cartfav.CartFragment"
+        android:name="com.example.myschoolwearclient.ui.cartfav.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.plantonic.ui.profile.ProfileFragment"
+        android:name="com.example.myschoolwearclient.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 

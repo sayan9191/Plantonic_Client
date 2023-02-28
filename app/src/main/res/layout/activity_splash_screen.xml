@@ -7,7 +7,7 @@
     android:id="@+id/motionLayout"
     android:background="@drawable/splash_screen_gradiant"
     app:layoutDescription="@xml/activity_splash_screen_scene"
-    tools:context=".ui.activity.SplashScreen">
+    tools:context="com.example.myschoolwearclient.ui.activity.SplashScreen">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"

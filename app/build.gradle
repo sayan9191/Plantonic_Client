@@ -10,7 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.plantonic"
+        applicationId 'com.example.myschoolwearclient'
         minSdk 23
         targetSdk 33
         versionCode 1
