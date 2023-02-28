@@ -26,6 +26,7 @@ import com.example.myschoolwearclient.utils.FavUtil
 import com.example.myschoolwearclient.ui.activity.HomeActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.myschoolwearclient.Adapter.CategoryAdapter
 import com.example.myschoolwearclient.Adapter.listeners.CategoryListener
 import com.example.myschoolwearclient.firebaseClasses.CategoryItem
 import com.example.myschoolwearclient.ui.categoryItemFragment.CategoryItemsFragment
@@ -37,8 +38,8 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     lateinit var recyclerView2: RecyclerView
     lateinit var searchBtn: ImageView
     private lateinit var viewModel: HomeFragmentViewModel
-//    private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var popularItemAdapter: PopularItemAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
+//    private lateinit var popularItemAdapter: PopularItemAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +50,7 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
 //        recyclerView1 = view.findViewById(R.id.recyclerView1)
         recyclerView2 = view.findViewById(R.id.searchResultRecyclerView)
         searchBtn = view.findViewById(R.id.searchBtn)
-        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeFragmentViewModel::class.java]
 
 
         //Slider of offers
@@ -81,8 +82,8 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
 //        imageSlider.setImageList(slideModels, ScaleTypes.FIT)
 
         //Adapters
-//        categoryAdapter = CategoryAdapter(this.context, this)
-        popularItemAdapter = PopularItemAdapter(this.context, this)
+        categoryAdapter = CategoryAdapter(this.context, this)
+//        popularItemAdapter = PopularItemAdapter(this.context, this)
 //        recyclerView1.layoutManager = LinearLayoutManager(
 //            requireContext(),
 //            LinearLayoutManager.HORIZONTAL,
@@ -90,11 +91,12 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
 //        )
 //        recyclerView1.adapter = categoryAdapter
         recyclerView2.layoutManager = GridLayoutManager( this.requireContext(), 2)
-        recyclerView2.adapter = popularItemAdapter
-//        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
-//            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
-//            Log.d("-----------", categoryItems[0].categoryName)
-//        }
+//        recyclerView2.adapter = popularItemAdapter
+        recyclerView2.adapter = categoryAdapter
+        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
+            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toLong() })
+            Log.d("-----------", categoryItems[0].categoryName)
+        }
 
         //Search Button of products
         searchBtn.setOnClickListener(View.OnClickListener {
@@ -104,12 +106,12 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
             fragmentTransaction.commit()
             HomeUtil.lastFragment = "search"
         })
-        viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
-            Log.d("-------Poroduct--", popularProductItems[0].productName)
-            popularItemAdapter.updatePopularProducts(
-                popularProductItems
-            )
-        }
+//        viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
+//            Log.d("-------Poroduct--", popularProductItems[0].productName)
+//            popularItemAdapter.updatePopularProducts(
+//                popularProductItems
+//            )
+//        }
         return view
     }
 

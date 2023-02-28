@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.myschoolwearclient.Adapter.listeners.CategoryListener;
 import com.example.myschoolwearclient.firebaseClasses.CategoryItem;
 import com.example.plantonic.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         CategoryItem currentItem = allCategories.get(position);
-        Glide.with(context).load(currentItem.categoryImage).centerCrop().into(holder.categoriesImageview);
+        Glide.with(context).load(currentItem.categoryImage).into(holder.categoriesImageview);
+//        Picasso.get().load(currentItem.categoryImage).into(holder.categoriesImageview);
         holder.categoriesTxtView.setText(currentItem.categoryName);
 
         holder.categoriesImageview.setOnClickListener(new View.OnClickListener() {

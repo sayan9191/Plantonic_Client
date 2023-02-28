@@ -179,7 +179,7 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         try {
             JSONObject options = new JSONObject();
 
-            options.put("name", "Plantonic");
+            options.put("name", "My School Wear");
             options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
 //            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.

@@ -156,31 +156,34 @@ public class OtpVerifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startCountdown();
-                resendOtpBtn.setClickable(false);
+                if (resendOtpBtn.getText().toString().equals("Resend")){
+                    startCountdown();
+                    resendOtpBtn.setClickable(false);
 
-                PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + getIntent().getStringExtra("phoneNumber"),
-                        60L,
-                        TimeUnit.SECONDS,
-                        OtpVerifyActivity.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + getIntent().getStringExtra("phoneNumber"),
+                            60L,
+                            TimeUnit.SECONDS,
+                            OtpVerifyActivity.this,
+                            new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
 
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                @Override
+                                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(OtpVerifyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                                @Override
+                                public void onVerificationFailed(@NonNull FirebaseException e) {
+                                    Toast.makeText(OtpVerifyActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
 
-                            @Override
-                            public void onCodeSent(@NonNull String newVerificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                VerificationId = newVerificationId;
-                                Toast.makeText(OtpVerifyActivity.this,"OTP sent",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                @Override
+                                public void onCodeSent(@NonNull String newVerificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                    VerificationId = newVerificationId;
+                                    Toast.makeText(OtpVerifyActivity.this,"OTP sent",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+
             }
         });
 

@@ -256,8 +256,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@drawable/border_layout"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp">
+                android:layout_marginStart="20dp"
+                android:padding="1dp">
 
                 <TextView
                     android:id="@+id/size_s"
@@ -265,7 +267,6 @@
                     android:layout_height="35dp"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:background="@drawable/border_layout"
                     android:text="S"
                     android:textSize="21sp" />
 
@@ -275,8 +276,8 @@
                     android:layout_height="35dp"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:background="@drawable/border_layout"
                     android:text="M"
+                    android:background="@color/green"
                     android:textSize="21sp" />
 
                 <TextView
@@ -285,7 +286,7 @@
                     android:layout_height="35dp"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:background="@drawable/border_layout"
+
                     android:text="L"
                     android:textSize="21sp" />
 
@@ -295,7 +296,7 @@
                     android:layout_height="35dp"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:background="@drawable/border_layout"
+
                     android:text="XL"
                     android:textSize="21sp" />
 

@@ -118,7 +118,7 @@ public class Repository {
                 if (snapshot.exists()){
                     PopularProductItem item = snapshot.getValue(PopularProductItem.class);
                     if (item != null){
-                        popularHashMap.put(snapshot.getKey(), item);
+                        popularHashMap.put(snapshot.getKey().toString(), item);
                         getProductFromId(item.getProductId());
 
                         Log.d("------------------", item.productId);

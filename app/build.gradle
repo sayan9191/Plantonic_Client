@@ -53,7 +53,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+//    implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     implementation 'androidx.core:core-ktx:1.9.0'
+//    implementation 'com.google.firebase:firebase-appcheck:16.1.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -129,12 +130,12 @@ dependencies {
 
 
     //Google SignIn Dependencies
-    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
 
     //Authentication
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
-
+//    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-auth'
 
     //Razorpay Dependencies
     implementation 'com.razorpay:checkout:1.6.12'
@@ -142,5 +143,17 @@ dependencies {
 
     // Kotlin Migration
     implementation 'androidx.core:core-ktx:1.9.0'
+
+
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+
+    // Add the dependency for the App Check library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
+
+    implementation 'com.google.android.play:integrity:1.1.0'
+
 
 }

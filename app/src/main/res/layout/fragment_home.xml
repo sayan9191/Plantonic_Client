@@ -39,9 +39,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-<!--        <androidx.cardview.widget.CardView
+        <!--<androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +58,7 @@
                     app:iss_period="1000"
                     app:iss_title_background="@drawable/gradient" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView1"
@@ -71,7 +69,7 @@
             android:paddingBottom="10dp"
             />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/popularProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,8 +82,8 @@
             android:padding="10dp"
             android:textSize="18dp"
             android:text="Popular Items"
-            android:textColor="@color/white" />-->
-
+            android:textColor="@color/white" />
+-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchResultRecyclerView"
             android:layout_width="match_parent"

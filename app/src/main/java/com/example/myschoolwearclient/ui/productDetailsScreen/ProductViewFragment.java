@@ -162,7 +162,12 @@ public class ProductViewFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         addToCartBtn.setVisibility(View.VISIBLE);
 
-                        productDetails.setText(productItem.productName);
+                        if (productItem.productName.length() > 20){
+                            productDetails.setText(productItem.productName.substring(0, 20) + "...");
+                        }else {
+                            productDetails.setText(productItem.productName);
+                        }
+
                         name.setText(productItem.productName);
                         productActualPrice.setText("₹ " + productItem.listedPrice + "/-");
                         productPrice.setText("₹ " + productItem.actualPrice + "/-");

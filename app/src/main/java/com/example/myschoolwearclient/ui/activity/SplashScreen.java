@@ -11,6 +11,9 @@ import android.os.Bundle;
 import com.example.myschoolwearclient.ui.logInSignUp.login.LoginActivity;
 import com.example.myschoolwearclient.ui.logInSignUp.login.LoginViewModel;
 import com.example.plantonic.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
@@ -24,6 +27,14 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         motionLayout = findViewById(R.id.motionLayout);
+
+
+        // App check
+        FirebaseApp.initializeApp(/*context=*/ this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                PlayIntegrityAppCheckProviderFactory.getInstance());
+
 
         // Initialize viewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
