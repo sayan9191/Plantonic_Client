@@ -2,6 +2,7 @@ package com.example.plantonic.ui.productDetailsScreen;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -109,6 +110,7 @@ public class ProductViewFragment extends Fragment {
              */
             productViewModel.getProductDetailsFromId(productId).observe(getViewLifecycleOwner(), new Observer<ProductItem>() {
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onChanged(ProductItem productItem) {
                     if (productItem != null && Objects.equals(productItem.productId, productId)) {
@@ -116,7 +118,12 @@ public class ProductViewFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         addToCartBtn.setVisibility(View.VISIBLE);
 
-                        productDetails.setText(productItem.productName);
+                        if (productItem.productName.length() > 20){
+                            productDetails.setText(productItem.productName.substring(0, 20) + "...");
+                        }else{
+                            productDetails.setText(productItem.productName);
+                        }
+
                         name.setText(productItem.productName);
                         productActualPrice.setText("₹ " + productItem.listedPrice + "/-");
                         productPrice.setText("₹ " + productItem.actualPrice + "/-");
