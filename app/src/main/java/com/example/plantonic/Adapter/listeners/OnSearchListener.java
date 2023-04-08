@@ -4,4 +4,5 @@ import com.example.plantonic.firebaseClasses.search.SearchProductItem;
 
 public interface OnSearchListener {
     void OnSearchProductClicked(SearchProductItem item);
+//    void bal() ;
 }

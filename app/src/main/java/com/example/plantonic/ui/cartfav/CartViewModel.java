@@ -17,4 +17,17 @@ public class CartViewModel extends ViewModel {
         cartRepository.getAllCartItems(userId);
         return new LiveData[] {cartRepository.allCartItems, cartRepository.allCartProducts};
     }
+
+
+    public void removeFromCart(String userId, String productId){
+        cartRepository.removeProductFromCart(userId, productId);
+    }
+
+    public void addIncreaseCartQuantity(String userId, String productId, Long quantity){
+        cartRepository.increaseCartQuantity(new CartItem(userId, productId, quantity, System.currentTimeMillis()), 1L);
+    }
+
+    public void removeDecreaseCartQuantity(String userId, String productId, Long quantity){
+        cartRepository.decreaseCartQuantity(new CartItem(userId, productId, quantity, System.currentTimeMillis()));
+    }
 }

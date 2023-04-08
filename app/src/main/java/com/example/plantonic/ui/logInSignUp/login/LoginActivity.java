@@ -1,15 +1,9 @@
-package com.example.plantonic.ui.logInSignUp;
+package com.example.plantonic.ui.logInSignUp.login;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,15 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.HomeActivity;
-import com.example.plantonic.OtpVerifyActivity;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.logInSignUp.otp.OtpVerifyActivity;
+import com.example.plantonic.ui.logInSignUp.SignUpActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -44,13 +37,14 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
     EditText phoneNumber;
-    TextView logInBtn,signInBtn;
+    TextView logInBtn, signUpBtn;
     TextView googleSignInBtn;
     ProgressBar progressBar;
     private static final int RC_SIGN_IN= 1000;
     private GoogleSignInClient googleSignInClient;
 
     private FirebaseAuth firebaseAuth;
+
 
     private static final String TAG = "GOOGLE_SIGN_IN_TAG";
 
@@ -60,19 +54,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         phoneNumber = findViewById(R.id.phoneEdTxt);
         logInBtn = findViewById(R.id.logInBtn);
-        signInBtn = findViewById(R.id.btnSignIN);
+        signUpBtn = findViewById(R.id.btnSignIN);
         googleSignInBtn = findViewById(R.id.btnSignInGoogle);
         progressBar = findViewById(R.id.progressbar);
 
 
+
+
         //configure Google signIn
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+                .requestIdToken(getString(R.string.default_google_web_client_id)).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
 
         //init firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
-        checkUser();
+//        checkUser();
 
         //google button
         googleSignInBtn.setOnClickListener(new View.OnClickListener() {
@@ -92,41 +88,13 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Enter your details",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                progressBar.setVisibility(view.VISIBLE);
-                logInBtn.setVisibility(view.INVISIBLE);
-                PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNumber.getText().toString(),
-                        60L,
-                        TimeUnit.SECONDS,
-                        LoginActivity.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
-
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                progressBar.setVisibility(view.GONE);
-                                logInBtn.setVisibility(view.VISIBLE);
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                progressBar.setVisibility(view.GONE);
-                                logInBtn.setVisibility(view.VISIBLE);
-                                Intent intent = new Intent(getApplicationContext(), OtpVerifyActivity.class);
-                                intent.putExtra("phoneNumber", phoneNumber.getText().toString().trim());
-                                intent.putExtra("verificationId", verificationId);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
+                progressBar.setVisibility(View.VISIBLE);
+                logInBtn.setVisibility(View.INVISIBLE);
+                sendCode(phoneNumber);
             }
         });
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -136,13 +104,46 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void checkUser() {
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser!= null){
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
-        }
+    private void sendCode(EditText phoneNumber) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNumber.getText().toString().trim(),
+                60L,
+                TimeUnit.SECONDS,
+                LoginActivity.this,
+                new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+
+                    @Override
+                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                    }
+
+                    @Override
+                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                        progressBar.setVisibility(View.GONE);
+                        logInBtn.setVisibility(View.VISIBLE);
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                        progressBar.setVisibility(View.GONE);
+                        logInBtn.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(getApplicationContext(), OtpVerifyActivity.class);
+                        intent.putExtra("phoneNumber", phoneNumber.getText().toString().trim());
+                        intent.putExtra("verificationId", verificationId);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
     }
+
+//    private void checkUser() {
+//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//        if (firebaseUser!= null){
+//
+//            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//            finish();
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

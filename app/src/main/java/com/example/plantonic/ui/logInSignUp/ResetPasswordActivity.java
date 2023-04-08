@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.plantonic.HomeActivity;
+import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {

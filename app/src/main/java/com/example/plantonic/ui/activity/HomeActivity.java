@@ -1,21 +1,27 @@
-package com.example.plantonic;
+package com.example.plantonic.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.plantonic.R;
 import com.example.plantonic.databinding.ActivityHomeBinding;
 import com.example.plantonic.ui.cartfav.CartFragment;
 import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
 import com.example.plantonic.ui.profile.ProfileFragment;
+import com.example.plantonic.utils.CartUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Objects;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,24 +40,26 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+
+
+
+
+
 //        replaceFragment(new HomeFragment());
 
 //        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 //
 //            switch (item.getItemId()) {
 //
-//                case R.id.homeFragment:
-//                     replaceFragment(R.id.homeFragment, new HomeFragment());
-//                    break;
-//                case R.id.favouriteFragment:
-//                    replaceFragment(R.id.favouriteFragment, (Fragment) new FavouriteFragment());
-//                    break;
-//                case R.id.cartFragment:
-//                    replaceFragment(R.id.cartFragment, new CartFragment());
-//                    break;
+//
+//
 //                case R.id.profileFragment:
-//                    replaceFragment(R.id.profileFragment, new ProfileFragment());
+//                    if (Objects.equals(CartUtil.lastFragment, "profile")) {
+//                        CartUtil.lastFragment = "";
+//                        navController.navigate(R.id.profileFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
+//                    }
 //                    break;
+//
 //            }
 //            return true;
 //        });
@@ -68,4 +76,14 @@ public class HomeActivity extends AppCompatActivity {
 //            }
 //        }
     }
+
+
+    public void hideBottomNavBar(){
+        binding.bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomNavBar(){
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+    }
 }
+

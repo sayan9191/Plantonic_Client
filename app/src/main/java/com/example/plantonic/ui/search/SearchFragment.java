@@ -2,10 +2,14 @@ package com.example.plantonic.ui.search;
 
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -20,11 +24,13 @@ import com.example.plantonic.R;
 import com.example.plantonic.databinding.FragmentSearchBinding;
 import com.example.plantonic.firebaseClasses.search.SearchProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
+import com.example.plantonic.utils.HomeUtil;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class SearchFragment extends Fragment implements OnSearchListener {
@@ -100,5 +106,26 @@ public class SearchFragment extends Fragment implements OnSearchListener {
                 .addToBackStack("detailsScreen")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+    }
+
+
+    //backspaced backstack
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+
+
+                if (Objects.equals(HomeUtil.lastFragment, "")){
+                    manager.popBackStackImmediate();
+                }
+
+                manager.popBackStackImmediate();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 }

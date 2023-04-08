@@ -4,24 +4,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.plantonic.Adapter.listeners.CategoryListener;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CategoryItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     ArrayList<CategoryItem> allCategories = new ArrayList<>();
     Context context;
+    CategoryListener listener;
 
-    public CategoryAdapter(Context context){
+    public CategoryAdapter(Context context, CategoryListener categoryListener){
         this.context = context;
+        this.listener = categoryListener;
     }
 
     @NonNull
@@ -36,6 +41,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         CategoryItem currentItem = allCategories.get(position);
         Glide.with(context).load(currentItem.categoryImage).centerCrop().into(holder.categoriesImageview);
         holder.categoriesTxtView.setText(currentItem.categoryName);
+
+        holder.categoriesImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onCategoryItemClicked(currentItem);
+            }
+        });
     }
 
 
@@ -45,7 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        de.hdodenhof.circleimageview.CircleImageView categoriesImageview;
+        ImageView categoriesImageview;
         TextView categoriesTxtView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
 
-    public void updateCategories(ArrayList<CategoryItem> list){
+    public void updateCategories(List<CategoryItem> list){
         allCategories.clear();
         allCategories.addAll(list);
         this.notifyDataSetChanged();

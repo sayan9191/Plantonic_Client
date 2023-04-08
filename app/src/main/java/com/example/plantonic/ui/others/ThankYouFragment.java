@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.plantonic.HomeActivity;
+import com.example.plantonic.ui.activity.HomeActivity;
 import com.example.plantonic.R;
 
 

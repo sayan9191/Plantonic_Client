@@ -7,20 +7,28 @@
     tools:context=".ui.cartfav.FavouriteFragment">
 
     <ImageView
-        android:id="@+id/backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/back_button_icon"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        android:id="@+id/favBackBtn"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:layout_alignBottom="@+id/favouriteText"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:visibility="visible"
+        android:elevation="4dp"
+        android:src="@drawable/back_btn_icon"
+        app:tint="@color/green" />
 
     <TextView
+        android:id="@+id/favouriteText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Favourite"
         android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/green"/>
 
@@ -28,13 +36,13 @@
         android:id="@+id/favouriteRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/backBtn"
+        android:layout_below="@+id/favouriteText"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-2dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="0dp"
-        android:background="#CFCFCF"
+        android:background="@color/light_gray"
         tools:listitem="@layout/favourite_item" />
 
     <TextView

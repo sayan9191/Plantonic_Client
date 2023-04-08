@@ -8,8 +8,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardMaxElevation="5dp"
-        app:cardCornerRadius="12dp"
+        app:cardMaxElevation="2dp"
+        app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -35,7 +35,7 @@
                     android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product Name gfthgc h t 6r tycyt tc xrtt tdr t hfdgtryrfur"
+                    android:text="Product Name"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
                     android:textSize="18sp"
@@ -45,7 +45,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:id="@+id/productPrice"
@@ -75,7 +76,8 @@
                     android:orientation="horizontal"
                     android:weightSum="2"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/moveToCartBtn"
@@ -86,8 +88,7 @@
                         android:background="@drawable/button_design"
                         android:backgroundTint="@color/green"
                         android:gravity="center"
-                        android:text="Add to Cart"
-                        android:layout_marginTop="20dp"
+                        android:text="Loading"
                         android:layout_marginRight="5dp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
@@ -101,19 +102,27 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/button_design"
-                        android:backgroundTint="@android:color/holo_red_dark"
+                        android:backgroundTint="#CDDC4444"
                         android:gravity="center"
                         android:text="Remove"
                         android:layout_marginLeft="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginTop="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/alreadyInCartTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The item is already in the cart"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
 

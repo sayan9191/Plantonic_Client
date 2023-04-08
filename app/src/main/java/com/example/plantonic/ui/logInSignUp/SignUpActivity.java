@@ -11,10 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.OtpVerifyActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.bottomSheet.BottomSheet;
 import com.example.plantonic.ui.bottomSheet.BottomSheetPP;
+import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
+import com.example.plantonic.ui.logInSignUp.otp.OtpVerifyActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -72,6 +73,11 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this,"Enter your details first",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if (name.getText().toString().split(" ").length < 2){
+                    Toast.makeText(SignUpActivity.this,"Please enter your full name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 progressBar.setVisibility(view.VISIBLE);
                 continueBtn.setVisibility(view.INVISIBLE);
                 PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNo.getText().toString(),
@@ -98,6 +104,8 @@ public class SignUpActivity extends AppCompatActivity {
                                continueBtn.setVisibility(view.VISIBLE);
                                 Intent intent = new Intent(getApplicationContext(), OtpVerifyActivity.class);
                                 intent.putExtra("phoneNumber", phoneNo.getText().toString().trim());
+                                intent.putExtra("fullName", name.getText().toString().trim());
+                                intent.putExtra("email", emailId.getText().toString().trim());
                                 intent.putExtra("verificationId", verificationId);
                                 startActivity(intent);
                             }
