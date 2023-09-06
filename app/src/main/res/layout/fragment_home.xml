@@ -76,15 +76,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardView1"
-            android:textStyle="bold"
-            android:textAlignment="center"
 
-            android:background="@color/green"
+            android:textAlignment="textStart"
+
+            android:background="@drawable/order_placed_background"
 
             android:padding="10dp"
             android:textSize="18dp"
             android:text="Popular Items"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchResultRecyclerView"

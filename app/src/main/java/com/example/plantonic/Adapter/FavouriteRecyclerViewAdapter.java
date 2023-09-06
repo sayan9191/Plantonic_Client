@@ -55,7 +55,12 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         ProductItem productItem = allFavItems.get(position);
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
-        holder.productName.setText(productItem.productName);
+
+        if (productItem.productName.length() > 60){
+            holder.productName.setText(productItem.productName.substring(0, 60) + "...");
+        }else{
+            holder.productName.setText(productItem.productName);
+        }
         holder.productPrice.setText("₹" +productItem.actualPrice);
         holder.actualPrice.setText("₹" +productItem.listedPrice);
         int realPrice = Integer.parseInt(productItem.listedPrice);
@@ -95,6 +100,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
                                 if (!snapshot.exists()){
                                     holder.cartBtn.setText("Add to Cart");
                                     holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.yellow, context.getTheme()));
+                                    holder.cartBtn.setTextColor(context.getResources().getColor(R.color.black, context.getTheme()));
 
                                     holder.alreadyInCartText.setVisibility(View.GONE);
 
@@ -107,6 +113,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
                                 }else {
                                     holder.cartBtn.setText("Go to Cart");
                                     holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.green, context.getTheme()));
+                                    holder.cartBtn.setTextColor(context.getResources().getColor(R.color.white, context.getTheme()));
 
                                     holder.alreadyInCartText.setVisibility(View.VISIBLE);
 

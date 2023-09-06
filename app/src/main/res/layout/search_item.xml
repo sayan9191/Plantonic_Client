@@ -4,44 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
     android:id="@+id/searchResultProduct">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="12dp">
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:paddingBottom="10dp">
 
 
             <ImageView
                 android:id="@+id/searchProductImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
 
             <TextView
                 android:id="@+id/searchProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:text="Name"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:padding="5dp"
-                android:background="#8F000000"
-                app:layout_constraintBottom_toBottomOf="@+id/searchProductImage"
-                 />
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+
+                app:layout_constraintTop_toBottomOf="@+id/searchProductImage" />
+
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/searchProductName" />-->
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchProductName">
+
+                <TextView
+                    android:id="@+id/searchItemDiscountPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="bottom"
+                    android:text="25% off"
+                    android:textColor="@color/green" />
+
+
+                <TextView
+                    android:id="@+id/searchActualPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/striking_text"
+                    android:text="price"
+                    android:textAlignment="center" />
+
+
+                <TextView
+                    android:id="@+id/searchProductPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:text="price"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

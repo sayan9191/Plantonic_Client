@@ -17,10 +17,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:background="@drawable/popular_item_bg"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="7dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -43,14 +44,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Product Name"
-                android:textColor="@color/green"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+
+                 />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -60,8 +67,7 @@
                     android:layout_gravity="center"
                     android:text="price"
                     android:textColor="@color/black"
-
-                    android:textSize="15sp" />
+                    />
 
                 <TextView
                     android:id="@+id/actualPrice"
@@ -72,6 +78,17 @@
                     android:background="@drawable/striking_text"
                     android:text="price"
                     android:textAlignment="center" />
+
+
+                <TextView
+                    android:id="@+id/itemDiscountPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25% off"
+
+                    android:gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/green"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -42,9 +42,19 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductItem productItem = popularProductItems.get(position);
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
-        holder.productName.setText(productItem.productName);
-        holder.productPrice.setText("₹" + productItem.listedPrice+ "/-");
-        holder.actualPrice.setText("₹"+ productItem.actualPrice+ "/-");
+        if (productItem.productName.length() > 50){
+            holder.productName.setText(productItem.productName.substring(0, 50) + "...");
+        }else{
+            holder.productName.setText(productItem.productName);
+        }
+
+        holder.productPrice.setText("₹" + productItem.listedPrice);
+        holder.actualPrice.setText("₹"+ productItem.actualPrice);
+
+        int realPrice = Integer.parseInt(productItem.listedPrice);
+        int price = Integer.parseInt(productItem.actualPrice);
+        int discount = (realPrice - price) * 100 / realPrice;
+        holder.itemDiscountPercent.setText(discount + "% off");
 
         holder.product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +72,7 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
-        TextView productName,productPrice,actualPrice;
+        TextView productName,productPrice,actualPrice, itemDiscountPercent;
         RelativeLayout product;
 
         public ViewHolder(@NonNull View itemView) {
@@ -72,6 +82,7 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
             productPrice = itemView.findViewById(R.id.actualPrice);
             actualPrice = itemView.findViewById(R.id.productPrice);
             product = itemView.findViewById(R.id.productItem);
+            itemDiscountPercent = itemView.findViewById(R.id.itemDiscountPercent);
         }
     }
 
