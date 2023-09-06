@@ -104,35 +104,40 @@ public class CartFragment extends Fragment implements CartListner {
                     Long totalAmount = 0L;
                     Long discountPrice = 0L;
                     Long deliveryCharge = 0L;
+                    Long deliveryChargeWaver = 0L;
 
                     for (int i = 0; i < productItems.size(); i++) {
                         actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
                         totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
-                        discountPrice = totalAmount - actualAmount;
-
                         deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
                     }
 
+                    discountPrice = totalAmount - actualAmount;
+
                     if (actualAmount >= 500){
-                        deliveryCharge = 0L;
+                        deliveryChargeWaver = deliveryCharge;
+                    }else {
+                        deliveryChargeWaver = 0L;
                     }
 
-                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
-                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
+                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount));
+                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice ));
+                    binding.deliverPrice.setText(String.valueOf("₹" + deliveryCharge ));
 
-                    if (deliveryCharge == 0L){
-                        binding.deliverPrice.setText("FREE");
+                    if (deliveryChargeWaver > 0L){
+                        binding.deliverPriceWaverLayout.setVisibility(View.VISIBLE);
+                        binding.deliverPriceWaver.setText(String.valueOf("- ₹" + deliveryChargeWaver ));
                     }else{
-                        binding.deliverPrice.setText("₹" + deliveryCharge + "/-");
+                        binding.deliverPriceWaverLayout.setVisibility(View.GONE);
                     }
 
-                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
-                    binding.placeOrderTotalAmount.setText("₹" + totalAmount + "/-");
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
-                    binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge - deliveryChargeWaver)));
+                    binding.placeOrderTotalAmount.setText("₹" + (totalAmount + deliveryCharge));
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge - deliveryChargeWaver)));
+                    binding.savePrice.setText(String.valueOf("₹" + (discountPrice + deliveryChargeWaver)));
 
-                    payablePrice = actualAmount + deliveryCharge;
-                    cartRecyclerViewAdapter.updateTotalPayable(payablePrice);
+                    payablePrice = actualAmount + deliveryCharge - deliveryChargeWaver;
+                    cartRecyclerViewAdapter.updateTotalPayable(actualAmount);
                 }
             }
         });

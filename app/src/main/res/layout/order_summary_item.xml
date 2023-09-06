@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="@drawable/cart_item_background"
+            android:background="@drawable/cart_layout_background_gradiant"
             >
 
             <ImageView
@@ -33,24 +33,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="12dp"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginTop="7dp">
 
                     <TextView
                         android:id="@+id/summaryOrderProductName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Product Name"
-                        android:paddingLeft="3dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:textSize="16sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -59,53 +58,12 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="5dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/summaryOrderProductPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="bottom"
-                        android:text="$75/-"
-                        android:layout_gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:id="@+id/summaryOrderActualPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="$100/-"
-                        android:layout_gravity="center"
-                        android:gravity="bottom"
-                        android:background="@drawable/striking_text"/>
-
-                    <TextView
-                        android:id="@+id/summaryOrderProductOffer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="25% off"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:gravity="bottom"
-                        android:textColor="@color/green"/>
-                </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="5dp"
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -119,16 +77,64 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="1" />
+                        android:text="1"
+                        />
 
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/summaryOrderProductOffer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25% off"
+
+                        android:textSize="16sp"
+                        android:gravity="bottom"
+                        android:textColor="@color/green"/>
+
+
+                    <TextView
+                        android:id="@+id/summaryOrderActualPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="$100/-"
+                        android:textSize="16sp"
+
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+                        android:background="@drawable/striking_text"/>
+
+                    <TextView
+                        android:id="@+id/summaryOrderProductPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:layout_marginStart="10dp"
+                        android:text="$75/-"
+
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:id="@+id/deliveryChargeLabelTextView"

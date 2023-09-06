@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.logInSignUp.login.LoginActivity">
+    tools:context=".ui.logInSignUp.login.LoginActivity"
+    android:padding="20dp">
 
 
         <ImageView
@@ -40,14 +41,13 @@
         <TextView
             android:id="@+id/loginTextView"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/linerLayout2"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
             android:text="Log In"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="24sp"
             />
 
         <LinearLayout
@@ -58,26 +58,37 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/gmailIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/phoneblack_icon" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Login.EditText.CircularCorner.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_horizontal"
+                android:hint="Phone"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/phoneblack_icon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneEdTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/phoneEdTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="40dp"
+
                 android:hint="Phone No."
                 android:maxLength="10"
                 android:layout_gravity="end"
                 android:backgroundTint="#8F8F8F"
                 android:inputType="phone"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"/>-->
         </LinearLayout>
 
     <FrameLayout
@@ -99,10 +110,9 @@
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="20dp"
+
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+
             android:background="@drawable/button_design"
             android:backgroundTint="@color/green"
             android:gravity="center"
@@ -113,53 +123,64 @@
             android:textStyle="bold" />
     </FrameLayout>
 
-        <TextView
-            android:id="@+id/or"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/frameLayout"
-            android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="OR" />
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout"
 
+        android:layout_marginTop="20dp"
+
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="OR" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnSignInGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_design"
+        android:layout_below="@+id/or">
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="25dp"
             android:layout_height="0dp"
             android:layout_alignTop="@+id/btnSignInGoogle"
             android:layout_alignBottom="@+id/btnSignInGoogle"
-            android:layout_marginStart="50dp"
             android:elevation="2dp"
-            android:src="@drawable/google_logo" />
+            android:src="@drawable/google_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/btnSignInGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/or"
+
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_design"
             android:gravity="center"
             android:text="Sign in with Google"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnSignInGoogle"
-            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:gravity="center|bottom"
@@ -168,7 +189,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New to Plantonic?"
+                android:text="Don't have account? "
                 android:textColor="@color/black"
                 />
 
@@ -176,7 +197,7 @@
                 android:id="@+id/btnSignIN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+
                 android:text="Sign Up"
                 android:textStyle="bold"
                 android:textColor="@color/green" />

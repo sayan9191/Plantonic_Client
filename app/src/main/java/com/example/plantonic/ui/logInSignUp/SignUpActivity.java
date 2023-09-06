@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText phoneNo, name, emailId;
     TextView termsAndConditionBtn,privacyAndPolicyBtn,signINBtn,continueBtn;
     ProgressBar progressBar;
+    CheckBox termsCheckBox, privacyPolicyCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,10 @@ public class SignUpActivity extends AppCompatActivity {
         signINBtn= findViewById(R.id.btnSignIN);
         continueBtn = findViewById(R.id.logInBtn);
         progressBar = findViewById(R.id.progressbar);
+        termsCheckBox = findViewById(R.id.termsAndConditionCheckBox);
+        privacyPolicyCheckBox = findViewById(R.id.privacyAndPolicyCheckBox);
 
-        String phoneNumber = phoneNo.getText().toString();
+
         termsAndConditionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +82,12 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this,"Please enter your full name",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if (!termsCheckBox.isChecked() || !privacyPolicyCheckBox.isChecked()){
+                    Toast.makeText(SignUpActivity.this,"Please agree to our privacy policy and terms & conditions",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 progressBar.setVisibility(view.VISIBLE);
                 continueBtn.setVisibility(view.INVISIBLE);
                 PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNo.getText().toString(),

@@ -4,46 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.logInSignUp.otp.OtpVerifyActivity">
+    tools:context=".ui.logInSignUp.otp.OtpVerifyActivity"
+    android:padding="20dp">
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/otp_picture"
-            android:layout_marginTop="80dp"/>
+            android:layout_marginTop="40dp"/>
         
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="OTP VERIFICATION"
+            android:layout_marginTop="40dp"
+            android:text="VERIFY OTP"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
         
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+
             android:layout_marginTop="8dp"
-            android:gravity="center"
+
             android:text="Enter the OTP sent to"
             android:textSize="14sp"/>
         <TextView
             android:id="@+id/textMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
             android:layout_marginTop="8dp"
-            android:gravity="center"
+
             android:textSize="14sp"/>
 
         <LinearLayout
@@ -51,121 +49,150 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
+            android:weightSum="6"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/input1"
-                android:layout_width="45dp"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:maxLength="1"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="LabelFor"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
+                <EditText
+                    android:id="@+id/input1"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_design"
+                    android:gravity="center"
+                    android:hint="X"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor"/>
+            </FrameLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/input2"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
+                android:hint="X"
                 android:imeOptions="actionNext"
+                android:background="@drawable/button_design"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor"/>
+            </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/input3"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
+                android:hint="X"
+                android:background="@drawable/button_design"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor"/>
+            </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/input4"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
+                android:hint="X"
+                android:background="@drawable/button_design"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor"/>
+            </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/input5"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
+                android:hint="X"
+                android:background="@drawable/button_design"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor"/>
+            </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/input6"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
+                android:hint="X"
                 android:imeOptions="actionNext"
+                android:background="@drawable/button_design"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
                 android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor"/>
+            </FrameLayout>
         </LinearLayout>
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Didn't received the otp"
-                android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/textSendOtp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="RESEND OTP"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/green"/>
-        </LinearLayout>
 
 
         <FrameLayout
@@ -178,10 +205,8 @@
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+
+                android:layout_marginTop="40dp"
                 android:background="@drawable/button_design"
                 android:backgroundTint="@color/green"
                 android:gravity="center"
@@ -199,6 +224,30 @@
                 android:visibility="gone"/>
 
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not received any otp? "
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/textSendOtp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Resend OTP"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/green"/>
+        </LinearLayout>
 
     </LinearLayout>
     

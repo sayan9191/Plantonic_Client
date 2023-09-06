@@ -56,8 +56,13 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
         holder.productName.setText(productItem.productName);
-        holder.productPrice.setText("₹" +productItem.actualPrice+"/-");
-        holder.actualPrice.setText("₹" +productItem.listedPrice+"/-");
+        holder.productPrice.setText("₹" +productItem.actualPrice);
+        holder.actualPrice.setText("₹" +productItem.listedPrice);
+        int realPrice = Integer.parseInt(productItem.listedPrice);
+
+        int price = Integer.parseInt(productItem.actualPrice);
+        int discount = (realPrice - price) * 100 / realPrice;
+        holder.favProductOffer.setText(discount + "% off");
 
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +137,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
         TextView productName,productPrice,actualPrice;
         TextView cartBtn, removeBtn;
         TextView alreadyInCartText;
+        TextView favProductOffer;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);
@@ -141,7 +147,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
             cartBtn = itemView.findViewById(R.id.moveToCartBtn);
             removeBtn = itemView.findViewById(R.id.removeBtn);
             alreadyInCartText = itemView.findViewById(R.id.alreadyInCartTextView);
-
+            favProductOffer = itemView.findViewById(R.id.favProductOffer);
         }
     }
 

@@ -361,9 +361,9 @@
                 android:gravity="center"
                 android:text="Continue"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                 />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

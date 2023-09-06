@@ -3,6 +3,7 @@ package com.example.plantonic.ui.logInSignUp.login;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginActivity extends AppCompatActivity {
     EditText phoneNumber;
     TextView logInBtn, signUpBtn;
-    TextView googleSignInBtn;
+    ConstraintLayout googleSignInBtn;
     ProgressBar progressBar;
     private static final int RC_SIGN_IN= 1000;
     private GoogleSignInClient googleSignInClient;

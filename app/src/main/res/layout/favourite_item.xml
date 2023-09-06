@@ -29,43 +29,63 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginEnd="7dp">
 
                 <TextView
                     android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product Name"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
-                    android:textSize="18sp"
+
+                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    >
 
                     <TextView
-                        android:id="@+id/productPrice"
+                        android:id="@+id/favProductOffer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ 100/-"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
+                        android:textFontWeight="@integer/material_motion_duration_medium_1"
+
+                        android:gravity="bottom"
+                        android:text="25% off"
+                        android:textColor="@color/green"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
 
                     <TextView
                         android:id="@+id/actualPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
                         android:layout_marginStart="10dp"
-                        android:text="$ 200/-"
+                        android:textFontWeight="@integer/material_motion_duration_medium_1"
+
+                        android:text="$ 200"
                         android:background="@drawable/striking_text"/>
+
+                    <TextView
+                        android:id="@+id/productPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 100"
+                        android:textFontWeight="@integer/material_motion_duration_medium_1"
+
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
 
 
                 </LinearLayout>
@@ -75,9 +95,8 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp">
+
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:id="@+id/moveToCartBtn"
@@ -118,9 +137,8 @@
                     android:id="@+id/alreadyInCartTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="The item is already in the cart"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:text="The item is already in cart"
+                    android:layout_marginTop="5dp"
                     android:visibility="gone"
                     />
 

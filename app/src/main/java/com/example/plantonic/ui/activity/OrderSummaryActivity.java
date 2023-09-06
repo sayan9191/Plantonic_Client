@@ -89,6 +89,14 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
             }
         });
 
+        // Change address button clicked
+        binding.changeAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         // Get summary details
         LiveData[] list = viewModel.getAllOrderSummaryItems(FirebaseAuth.getInstance().getUid());
@@ -125,6 +133,7 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
                     Long totalAmount = 0L;
                     Long discountPrice = 0L;
                     Long deliveryCharge = 0L;
+                    Long deliveryChargeWaver = 0L;
 
                     for (int i = 0; i < productItems.size(); i++) {
                         actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
@@ -133,22 +142,26 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
 
                         deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
                     }
-                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount + "/-"));
-                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice + "/-"));
-                    if (actualAmount >= 500) {
-                        deliveryCharge = 0L;
+                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount));
+                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice));
+                    binding.deliverPrice.setText(String.valueOf("₹" + deliveryCharge));
+                    if (actualAmount >= 500){
+                        deliveryChargeWaver = deliveryCharge;
+                    }else {
+                        deliveryChargeWaver = 0L;
                     }
 
-                    if (deliveryCharge == 0L){
-                        binding.deliverPrice.setText("FREE");
+                    if (deliveryChargeWaver > 0L){
+                        binding.deliverPriceWaverLayout.setVisibility(View.VISIBLE);
+                        binding.deliverPriceWaver.setText(String.valueOf("- ₹" + deliveryChargeWaver ));
                     }else{
-                        binding.deliverPrice.setText("₹" + deliveryCharge + "/-");
+                        binding.deliverPriceWaverLayout.setVisibility(View.GONE);
                     }
 
-                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge) + "/-"));
-                    binding.savePrice.setText(String.valueOf("₹" + discountPrice + "/-"));
+                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge - deliveryChargeWaver)));
+                    binding.savePrice.setText(String.valueOf("₹" + (discountPrice + deliveryChargeWaver)));
 
-                    adapter.updatePayable(actualAmount + deliveryCharge);
+                    adapter.updatePayable(actualAmount + deliveryCharge - deliveryChargeWaver);
                 }
 
             }

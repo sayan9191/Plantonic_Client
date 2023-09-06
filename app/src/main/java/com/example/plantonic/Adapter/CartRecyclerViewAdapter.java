@@ -1,10 +1,12 @@
 package com.example.plantonic.Adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +51,14 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         CartItem cartItem = allCartItems.get(position);
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.cartProductImage);
-        holder.cartProductName.setText(productItem.productName);
-        holder.cartProductPrice.setText("₹" +productItem.actualPrice+"/-");
-        holder.cartActualPrice.setText("₹" +productItem.listedPrice+"/-");
+        if (productItem.productName.length() > 60){
+            holder.cartProductName.setText(productItem.productName.substring(0, 60) + "...");
+
+        }else{
+            holder.cartProductName.setText(productItem.productName);
+        }
+        holder.cartProductPrice.setText("₹" +productItem.actualPrice);
+        holder.cartActualPrice.setText("₹" +productItem.listedPrice);
         holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
 
         int realPrice = Integer.parseInt(productItem.listedPrice);
@@ -59,10 +66,14 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         int discount = (realPrice - price) * 100 / realPrice;
         holder.cartProductOffer.setText(discount + "% off");
 
+        holder.deliveryPrice.setText("₹" + productItem.getDeliveryCharge());
+
         if (totalPayable >= 500L){
-            holder.deliveryPrice.setText("FREE");
+            holder.productDeliveryFreeText.setVisibility(View.VISIBLE);
+            holder.deliveryPrice.setBackgroundResource(R.drawable.striking_text);
         }else{
-            holder.deliveryPrice.setText("₹" + productItem.getDeliveryCharge() + "/-");
+            holder.productDeliveryFreeText.setVisibility(View.GONE);
+            holder.deliveryPrice.setBackgroundResource(0);
         }
 
         // On Cart Item Clicked
@@ -127,6 +138,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         TextView cartProductName, cartProductPrice, cartActualPrice, cartProductOffer;
         TextView cartDecreaseProduct, cartProductItemNo,cartIncreaseProduct;
         TextView deliveryPrice;
+        LinearLayout productDeliveryFreeText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,6 +152,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             cartProductItemNo = itemView.findViewById(R.id.cartProductItemNo);
             cartIncreaseProduct = itemView.findViewById(R.id.cartIncreaseProduct);
             deliveryPrice = itemView.findViewById(R.id.productDeliveryAmount);
+            productDeliveryFreeText = itemView.findViewById(R.id.productDeliveryFreeText);
         }
     }
     public void updateAllCartProductItems(List<ProductItem> list){
