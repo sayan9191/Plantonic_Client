@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +30,15 @@ import android.widget.TextView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.plantonic.firebaseClasses.CartItem;
-import com.example.plantonic.ui.activity.HomeActivity;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomSheet;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.EncryptUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
-import com.example.plantonic.utils.constants.IntentConstants;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -125,8 +125,8 @@ public class ProductViewFragment extends Fragment {
                         }
 
                         name.setText(productItem.productName);
-                        productActualPrice.setText("₹ " + productItem.listedPrice + "/-");
-                        productPrice.setText("₹ " + productItem.actualPrice + "/-");
+                        productActualPrice.setText("₹" + productItem.listedPrice);
+                        productPrice.setText("₹" + productItem.actualPrice);
                         int realPrice = Integer.parseInt(productItem.listedPrice);
                         int price = Integer.parseInt(productItem.actualPrice);
                         int discount = (realPrice - price) * 100 / realPrice;
@@ -139,11 +139,21 @@ public class ProductViewFragment extends Fragment {
                             public void onClick(View view) {
                                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                                 myIntent.setType("text/plain");
-                                String body = "This is your product " + productItem.productName + productItem.actualPrice + " Launching discount" + discount;
-                                String sub = "Your Subject";
-                                myIntent.putExtra(Intent.EXTRA_SUBJECT, sub);
-                                myIntent.putExtra(Intent.EXTRA_TEXT, body);
-                                startActivity(Intent.createChooser(myIntent, "Share Using"));
+                                String body = null;
+                                try {
+                                    String encryptedString = EncryptUtil.Companion.encrypt(productItem.productId.toString());
+                                    Log.d("-----------en: ", encryptedString);
+//                                    String decryptedString = EncryptUtil.Companion.decrypt(encryptedString);
+//                                    Log.d("-----------de: ", decryptedString);
+
+                                    body = "Hey, checkout this awesome plant I found on Plantonic - " + productItem.productName + "\n" + "Click here " + "https://plantonic.co.in/p/" + encryptedString;
+                                    String sub = "Checkout this plant on Plantonic";
+                                    myIntent.putExtra(Intent.EXTRA_SUBJECT, sub);
+                                    myIntent.putExtra(Intent.EXTRA_TEXT, body);
+                                    startActivity(Intent.createChooser(myIntent, "Share Using"));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
 
@@ -259,14 +269,14 @@ public class ProductViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
-                if (isCart) {
+//                if (isCart) {
                     ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString(PRODUCT_ID, productId);
 //                    bundle.putString(IntentConstants.PRODUCT_QUANTITY, "4");
 //                    cartBottomSheet.setArguments(bundle);
                     cartBottomSheet.show(requireActivity().getSupportFragmentManager(), "TAG");
-                }
+//                }
             }
         });
 

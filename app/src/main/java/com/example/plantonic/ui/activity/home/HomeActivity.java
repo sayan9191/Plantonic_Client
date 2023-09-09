@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.activity;
+package com.example.plantonic.ui.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,7 +9,10 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.plantonic.R;
@@ -19,6 +22,7 @@ import com.example.plantonic.ui.cartfav.FavouriteFragment;
 import com.example.plantonic.ui.homeFragment.HomeFragment;
 import com.example.plantonic.ui.profile.ProfileFragment;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.EncryptUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
@@ -27,6 +31,8 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
+    NavController navController;
+    String productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +41,19 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        try {
+            Uri data = getIntent().getData();
+            Log.d("Got deeplink: ", String.valueOf(data));
 
-        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+            productId = EncryptUtil.Companion.decrypt(String.valueOf(data).substring(26));
+        } catch (Exception e){
+            e.getStackTrace();
+            productId = null;
+        }
+
+
+
+        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
@@ -77,6 +94,11 @@ public class HomeActivity extends AppCompatActivity {
 //        }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        navController.handleDeepLink(intent);
+    }
 
     public void hideBottomNavBar(){
         binding.bottomNavigationView.setVisibility(View.GONE);

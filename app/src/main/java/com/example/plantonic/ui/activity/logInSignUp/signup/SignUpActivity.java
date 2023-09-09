@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.logInSignUp;
+package com.example.plantonic.ui.activity.logInSignUp.signup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plantonic.R;
+import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
+import com.example.plantonic.ui.activity.logInSignUp.otp.OtpVerifyActivity;
 import com.example.plantonic.ui.bottomSheet.BottomSheet;
 import com.example.plantonic.ui.bottomSheet.BottomSheetPP;
-import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
-import com.example.plantonic.ui.logInSignUp.otp.OtpVerifyActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (phoneNo.getText().toString().trim().isEmpty() || name.getText().toString().isEmpty() || emailId.getText().toString().isEmpty()){
-                    Toast.makeText(SignUpActivity.this,"Enter your details first",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this,"Please enter valid phone number",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -88,8 +88,8 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                progressBar.setVisibility(view.VISIBLE);
-                continueBtn.setVisibility(view.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                continueBtn.setVisibility(View.INVISIBLE);
                 PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNo.getText().toString(),
                         60L,
                         TimeUnit.SECONDS,

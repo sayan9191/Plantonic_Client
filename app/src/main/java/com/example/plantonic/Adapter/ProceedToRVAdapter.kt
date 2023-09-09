@@ -34,17 +34,29 @@ class ProceedToRVAdapter(private val context: Context) : RecyclerView.Adapter<Pr
 
     override fun onBindViewHolder(holder: ProceedToViewHolder, position: Int) {
         holder.deliveryCharge.visibility = View.GONE
-        holder.summaryProductOffer.visibility = View.GONE
+//        holder.summaryProductOffer.visibility = View.GONE
         holder.deliveryChargeLabel.visibility = View.GONE
 
         val currentProductItem = allCartProductItems[position]
         val currentCartItem = allCartItems[position]
 
         Glide.with(context).load(currentProductItem.imageUrl1).into(holder.summaryProductImage)
-        holder.summaryProductName.text = currentProductItem.productName
+
+        if (currentProductItem.productName.length > 50) {
+            holder.summaryProductName.text = "${currentProductItem.productName.substring(0, 50)}..."
+        } else {
+            holder.summaryProductName.text = currentProductItem.productName
+        }
+
+        val realPrice: Int = currentProductItem.listedPrice.toInt()
+        val price: Int = currentProductItem.actualPrice.toInt()
+        val discount = (realPrice - price) * 100 / realPrice
+        holder.summaryProductOffer.text = "$discount% off"
+
+
         holder.summaryProductQuantity.text = currentCartItem.quantity.toString()
-        holder.summaryProductPrice.text = "₹ ${currentProductItem.listedPrice}/-"
-        holder.summaryActualPrice.text = "₹ ${currentProductItem.actualPrice}/-"
+        holder.summaryProductPrice.text = "₹${currentProductItem.listedPrice}"
+        holder.summaryActualPrice.text = "₹${currentProductItem.actualPrice}"
     }
 
     override fun getItemCount(): Int {

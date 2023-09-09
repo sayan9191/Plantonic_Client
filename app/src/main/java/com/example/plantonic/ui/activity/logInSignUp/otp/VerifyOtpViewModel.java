@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.logInSignUp.otp;
+package com.example.plantonic.ui.activity.logInSignUp.otp;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

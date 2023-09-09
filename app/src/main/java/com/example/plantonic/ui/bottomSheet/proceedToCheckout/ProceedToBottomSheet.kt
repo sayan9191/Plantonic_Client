@@ -62,6 +62,12 @@ class ProceedToBottomSheet : BottomSheetDialogFragment() {
         productItems.observe(
             this
         ) { productItems ->
+            if (productItems.size > 1){
+                binding.proceedWithLabelText.text = "Proceed with ${productItems.size} items"
+            }
+            else{
+                binding.proceedWithLabelText.text = "Proceed with ${productItems.size} item"
+            }
             adapter.updateAllCartProductItems(productItems)
 
         }

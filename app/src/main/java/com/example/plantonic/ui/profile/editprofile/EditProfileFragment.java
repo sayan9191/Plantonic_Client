@@ -16,11 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.plantonic.firebaseClasses.UserItem;
-import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
+import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class EditProfileFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     EditText firstName, lastName, email, phone;
-    ImageView backBtn;
+    TextView backBtn;
     TextView logoutBtn;
     TextView updateProfile;
 

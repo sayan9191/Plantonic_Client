@@ -4,203 +4,256 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.logInSignUp.SignUpActivity"
+    tools:context=".ui.activity.logInSignUp.signup.SignUpActivity"
     android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/iconImageView"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
 
+        app:layout_constraintBottom_toTopOf="@+id/bottomLoginRedirect"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/treeicon" />
-
-    <TextView
-        android:id="@+id/loginTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        app:layout_constraintTop_toBottomOf="@+id/iconImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        android:text="Sign Up"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:id="@+id/linerLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/loginTextView"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Login.EditText.CircularCorner.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center_horizontal"
-            android:hint="Phone"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/phoneblack_icon">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/newPhoneEditTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Login.EditText.CircularCorner.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:hint="Full Name"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/face_icon">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fullNameEditTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Login.EditText.CircularCorner.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:hint="Email"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/email_icon">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailIdEditTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/linerLayout1"
-        app:layout_constraintBottom_toTopOf="@+id/bottomLoginRedirect">
+        >
 
         <LinearLayout
-            android:id="@+id/linerLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/linerLayout1"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            >
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/termsAndConditionCheckBox"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                />
+                <ImageView
+                    android:id="@+id/iconImageView"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+
+                    android:src="@drawable/icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="lantonic"
+                    android:layout_marginStart="-148dp"
+                    android:textColor="@color/green"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="45dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+                    app:layout_constraintStart_toEndOf="@+id/iconImageView"
+                    />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="-30dp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="@id/textView11"
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+                    app:layout_constraintEnd_toStartOf="@id/iconImageView"
+                    app:layout_constraintTop_toTopOf="@id/iconImageView" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/loginTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="I accept the "
-                />
-
-            <TextView
-                android:id="@+id/termsAndConditionBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="terms &amp; conditions"
+                android:layout_height="35dp"
+                android:text="Sign Up"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="@color/green"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iconImageView" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Login.EditText.CircularCorner.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:hint="Phone"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/phoneblack_icon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newPhoneEditTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Login.EditText.CircularCorner.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:hint="Full Name"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/face_icon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullNameEditTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Login.EditText.CircularCorner.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:hint="Email (optional)"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/email_icon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailIdEditTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/linerLayout1"
+                >
+
+                <LinearLayout
+                    android:id="@+id/linerLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/linerLayout1">
+
+                    <CheckBox
+                        android:id="@+id/termsAndConditionCheckBox"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="I accept the " />
+
+                    <TextView
+                        android:id="@+id/termsAndConditionBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="terms &amp; conditions"
+
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linerLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/linerLayout4">
+
+                    <CheckBox
+                        android:id="@+id/privacyAndPolicyCheckBox"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="I accept the" />
+
+                    <TextView
+                        android:id="@+id/privacyAndPolicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" privacy policy"
+
+
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomLoginRedirect"
+                    app:layout_constraintTop_toBottomOf="@+id/linerLayout5">
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/logInBtn"
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/button_design"
+                        android:backgroundTint="@color/green"
+                        android:gravity="center"
+                        android:text="Continue"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linerLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/linerLayout4"
-            android:orientation="horizontal"
-            android:layout_marginTop="7dp"
-            android:gravity="start">
 
-            <CheckBox
-                android:id="@+id/privacyAndPolicyCheckBox"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="I accept the"/>
 
-            <TextView
-                android:id="@+id/privacyAndPolicy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" privacy policy"
 
-                android:textStyle="bold"
-                android:textColor="@color/green"/>
 
-        </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomLoginRedirect"
-            app:layout_constraintTop_toBottomOf="@+id/linerLayout5"
-            android:layout_centerHorizontal="true"
-            >
 
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/logInBtn"
-                style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/button_design"
-                android:backgroundTint="@color/green"
-                android:gravity="center"
-                android:text="Continue"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
-    </LinearLayout>
 
 
     <LinearLayout

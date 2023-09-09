@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp">
+            android:layout_margin="10dp">
 
             <View
                 android:layout_width="70dp"
@@ -27,12 +27,26 @@
                 android:layout_gravity="center"
                 android:background="@drawable/offer_background"
                 android:backgroundTint="@color/gray"
-                android:layout_margin="5dp"/>
+                />
+
+
+            <TextView
+                android:id="@+id/proceedWithLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proceed with the items in your cart"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                android:layout_marginBottom="10dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/proceedToRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:id="@+id/proceedToPaymentBtn"
@@ -41,14 +55,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/button_design"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/yellow"
                 android:gravity="center"
                 android:layout_margin="5dp"
-                android:text="Proceed to Payment"
+                android:text="Proceed to buy"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -1,66 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.search.SearchFragment">
 
-    <Button
-        android:id="@+id/btnBack"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/back_icon"
-        android:text="Back"
-        android:textColor="@color/green"
-        android:textStyle="bold" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnBack"
-        android:background="@drawable/search_view_bg"
-        android:layout_margin="8dp"
-        app:queryHint="Search Here"
-        app:iconifiedByDefault="false"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/popularTxtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchView"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Search Results"
-        android:textColor="@color/green"
-        android:textSize="18dp"
-         />
+        <TextView
+            android:id="@+id/btnBack"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back_icon"
+            android:text="Back"
+            android:elevation="3dp"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchResultRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/popularTxtView"/>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnBack"
+            android:background="@drawable/search_view_bg"
+            android:layout_margin="8dp"
+            app:queryHint="Search Here"
+            app:iconifiedByDefault="false"/>
 
-    <TextView
-        android:id="@+id/noResultFoundLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Results Found"
-        android:visibility="gone"
-        android:gravity="center"
-        android:layout_alignTop="@+id/searchResultRecyclerView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-         />
+        <TextView
+            android:id="@+id/popularTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchView"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Search Results"
+            android:textColor="@color/green"
+            android:textSize="18dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/popularTxtView"/>
+
+        <ProgressBar
+            android:id="@+id/searchResultProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/noResultFoundLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Results Found"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_alignTop="@+id/searchResultRecyclerView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            />
+    </LinearLayout>
 
 
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

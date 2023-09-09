@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.logInSignUp.otp;
+package com.example.plantonic.ui.activity.logInSignUp.otp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.plantonic.ui.activity.HomeActivity;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.UserItem;
-import com.example.plantonic.ui.logInSignUp.SignUpActivity;
+import com.example.plantonic.ui.activity.logInSignUp.signup.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OtpVerifyActivity extends AppCompatActivity {
     EditText input1, input2, input3, input4, input5, input6;
-    TextView mobile,verifyBtn,resendOtpBtn;
+    TextView mobile,verifyBtn,resendOtpBtn, otpEditNumberBtn;
     ProgressBar progressBar1;
     String VerificationId;
 
@@ -61,6 +61,7 @@ public class OtpVerifyActivity extends AppCompatActivity {
         progressBar1 = findViewById(R.id.progressbar1);
         verifyBtn = findViewById(R.id.verifyBtn);
         resendOtpBtn = findViewById(R.id.textSendOtp);
+        otpEditNumberBtn = findViewById(R.id.otpEditNumberBtn);
 
         mobile = findViewById(R.id.textMobile);
 
@@ -81,6 +82,14 @@ public class OtpVerifyActivity extends AppCompatActivity {
 
         // Start the resend countdown
         startCountdown();
+
+        //Change phone number
+        otpEditNumberBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override

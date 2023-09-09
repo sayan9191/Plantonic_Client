@@ -20,6 +20,7 @@ import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.cartfav.CartViewModel;
+import com.example.plantonic.utils.StringUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -57,16 +58,16 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         }else{
             holder.cartProductName.setText(productItem.productName);
         }
-        holder.cartProductPrice.setText("₹" +productItem.actualPrice);
-        holder.cartActualPrice.setText("₹" +productItem.listedPrice);
+        holder.cartProductPrice.setText("₹" + StringUtil.Companion.getFormattedPrice(productItem.actualPrice));
+        holder.cartActualPrice.setText("₹" +StringUtil.Companion.getFormattedPrice(productItem.listedPrice));
         holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
 
         int realPrice = Integer.parseInt(productItem.listedPrice);
         int price = Integer.parseInt(productItem.actualPrice);
         int discount = (realPrice - price) * 100 / realPrice;
-        holder.cartProductOffer.setText(discount + "% off");
+        holder.cartProductOffer.setText(StringUtil.Companion.getFormattedPrice(discount) + "% off");
 
-        holder.deliveryPrice.setText("₹" + productItem.getDeliveryCharge());
+        holder.deliveryPrice.setText("₹" + StringUtil.Companion.getFormattedPrice(productItem.getDeliveryCharge()));
 
         if (totalPayable >= 500L){
             holder.productDeliveryFreeText.setVisibility(View.VISIBLE);

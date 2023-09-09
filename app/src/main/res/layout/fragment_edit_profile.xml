@@ -16,14 +16,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <TextView
                 android:id="@+id/backBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:src="@drawable/back_button_icon"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/back_icon"
+                android:text="Back"
+                android:elevation="3dp"
+                android:textColor="@color/green"
+                android:textStyle="bold"
                  />
 
             <androidx.cardview.widget.CardView
@@ -31,19 +33,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/green"
+
                 app:cardCornerRadius="2dp"
                 app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_gradient_bg">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:src="@drawable/user_icon"
                         app:civ_border_color="@color/black"
+
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +70,7 @@
                 android:id="@+id/firstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:maxLines="1" />
 
             <TextView
@@ -83,7 +87,7 @@
                 android:id="@+id/lastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:maxLines="1" />
 
             <TextView
@@ -100,7 +104,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:maxLines="1" />
 
             <TextView
@@ -117,41 +121,47 @@
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:maxLines="1" />
 
             <TextView
                 android:id="@+id/updateProfile"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+
                 android:background="@drawable/button_design"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/yellow"
                 android:gravity="center"
                 android:text="Update Your Profile"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                 />
 
             <TextView
                 android:id="@+id/logoutBtn"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:padding="10dp"
                 android:background="@drawable/button_design"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/gray"
                 android:gravity="center"
                 android:text="Logout"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                 />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

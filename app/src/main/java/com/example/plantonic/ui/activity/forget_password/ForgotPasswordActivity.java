@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.logInSignUp;
+package com.example.plantonic.ui.activity.forget_password;
 
 import androidx.appcompat.app.AppCompatActivity;
 

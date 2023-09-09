@@ -15,22 +15,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.plantonic.Adapter.FavouriteRecyclerViewAdapter;
 import com.example.plantonic.Adapter.listeners.FavouriteListener;
 import com.example.plantonic.R;
 
+import com.example.plantonic.databinding.FragmentFavouriteBinding;
 import com.example.plantonic.firebaseClasses.ProductItem;
-import com.example.plantonic.ui.activity.HomeActivity;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
@@ -41,10 +38,7 @@ import java.util.Objects;
 
 
 public class FavouriteFragment extends Fragment implements FavouriteListener {
-    RecyclerView favouriteRecyclerView;
-    TextView noFavView;
-    ImageView backBtn;
-    View view;
+    FragmentFavouriteBinding binding;
     FavouriteViewModel viewModel;
 
     private FavouriteRecyclerViewAdapter favouriteRecyclerViewAdapter;
@@ -52,18 +46,19 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_favourite, container, false);
-        noFavView = view.findViewById(R.id.noFavView);
-        favouriteRecyclerView = view.findViewById(R.id.favouriteRecyclerView);
-        backBtn = view.findViewById(R.id.favBackBtn);
+        binding = FragmentFavouriteBinding.inflate(getLayoutInflater());
+
 
         // Initialize viewModel
         viewModel = new ViewModelProvider(this).get(FavouriteViewModel.class);
 
         //favouriteRecyclerView adapter
         favouriteRecyclerViewAdapter = new FavouriteRecyclerViewAdapter(this.getContext(), this, viewModel);
-        favouriteRecyclerView.setLayoutManager(new LinearLayoutManager(this.requireContext()));
-        favouriteRecyclerView.setAdapter(this.favouriteRecyclerViewAdapter);
+        binding.favouriteRecyclerView.setLayoutManager(new LinearLayoutManager(this.requireContext()));
+        binding.favouriteRecyclerView.setAdapter(this.favouriteRecyclerViewAdapter);
+
+        binding.noFavView.setVisibility(View.GONE);
+        binding.favProgressBar.setVisibility(View.VISIBLE);
 
 
         // Get all fav Items
@@ -72,16 +67,18 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
             public void onChanged(List<ProductItem> favouriteItems) {
                 favouriteRecyclerViewAdapter.updateAllFavItems(favouriteItems);
 
+                binding.favProgressBar.setVisibility(View.GONE);
+
                 if (favouriteItems.size()==0){
-                    noFavView.setVisibility(View.VISIBLE);
+                    binding.noFavView.setVisibility(View.VISIBLE);
                 }
                 else {
-                    noFavView.setVisibility(View.GONE);
+                    binding.noFavView.setVisibility(View.GONE);
                 }
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        binding.favBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 requireActivity().onBackPressed();
@@ -89,7 +86,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -103,7 +100,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
 //        }
 
         CartUtil.lastFragment = "fav";
-        Navigation.findNavController(view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.favouriteFragment, true).build());
 
     }
 
@@ -130,10 +127,10 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     public void onStart() {
         super.onStart();
         if (Objects.equals(FavUtil.lastFragment, "cart")){
-            backBtn.setVisibility(View.VISIBLE);
+            binding.favBackBtn.setVisibility(View.VISIBLE);
             ((HomeActivity)requireActivity()).hideBottomNavBar();
         }else{
-            backBtn.setVisibility(View.GONE);
+            binding.favBackBtn.setVisibility(View.GONE);
         }
     }
 

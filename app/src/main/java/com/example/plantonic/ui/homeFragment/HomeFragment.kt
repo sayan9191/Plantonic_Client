@@ -1,60 +1,52 @@
 package com.example.plantonic.ui.homeFragment
 
 import android.content.Context
-
-import com.example.plantonic.Adapter.listeners.OnProductListener
-import com.denzcoskun.imageslider.ImageSlider
-import androidx.recyclerview.widget.RecyclerView
-
-import com.example.plantonic.Adapter.CategoryAdapter
-import com.example.plantonic.Adapter.PopularItemAdapter
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import com.example.plantonic.R
-import androidx.lifecycle.ViewModelProvider
-import com.denzcoskun.imageslider.models.SlideModel
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager
-
-import com.example.plantonic.ui.search.SearchFragment
-import com.example.plantonic.utils.HomeUtil
-import com.example.plantonic.firebaseClasses.ProductItem
-import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment
-import com.example.plantonic.utils.constants.IntentConstants
-import com.example.plantonic.utils.CartUtil
-import com.example.plantonic.utils.FavUtil
-import com.example.plantonic.ui.activity.HomeActivity
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
+import com.example.plantonic.Adapter.CategoryAdapter
+import com.example.plantonic.Adapter.PopularItemAdapter
 import com.example.plantonic.Adapter.listeners.CategoryListener
+import com.example.plantonic.Adapter.listeners.OnProductListener
+import com.example.plantonic.R
+import com.example.plantonic.databinding.FragmentHomeBinding
 import com.example.plantonic.firebaseClasses.CategoryItem
+import com.example.plantonic.firebaseClasses.ProductItem
+import com.example.plantonic.ui.activity.home.HomeActivity
 import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
-import java.util.ArrayList
+import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment
+import com.example.plantonic.ui.search.SearchFragment
+import com.example.plantonic.utils.CartUtil
+import com.example.plantonic.utils.EncryptUtil
+import com.example.plantonic.utils.FavUtil
+import com.example.plantonic.utils.HomeUtil
+import com.example.plantonic.utils.constants.IntentConstants
 
 class HomeFragment : Fragment(), OnProductListener, CategoryListener {
-    private lateinit var imageSlider: ImageSlider
-    lateinit var recyclerView1: RecyclerView
-    lateinit var recyclerView2: RecyclerView
-    lateinit var searchBtn: ImageView
+    lateinit var binding : FragmentHomeBinding
+
     private lateinit var viewModel: HomeFragmentViewModel
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var popularItemAdapter: PopularItemAdapter
+
+    var isDeeplinkNavigated = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        imageSlider = view.findViewById(R.id.imageSlider)
-        recyclerView1 = view.findViewById(R.id.recyclerView1)
-        recyclerView2 = view.findViewById(R.id.searchResultRecyclerView)
-        searchBtn = view.findViewById(R.id.searchBtn)
-        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(requireActivity())[HomeFragmentViewModel::class.java]
 
 
         //Slider of offers
@@ -83,45 +75,72 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
                 ScaleTypes.FIT
             )
         )
-        imageSlider.setImageList(slideModels, ScaleTypes.FIT)
+        binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT)
 
         //Adapters
         categoryAdapter = CategoryAdapter(this.context, this)
         popularItemAdapter = PopularItemAdapter(this.context, this)
-        recyclerView1.layoutManager = LinearLayoutManager(
+        binding.recyclerView1.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        recyclerView1.adapter = categoryAdapter
-        recyclerView2.layoutManager = GridLayoutManager(this.context, 2)
-        recyclerView2.adapter = popularItemAdapter
-        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
-            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
-            Log.d("-----------", categoryItems[0].categoryName)
-        }
+        binding.recyclerView1.adapter = categoryAdapter
+        binding.searchResultRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
+        binding.searchResultRecyclerView.adapter = popularItemAdapter
+
 
         //Search Button of products
-        searchBtn.setOnClickListener(View.OnClickListener {
+        binding.searchBtn.setOnClickListener(View.OnClickListener {
             val fragmentTransaction = parentFragmentManager.beginTransaction()
             fragmentTransaction.addToBackStack("searchFragment")
                 .setReorderingAllowed(true).replace(R.id.fragmentContainerView, SearchFragment())
             fragmentTransaction.commit()
             HomeUtil.lastFragment = "search"
         })
-        viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
-            popularItemAdapter.updatePopularProducts(
-                popularProductItems
-            )
+
+        // Observe Categories
+        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
+            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
+            Log.d("-----------", categoryItems[0].categoryName)
         }
-        return view
+
+        // Observe Popular items
+        viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
+            popularItemAdapter.updatePopularProducts(popularProductItems)
+            if (popularProductItems.size > 0){
+                binding.popularItemProgressBar.visibility = View.GONE
+            }
+        }
+
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // get product id from deep link
+        try {
+            if (!isDeeplinkNavigated){
+                arguments?.getString("id")?.let {
+                    navigateToProductFragment(EncryptUtil.decrypt(it))
+                    isDeeplinkNavigated = true
+                }
+            }
+        } catch (e : Exception){
+            e.stackTrace
+        }
+    }
+
 
     //Click on products
     override fun onProductClick(productItem: ProductItem) {
+        navigateToProductFragment(productItem.getProductId())
+    }
+
+    private fun navigateToProductFragment(productId : String){
         val productViewFragment = ProductViewFragment()
         val bundle = Bundle()
-        bundle.putString(IntentConstants.PRODUCT_ID, productItem.productId)
+        bundle.putString(IntentConstants.PRODUCT_ID, productId)
         productViewFragment.arguments = bundle
         val fragmentTransaction = parentFragmentManager.beginTransaction()
         fragmentTransaction

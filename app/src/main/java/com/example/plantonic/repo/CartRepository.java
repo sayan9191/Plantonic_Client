@@ -32,53 +32,67 @@ public class CartRepository {
     HashMap<String, CartItem> cartMap = new HashMap<>();
 
     public void getAllCartItems(String userId){
-        getAllUserCartItemsReference(userId)
-                .addChildEventListener(new ChildEventListener() {
+        getAllUserCartItemsReference(userId).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()){
-                            CartItem item = snapshot.getValue(CartItem.class);
-                            if (item != null){
-                                cartMap.put(snapshot.getKey(), item);
-                                _allCartItems.postValue(new ArrayList<>(cartMap.values()));
-                                getCartProductsFromId(item.getProductId());
-                            }
+                            getAllUserCartItemsReference(userId).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                    if (snapshot.exists()){
+                                        CartItem item = snapshot.getValue(CartItem.class);
+                                        if (item != null){
+                                            cartMap.put(snapshot.getKey(), item);
+                                            _allCartItems.postValue(new ArrayList<>(cartMap.values()));
+                                            getCartProductsFromId(item.getProductId());
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                    if (snapshot.exists()){
+                                        CartItem item = snapshot.getValue(CartItem.class);
+                                        if (item != null){
+                                            cartMap.put(snapshot.getKey(), item);
+                                            _allCartItems.postValue(new ArrayList<>(cartMap.values()));
+                                            getCartProductsFromId(item.getProductId());
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                                    if (cartMap.containsKey(snapshot.getKey())){
+                                        cartMap.remove(snapshot.getKey());
+                                        _allCartItems.postValue(new ArrayList<>(cartMap.values()));
+
+                                        cartProductMap.remove(snapshot.getKey());
+                                        _allCartProducts.postValue(new ArrayList<>(cartProductMap.values()));
+                                    }
+                                }
+
+                                @Override
+                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }else{
+                            _allCartItems.postValue(new ArrayList<>());
                         }
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        if (snapshot.exists()){
-                            CartItem item = snapshot.getValue(CartItem.class);
-                            if (item != null){
-                                cartMap.put(snapshot.getKey(), item);
-                                _allCartItems.postValue(new ArrayList<>(cartMap.values()));
-                                getCartProductsFromId(item.getProductId());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                        if (cartMap.containsKey(snapshot.getKey())){
-                            cartMap.remove(snapshot.getKey());
-                            _allCartItems.postValue(new ArrayList<>(cartMap.values()));
-
-                            cartProductMap.remove(snapshot.getKey());
-                            _allCartProducts.postValue(new ArrayList<>(cartProductMap.values()));
-                        }
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        _allCartItems.postValue(new ArrayList<>());
                     }
                 });
+
     }
 
 
@@ -100,12 +114,14 @@ public class CartRepository {
                         cartProductMap.put(snapshot.getKey(), item);
                         _allCartProducts.postValue(new ArrayList<>(cartProductMap.values()));
                     }
+                } else {
+                    _allCartProducts.postValue(new ArrayList<>());
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                _allCartProducts.postValue(new ArrayList<>());
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.activity;
+package com.example.plantonic.ui.activity.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -9,13 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.plantonic.R;
-import com.example.plantonic.ui.logInSignUp.login.LoginActivity;
-import com.example.plantonic.ui.logInSignUp.login.LoginViewModel;
+import com.example.plantonic.ui.activity.home.HomeActivity;
+import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private LoginViewModel loginViewModel;
+    private SplashScreenViewModel splashScreenViewModel;
     MotionLayout motionLayout;
 
 
@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
         motionLayout = findViewById(R.id.motionLayout);
 
         // Initialize viewModel
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        splashScreenViewModel = new ViewModelProvider(this).get(SplashScreenViewModel.class);
 
 
         motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
@@ -58,7 +58,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
-            loginViewModel.checkIfUserExists(FirebaseAuth.getInstance().getUid()).observe(this, new Observer<Boolean>() {
+            splashScreenViewModel.checkIfUserExists(FirebaseAuth.getInstance().getUid()).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean userExists) {
 

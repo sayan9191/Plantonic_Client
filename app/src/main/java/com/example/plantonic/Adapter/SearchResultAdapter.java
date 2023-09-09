@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,9 +66,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             }
         });
 
-        holder.productPrice.setVisibility(View.GONE);
-        holder.actualPrice.setVisibility(View.GONE);
-        holder.discount.setVisibility(View.GONE);
+        holder.productPrice.setVisibility(View.INVISIBLE);
+        holder.actualPrice.setVisibility(View.INVISIBLE);
+        holder.discount.setVisibility(View.INVISIBLE);
+        holder.searchPriceLoaderProgressBar.setVisibility(View.VISIBLE);
 
         // Load product details
         getParticularProductReference(currentItem.getProductId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -76,6 +78,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 if (snapshot.exists()){
                     ProductItem item = snapshot.getValue(ProductItem.class);
                     if (item != null){
+
+                        holder.searchPriceLoaderProgressBar.setVisibility(View.GONE);
                         holder.productPrice.setVisibility(View.VISIBLE);
                         holder.actualPrice.setVisibility(View.VISIBLE);
                         holder.discount.setVisibility(View.VISIBLE);
@@ -115,6 +119,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         ImageView productImage;
         TextView productName, actualPrice, productPrice, discount;
         ConstraintLayout product;
+        ProgressBar searchPriceLoaderProgressBar;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,6 +129,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             actualPrice = itemView.findViewById(R.id.searchActualPrice);
             productPrice = itemView.findViewById(R.id.searchProductPrice);
             discount = itemView.findViewById(R.id.searchItemDiscountPercent);
+            searchPriceLoaderProgressBar = itemView.findViewById(R.id.searchPriceLoaderProgressBar);
         }
     }
 }

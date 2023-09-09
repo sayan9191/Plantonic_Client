@@ -29,7 +29,7 @@ import com.example.plantonic.Adapter.listeners.CartListner;
 
 import com.example.plantonic.databinding.FragmentCartBinding;
 import com.example.plantonic.ui.activity.CheckoutActivity;
-import com.example.plantonic.ui.activity.HomeActivity;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
@@ -37,6 +37,7 @@ import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
+import com.example.plantonic.utils.StringUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Array;
@@ -77,6 +78,19 @@ public class CartFragment extends Fragment implements CartListner {
         cartItems.observe(getViewLifecycleOwner(), new Observer<List<CartItem>>() {
             @Override
             public void onChanged(List<CartItem> cartItems) {
+
+                binding.cartProgressBar.setVisibility(View.GONE);
+
+                if (cartItems.size() == 0) {
+                    binding.noCartView.setVisibility(View.VISIBLE);
+                    binding.placeOrderLabel.setVisibility(View.GONE);
+                    binding.priceDetails.setVisibility(View.GONE);
+                } else {
+                    binding.noCartView.setVisibility(View.GONE);
+                    binding.placeOrderLabel.setVisibility(View.VISIBLE);
+                    binding.priceDetails.setVisibility(View.VISIBLE);
+                }
+
                 cartRecyclerViewAdapter.updateAllCartItems(cartItems);
                 allCartItems.clear();
                 allCartItems.addAll(cartItems);
@@ -89,16 +103,7 @@ public class CartFragment extends Fragment implements CartListner {
 
                 cartRecyclerViewAdapter.updateAllCartProductItems(productItems);
 
-                if (productItems.size() == 0) {
-                    binding.noCartView.setVisibility(View.VISIBLE);
-                    binding.placeOrderLabel.setVisibility(View.GONE);
-                    binding.priceDetails.setVisibility(View.GONE);
-
-                } else {
-                    binding.noCartView.setVisibility(View.GONE);
-                    binding.placeOrderLabel.setVisibility(View.VISIBLE);
-                    binding.priceDetails.setVisibility(View.VISIBLE);
-
+                if (productItems.size() > 0) {
 
                     Long actualAmount = 0L;
                     Long totalAmount = 0L;
@@ -120,21 +125,21 @@ public class CartFragment extends Fragment implements CartListner {
                         deliveryChargeWaver = 0L;
                     }
 
-                    binding.priceTotal.setText(String.valueOf("₹" + totalAmount));
-                    binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice ));
-                    binding.deliverPrice.setText(String.valueOf("₹" + deliveryCharge ));
+                    binding.priceTotal.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(totalAmount)));
+                    binding.discountPrice.setText(String.valueOf("- ₹" + StringUtil.Companion.getFormattedPrice(discountPrice) ));
+                    binding.deliverPrice.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(deliveryCharge) ));
 
                     if (deliveryChargeWaver > 0L){
                         binding.deliverPriceWaverLayout.setVisibility(View.VISIBLE);
-                        binding.deliverPriceWaver.setText(String.valueOf("- ₹" + deliveryChargeWaver ));
+                        binding.deliverPriceWaver.setText(String.valueOf("- ₹" + StringUtil.Companion.getFormattedPrice(deliveryChargeWaver) ));
                     }else{
                         binding.deliverPriceWaverLayout.setVisibility(View.GONE);
                     }
 
-                    binding.totalAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge - deliveryChargeWaver)));
-                    binding.placeOrderTotalAmount.setText("₹" + (totalAmount + deliveryCharge));
-                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + (actualAmount + deliveryCharge - deliveryChargeWaver)));
-                    binding.savePrice.setText(String.valueOf("₹" + (discountPrice + deliveryChargeWaver)));
+                    binding.totalAmount.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(actualAmount + deliveryCharge - deliveryChargeWaver)));
+                    binding.placeOrderTotalAmount.setText("₹" + StringUtil.Companion.getFormattedPrice(totalAmount + deliveryCharge));
+                    binding.placeOrderPayAmount.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(actualAmount + deliveryCharge - deliveryChargeWaver)));
+                    binding.savePrice.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(discountPrice + deliveryChargeWaver)));
 
                     payablePrice = actualAmount + deliveryCharge - deliveryChargeWaver;
                     cartRecyclerViewAdapter.updateTotalPayable(actualAmount);

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.example.plantonic.databinding.FragmentSearchBinding;
 import com.example.plantonic.firebaseClasses.search.SearchProductItem;
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment;
 import com.example.plantonic.utils.HomeUtil;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -39,15 +41,18 @@ public class SearchFragment extends Fragment implements OnSearchListener {
     SearchResultAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(getLayoutInflater(), container, false);
 
         // Initialize recycler view
         adapter = new SearchResultAdapter(this.requireContext(), this);
+//        binding.searchResultRecyclerView.addItemDecoration(new DividerItemDecoration(this.requireContext(), DividerItemDecoration.HORIZONTAL));
+
         binding.searchResultRecyclerView.setLayoutManager(new GridLayoutManager(this.requireContext(), 2));
         binding.searchResultRecyclerView.setAdapter(this.adapter);
+
 
         // Handle back btn
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +76,12 @@ public class SearchFragment extends Fragment implements OnSearchListener {
             public boolean onQueryTextChange(String newText) {
 
                 Log.d("Search", newText);
+                if (!newText.isEmpty()){
+                    binding.searchResultProgressBar.setVisibility(View.VISIBLE);
+                    binding.noResultFoundLabel.setVisibility(View.GONE);
+                }else {
+                    binding.searchResultProgressBar.setVisibility(View.GONE);
+                }
 
                 FirebaseFirestore.getInstance().collection("searchIndex").whereArrayContains("search_keyword", newText)
                         .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -79,10 +90,12 @@ public class SearchFragment extends Fragment implements OnSearchListener {
                                 List<SearchProductItem> searchList = queryDocumentSnapshots.toObjects(SearchProductItem.class);
                                 adapter.updateSearchList(searchList);
 
-                                if (queryDocumentSnapshots.isEmpty() && !newText.equals("")){
+                                if (searchList.isEmpty() && !newText.equals("")){
                                     binding.noResultFoundLabel.setVisibility(View.VISIBLE);
+                                    binding.searchResultProgressBar.setVisibility(View.GONE);
                                 }else {
                                     binding.noResultFoundLabel.setVisibility(View.GONE);
+                                    binding.searchResultProgressBar.setVisibility(View.GONE);
                                 }
                             }
                         });

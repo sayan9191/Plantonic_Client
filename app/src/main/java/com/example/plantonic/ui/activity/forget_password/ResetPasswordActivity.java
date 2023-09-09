@@ -1,4 +1,4 @@
-package com.example.plantonic.ui.logInSignUp;
+package com.example.plantonic.ui.activity.forget_password;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.plantonic.ui.activity.HomeActivity;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 
 public class ResetPasswordActivity extends AppCompatActivity {

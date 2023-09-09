@@ -9,7 +9,13 @@
         android:id="@+id/homeFragment"
         android:name="com.example.plantonic.ui.homeFragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <deepLink
+            android:id="@+id/deepLink1"
+            app:uri="https://plantonic.co.in/p/{id}"
+            app:action="android.intent.action.VIEW"/>
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.example.plantonic.ui.cartfav.FavouriteFragment"

@@ -82,7 +82,7 @@
 
 
         <activity
-            android:name=".ui.activity.SplashScreen"
+            android:name=".ui.activity.splash.SplashScreen"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -95,31 +95,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.logInSignUp.otp.OtpVerifyActivity"
+            android:name=".ui.activity.logInSignUp.otp.OtpVerifyActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.HomeActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan">
+            android:name=".ui.activity.home.HomeActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask">
+
+            <tools:validation testUrl="https://plantonic.co.in/p/" />
+            <tools:validation testUrl="https://plantonic.co.in/p/93bd77c0-6f9a-4580-8828-99e5383c54fe" />
+
+            <!--<intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="plantonic.co.in"
+                    android:pathPrefix="/p" />
+            </intent-filter>-->
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
+            <nav-graph android:value="@navigation/main_nav_graph"/>
         </activity>
         <activity
-            android:name=".ui.logInSignUp.ResetPasswordActivity"
+            android:name=".ui.activity.forget_password.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.logInSignUp.ForgotPasswordActivity"
+            android:name=".ui.activity.forget_password.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.logInSignUp.SignUpActivity"
+            android:name=".ui.activity.logInSignUp.signup.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.logInSignUp.login.LoginActivity"
+            android:name=".ui.activity.logInSignUp.login.LoginActivity"
             android:exported="false" />
     </application>
 
