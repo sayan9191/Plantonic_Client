@@ -12,27 +12,30 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hey there,"
+            android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
 
 
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/userNameGreetings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textColor="@color/black"
 
 
-            android:textColor="@color/black"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -62,6 +65,7 @@
         >
 
         <FrameLayout
+            android:id="@+id/orderViewBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button_gradient_bg">
@@ -74,9 +78,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/orderViewBtn"
-                    android:layout_width="75dp"
-                    android:layout_height="100dp"
+                    android:layout_width="50dp"
+                    android:layout_height="75dp"
                     android:src="@drawable/order_icon"
                     app:tint="@color/green" />
 
@@ -86,7 +89,7 @@
                     android:layout_gravity="center"
                     android:text="My Orders"
 
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="@color/green"/>
             </LinearLayout>
         </FrameLayout>
@@ -106,6 +109,7 @@
         app:cardElevation="8dp">
 
         <FrameLayout
+            android:id="@+id/wishlistBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button_gradient_bg">
@@ -117,10 +121,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/wishlistBtn"
-                android:layout_width="75dp"
-                android:layout_height="100dp"
+                android:layout_width="50dp"
+                android:layout_height="75dp"
                 app:tint="@color/green"
+                android:layout_gravity="center"
                 android:src="@drawable/wishlist_icon" />
 
             <TextView
@@ -129,7 +133,7 @@
                 android:layout_gravity="center"
                 android:text="Wishlist"
 
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@color/green"/>
         </LinearLayout>
 
@@ -155,6 +159,7 @@
                 app:cardElevation="8dp">
 
                 <FrameLayout
+                    android:id="@+id/cartBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_gradient_bg">
@@ -166,9 +171,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/cartBtn"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
+                        android:layout_width="50dp"
+                        android:layout_height="75dp"
                         app:tint="@color/green"
                         android:src="@drawable/cart_icon" />
 
@@ -178,7 +182,7 @@
                         android:layout_gravity="center"
                         android:text="Cart Items"
                         app:tint="@color/green"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/green"/>
                 </LinearLayout>
                 </FrameLayout>
@@ -196,6 +200,7 @@
                 app:cardElevation="8dp">
 
                 <FrameLayout
+                    android:id="@+id/profileBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_gradient_bg">
@@ -208,9 +213,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/profileBtn"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
+                        android:layout_width="50dp"
+                        android:layout_height="75dp"
                         app:tint="@color/green"
                         android:src="@drawable/profile_icon" />
 
@@ -220,7 +224,7 @@
                         android:layout_gravity="center"
                         android:text="Your Profile"
 
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/green"/>
                 </LinearLayout>
                 </FrameLayout>
@@ -246,6 +250,7 @@
                 android:layout_weight="1">
 
                 <FrameLayout
+                    android:id="@+id/helpCenterBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_gradient_bg">
@@ -259,9 +264,9 @@
                     >
 
                     <ImageView
-                        android:id="@+id/helpCenterBtn"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
+
+                        android:layout_width="50dp"
+                        android:layout_height="75dp"
                         android:src="@drawable/help_center_icon" />
 
                     <TextView
@@ -270,7 +275,7 @@
                         android:layout_gravity="center"
                         android:text="Help Center"
                         app:tint="@color/green"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/green"/>
                 </LinearLayout>
 
@@ -291,6 +296,7 @@
                 android:layout_weight="1">
 
                 <FrameLayout
+                    android:id="@+id/feedbackBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_gradient_bg">
@@ -303,9 +309,9 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/feedbackBtn"
-                        android:layout_width="75dp"
-                        android:layout_height="100dp"
+
+                        android:layout_width="50dp"
+                        android:layout_height="75dp"
                         android:src="@drawable/feedback_icon" />
 
                     <TextView
@@ -314,7 +320,7 @@
                         android:layout_gravity="center"
                         android:text="FeedBack"
                         app:tint="@color/green"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/green"/>
                 </LinearLayout>
 

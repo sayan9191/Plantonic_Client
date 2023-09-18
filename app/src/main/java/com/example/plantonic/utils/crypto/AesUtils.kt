@@ -1,4 +1,4 @@
-package com.example.plantonic.utils
+package com.example.plantonic.utils.crypto
 
 import javax.crypto.Cipher
 import javax.crypto.SecretKey

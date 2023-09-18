@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
-    ImageView orderBtn, wishlistBtn, cartBtn, profileBtn, helpCenterBtn, feedbackBtm;
+    FrameLayout orderBtn, wishlistBtn, cartBtn, profileBtn, helpCenterBtn, feedbackBtm;
     TextView versionCode, userName;
     View view;
 

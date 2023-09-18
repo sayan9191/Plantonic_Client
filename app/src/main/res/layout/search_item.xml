@@ -36,7 +36,8 @@
                 android:id="@+id/searchProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_marginTop="7dp"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="7dp"

@@ -1,21 +1,22 @@
-package com.example.plantonic.ui.activity.logInSignUp.otp;
+package com.example.plantonic.ui.activity.logInSignUp.otp
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
+import com.example.plantonic.repo.LoginRepository
+import androidx.lifecycle.LiveData
+import com.example.plantonic.firebaseClasses.UserItem
 
-import com.example.plantonic.firebaseClasses.UserItem;
-import com.example.plantonic.repo.LoginRepository;
-
-public class VerifyOtpViewModel extends ViewModel {
-
-    LoginRepository loginRepository = new LoginRepository();
-
-    public LiveData<Boolean> checkIfUserExists(String userId){
-        loginRepository.checkIfUserExists(userId);
-        return loginRepository.userExists;
+class VerifyOtpViewModel : ViewModel() {
+    var loginRepository = LoginRepository()
+    fun checkIfUserExists(userId: String): LiveData<Boolean?> {
+        loginRepository.checkIfUserExists(userId)
+        return loginRepository.userExists
     }
 
-    public LiveData<Boolean> registerUser(UserItem userItem){
-        return loginRepository.registerNewUser(userItem);
+    fun registerUser(userItem: UserItem?): LiveData<Boolean?> {
+        return loginRepository.registerNewUser(userItem!!)
+    }
+
+    fun getUserToken (uid : String) : LiveData<String?> {
+        return loginRepository.getJwtToken(uid)
     }
 }

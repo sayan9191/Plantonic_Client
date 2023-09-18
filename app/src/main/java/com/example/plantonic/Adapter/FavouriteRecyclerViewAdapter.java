@@ -56,11 +56,9 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
 
-        if (productItem.productName.length() > 60){
-            holder.productName.setText(productItem.productName.substring(0, 60) + "...");
-        }else{
-            holder.productName.setText(productItem.productName);
-        }
+
+        holder.productName.setText(productItem.productName);
+
         holder.productPrice.setText("₹" +productItem.actualPrice);
         holder.actualPrice.setText("₹" +productItem.listedPrice);
         int realPrice = Integer.parseInt(productItem.listedPrice);

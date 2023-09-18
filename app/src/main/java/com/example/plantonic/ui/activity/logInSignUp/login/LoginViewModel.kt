@@ -8,13 +8,17 @@ import com.example.plantonic.repo.LoginRepository
 class LoginViewModel : ViewModel() {
     private val loginRepository = LoginRepository()
 
-    fun checkIfUserExists(userId: String?): LiveData<Boolean?>? {
+    fun checkIfUserExists(userId: String): LiveData<Boolean?> {
         loginRepository.checkIfUserExists(userId)
         return loginRepository.userExists
     }
 
-    fun registerUser(userItem: UserItem?): LiveData<Boolean?>? {
+    fun registerUser(userItem: UserItem): LiveData<Boolean?> {
         return loginRepository.registerNewUser(userItem)
+    }
+
+    fun getUserToken (uid : String) : LiveData<String?> {
+        return loginRepository.getJwtToken(uid)
     }
 
 }

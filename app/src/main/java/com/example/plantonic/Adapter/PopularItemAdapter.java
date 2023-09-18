@@ -42,11 +42,9 @@ public class PopularItemAdapter extends RecyclerView.Adapter<PopularItemAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductItem productItem = popularProductItems.get(position);
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
-        if (productItem.productName.length() > 50){
-            holder.productName.setText(productItem.productName.substring(0, 50) + "...");
-        }else{
-            holder.productName.setText(productItem.productName);
-        }
+
+        holder.productName.setText(productItem.productName);
+
 
         holder.productPrice.setText("₹" + productItem.listedPrice);
         holder.actualPrice.setText("₹"+ productItem.actualPrice);

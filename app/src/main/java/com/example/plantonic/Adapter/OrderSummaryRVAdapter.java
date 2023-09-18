@@ -42,11 +42,9 @@ public class OrderSummaryRVAdapter extends RecyclerView.Adapter<OrderSummaryRVAd
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.summaryProductImage);
 
-        if (productItem.productName.length() > 60){
-            holder.summaryProductName.setText(productItem.productName.substring(0, 60) + "...");
-        }else{
-            holder.summaryProductName.setText(productItem.productName);
-        }
+
+        holder.summaryProductName.setText(productItem.productName);
+
         holder.summaryProductPrice.setText("₹" +productItem.actualPrice);
         holder.summaryActualPrice.setText("₹" +productItem.listedPrice);
         holder.summaryProductQuantity.setText(cartItem.getQuantity().toString());

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.UserItem;
+import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
 import com.example.plantonic.ui.activity.logInSignUp.signup.SignUpActivity;
+import com.example.plantonic.utils.StorageUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -30,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class OtpVerifyActivity extends AppCompatActivity {
@@ -42,11 +46,16 @@ public class OtpVerifyActivity extends AppCompatActivity {
 
     String fullName, email, phoneNo;
 
+    private final StorageUtil localStorage = StorageUtil.Companion.getInstance();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verify);
+
+        // Initialize storage
+        localStorage.setSharedPref(getSharedPreferences("sharedPref", Context.MODE_PRIVATE));
 
         // initialize the viewModel
         viewModel = new ViewModelProvider(this).get(VerifyOtpViewModel.class);
@@ -122,28 +131,55 @@ public class OtpVerifyActivity extends AppCompatActivity {
 
                                     if (task.isSuccessful()){
 
-                                        if (email != null && fullName != null){
-                                            viewModel.registerUser(new UserItem(phoneNo, fullName.split(" ")[0], fullName.split(" ")[1], email, task.getResult().getUser().getUid(), "phoneNo"));
-                                        }
-
-                                        viewModel.checkIfUserExists(task.getResult().getUser().getUid()).observe(OtpVerifyActivity.this, new Observer<Boolean>() {
+                                        viewModel.checkIfUserExists(Objects.requireNonNull(task.getResult().getUser()).getUid()).observe(OtpVerifyActivity.this, new Observer<Boolean>() {
                                             @Override
                                             public void onChanged(Boolean userExists) {
 
                                                 if (userExists){ // If user already registered
 
-                                                    progressBar1.setVisibility(view.GONE);
-                                                    verifyBtn.setVisibility(view.VISIBLE);
+                                                    // verify and get token
+                                                    viewModel.getUserToken(task.getResult().getUser().getUid()).observe(OtpVerifyActivity.this, new Observer<String>() {
+                                                        @Override
+                                                        public void onChanged(String token) {
 
-                                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(intent);
+                                                            progressBar1.setVisibility(View.GONE);
+                                                            verifyBtn.setVisibility(View.VISIBLE);
+
+                                                            if (token != null) {
+                                                                // save token to local
+                                                                localStorage.setToken(token);
+
+                                                                // Existing user again wants to register
+                                                                if (email != null && fullName != null){
+                                                                    Toast.makeText(OtpVerifyActivity.this, "Account already exists on this number,\nWelcome back to Plantonic", Toast.LENGTH_SHORT).show();
+                                                                }else {
+                                                                    Toast.makeText(OtpVerifyActivity.this, "Welcome back to Plantonic", Toast.LENGTH_SHORT).show();
+                                                                }
+
+                                                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                startActivity(intent);
+                                                            }else {
+                                                                Toast.makeText(OtpVerifyActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+
+
                                                 }else{
-                                                    Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                                                    Toast.makeText(OtpVerifyActivity.this, "User does not exist. Please sign up.", Toast.LENGTH_SHORT).show();
-                                                    FirebaseAuth.getInstance().signOut();
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(intent);
+
+                                                    // new user wants to register
+                                                    if (email != null && fullName != null){
+                                                        // register new user
+                                                        viewModel.registerUser(new UserItem(phoneNo, fullName.split(" ")[0], fullName.split(" ")[1], email, task.getResult().getUser().getUid(), "phoneNo"));
+                                                    }else {
+                                                        // new user wants to login before sign up
+                                                        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                                                        Toast.makeText(OtpVerifyActivity.this, "User does not exists. Please sign up.", Toast.LENGTH_SHORT).show();
+                                                        FirebaseAuth.getInstance().signOut();
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
                                                 }
                                             }
                                         });

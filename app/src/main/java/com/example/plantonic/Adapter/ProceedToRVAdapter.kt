@@ -42,11 +42,9 @@ class ProceedToRVAdapter(private val context: Context) : RecyclerView.Adapter<Pr
 
         Glide.with(context).load(currentProductItem.imageUrl1).into(holder.summaryProductImage)
 
-        if (currentProductItem.productName.length > 50) {
-            holder.summaryProductName.text = "${currentProductItem.productName.substring(0, 50)}..."
-        } else {
-            holder.summaryProductName.text = currentProductItem.productName
-        }
+
+        holder.summaryProductName.text = currentProductItem.productName
+
 
         val realPrice: Int = currentProductItem.listedPrice.toInt()
         val price: Int = currentProductItem.actualPrice.toInt()

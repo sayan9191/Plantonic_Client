@@ -36,7 +36,7 @@ import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
 import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomSheet;
 import com.example.plantonic.utils.CartUtil;
-import com.example.plantonic.utils.EncryptUtil;
+import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
 import com.google.firebase.auth.FirebaseAuth;

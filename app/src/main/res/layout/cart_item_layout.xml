@@ -48,6 +48,8 @@
                         android:text="Product Name"
                         android:textColor="@color/black"
                         android:textSize="15sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
                         android:textStyle="bold"
                         android:layout_marginEnd="2dp"
                         android:textFontWeight="@integer/material_motion_duration_long_1"

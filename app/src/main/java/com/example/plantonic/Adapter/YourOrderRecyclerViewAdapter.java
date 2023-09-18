@@ -56,11 +56,9 @@ public class YourOrderRecyclerViewAdapter extends RecyclerView.Adapter<YourOrder
                     if (item != null){
                         Glide.with(context).load(item.imageUrl1).into(holder.deliveredItemImageView);
                         holder.deliveredItemProductName.setText(item.getProductName());
-                        if (item.getProductDescription().length()>30){
-                            holder.deliveredItemDescription.setText(item.getProductDescription().substring(0,30) + "...");
-                        }else {
-                            holder.deliveredItemDescription.setText(item.getProductDescription());
-                        }
+
+                        holder.deliveredItemDescription.setText(item.getProductDescription());
+
 
 
 

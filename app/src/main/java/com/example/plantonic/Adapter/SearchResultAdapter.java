@@ -51,11 +51,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         Glide.with(context).load(currentItem.getProductImageUrl()).into(holder.productImage);
 
-        if (currentItem.getProductName().length() > 50){
-            holder.productName.setText(currentItem.getProductName().substring(0, 50) + "...");
-        }else{
-            holder.productName.setText(currentItem.getProductName());
-        }
+        holder.productName.setText(currentItem.getProductName());
+
 
 
         //Handle Clicks

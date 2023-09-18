@@ -1,11 +1,7 @@
 package com.example.plantonic.ui.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -17,15 +13,8 @@ import android.view.View;
 
 import com.example.plantonic.R;
 import com.example.plantonic.databinding.ActivityHomeBinding;
-import com.example.plantonic.ui.cartfav.CartFragment;
-import com.example.plantonic.ui.cartfav.FavouriteFragment;
-import com.example.plantonic.ui.homeFragment.HomeFragment;
-import com.example.plantonic.ui.profile.ProfileFragment;
-import com.example.plantonic.utils.CartUtil;
-import com.example.plantonic.utils.EncryptUtil;
+import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 
 public class HomeActivity extends AppCompatActivity {

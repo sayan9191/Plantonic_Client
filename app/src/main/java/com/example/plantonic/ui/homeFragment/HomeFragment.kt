@@ -26,7 +26,7 @@ import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment
 import com.example.plantonic.ui.search.SearchFragment
 import com.example.plantonic.utils.CartUtil
-import com.example.plantonic.utils.EncryptUtil
+import com.example.plantonic.utils.crypto.EncryptUtil
 import com.example.plantonic.utils.FavUtil
 import com.example.plantonic.utils.HomeUtil
 import com.example.plantonic.utils.constants.IntentConstants

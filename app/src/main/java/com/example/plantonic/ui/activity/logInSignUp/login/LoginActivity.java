@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.ui.activity.logInSignUp.otp.OtpVerifyActivity;
 import com.example.plantonic.ui.activity.logInSignUp.signup.SignUpActivity;
+import com.example.plantonic.utils.StorageUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     LoginViewModel viewModel;
+    private final StorageUtil localStorage = StorageUtil.Companion.getInstance();
 
 
     private static final String TAG = "GOOGLE_SIGN_IN_TAG";
@@ -67,6 +70,10 @@ public class LoginActivity extends AppCompatActivity {
         signUpBtn = findViewById(R.id.btnSignIN);
         googleSignInBtn = findViewById(R.id.btnSignInGoogle);
         progressBar = findViewById(R.id.progressbar);
+
+        // Initialize storage
+        localStorage.setSharedPref(getSharedPreferences("sharedPref", Context.MODE_PRIVATE));
+
 
         // Initialize view model
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -250,10 +257,20 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.makeText(LoginActivity.this, "Account created as,\n"+ fullName, Toast.LENGTH_SHORT).show();
                                             }
                                         }
-                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
-                                        finish();
+
+                                        viewModel.getUserToken(uid).observe(LoginActivity.this, new Observer<String>() {
+                                            @Override
+                                            public void onChanged(String token) {
+                                                if (token != null) {
+                                                    // save token to local
+                                                    localStorage.setToken(token);
+                                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                        });
                                     } else {
 //                                        if (Objects.requireNonNull(authResult.getAdditionalUserInfo()).isNewUser()){
                                         //new account created

@@ -52,12 +52,9 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         CartItem cartItem = allCartItems.get(position);
 
         Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.cartProductImage);
-        if (productItem.productName.length() > 60){
-            holder.cartProductName.setText(productItem.productName.substring(0, 60) + "...");
 
-        }else{
-            holder.cartProductName.setText(productItem.productName);
-        }
+        holder.cartProductName.setText(productItem.productName);
+
         holder.cartProductPrice.setText("₹" + StringUtil.Companion.getFormattedPrice(productItem.actualPrice));
         holder.cartActualPrice.setText("₹" +StringUtil.Companion.getFormattedPrice(productItem.listedPrice));
         holder.cartProductItemNo.setText(cartItem.getQuantity().toString());
