@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -44,6 +46,30 @@ public class SignUpActivity extends AppCompatActivity {
         termsCheckBox = findViewById(R.id.termsAndConditionCheckBox);
         privacyPolicyCheckBox = findViewById(R.id.privacyAndPolicyCheckBox);
 
+
+        phoneNo.addTextChangedListener(new TextWatcher() {
+            String prevText = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                prevText = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!phoneNo.getText().toString().trim().startsWith("+91")) {
+                    phoneNo.setText(prevText.toString());
+                    if (3 <= phoneNo.getText().toString().trim().length()) {
+                        phoneNo.setSelection(3);
+                    }
+                }
+            }
+        });
 
         termsAndConditionBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,9 +42,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        if (savedInstanceState == null) {
+            navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        }
+
+
 
 
 

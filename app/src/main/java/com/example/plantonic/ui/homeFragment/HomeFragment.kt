@@ -1,6 +1,8 @@
 package com.example.plantonic.ui.homeFragment
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,14 +25,18 @@ import com.example.plantonic.databinding.FragmentHomeBinding
 import com.example.plantonic.firebaseClasses.CategoryItem
 import com.example.plantonic.firebaseClasses.ProductItem
 import com.example.plantonic.ui.activity.home.HomeActivity
+import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity
 import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
+import com.example.plantonic.ui.dialogbox.LoadingScreen
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment
 import com.example.plantonic.ui.search.SearchFragment
 import com.example.plantonic.utils.CartUtil
-import com.example.plantonic.utils.crypto.EncryptUtil
 import com.example.plantonic.utils.FavUtil
 import com.example.plantonic.utils.HomeUtil
+import com.example.plantonic.utils.StorageUtil
 import com.example.plantonic.utils.constants.IntentConstants
+import com.example.plantonic.utils.crypto.EncryptUtil
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     lateinit var binding : FragmentHomeBinding
@@ -37,6 +44,8 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     private lateinit var viewModel: HomeFragmentViewModel
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var popularItemAdapter: PopularItemAdapter
+
+    private val localStorage = StorageUtil.getInstance()
 
     var isDeeplinkNavigated = false
 
@@ -48,6 +57,9 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(requireActivity())[HomeFragmentViewModel::class.java]
 
+        // Initialize storage
+        localStorage.sharedPref =
+            requireContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
         //Slider of offers
         val slideModels = ArrayList<SlideModel>()
@@ -122,8 +134,7 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
         try {
             if (!isDeeplinkNavigated){
                 arguments?.getString("id")?.let {
-                    navigateToProductFragment(EncryptUtil.decrypt(it))
-                    isDeeplinkNavigated = true
+                    checkLogin(it)
                 }
             }
         } catch (e : Exception){
@@ -173,6 +184,7 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
         CartUtil.lastFragment = ""
         FavUtil.lastFragment = ""
         (requireActivity() as HomeActivity).showBottomNavBar()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     //backspaced backstack
@@ -188,5 +200,66 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+
+    private fun checkLogin(productId: String) {
+        // SHow loading dialog box
+        LoadingScreen.showLoadingDialog(requireContext())
+
+        // check if user is logged in or not
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            viewModel.checkIfUserExists(FirebaseAuth.getInstance().uid).observe(viewLifecycleOwner, Observer { userExists ->
+                // if user exists in firebase
+                if (userExists != null && userExists) {
+
+                    // check if user exists in server and get jwt token
+                    FirebaseAuth.getInstance().currentUser?.uid?.let {
+                        viewModel.getUserToken(it).observe(viewLifecycleOwner) { token ->
+
+                            if (token != null) {
+                                // save token to local storage
+                                localStorage.token = token
+
+                                // Stop the loader
+                                try {
+                                    LoadingScreen.hideLoadingDialog()
+                                }catch (e : Exception){
+                                    e.stackTrace
+                                }
+
+                                // navigate to product page
+                                navigateToProductFragment(EncryptUtil.decrypt(productId))
+                                isDeeplinkNavigated = true
+
+                            }else{
+                                navigateToLoginScreen()
+                            }
+                        }
+                    }
+                } else {
+                    navigateToLoginScreen()
+                }
+            })
+        } else {
+            navigateToLoginScreen()
+        }
+    }
+
+    private fun navigateToLoginScreen () {
+        try {
+            LoadingScreen.hideLoadingDialog()
+        }catch (e : Exception){
+            e.stackTrace
+        }
+
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
+        requireActivity().finish()
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }
 }

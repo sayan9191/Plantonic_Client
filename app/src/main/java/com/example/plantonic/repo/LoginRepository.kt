@@ -57,7 +57,7 @@ class LoginRepository {
                         }
                     } else {
                         _userToken.postValue(null)
-                        Log.d("Login: ", "failed")
+                        Log.d("Login: ", "failed ${response.message()}")
                     }
                 }
 

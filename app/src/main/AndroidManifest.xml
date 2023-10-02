@@ -22,7 +22,6 @@
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -81,7 +80,6 @@
             android:value="your_key_here" />
 
 
-
         <activity
             android:name=".ui.activity.splash.SplashScreen"
             android:exported="true">
@@ -136,9 +134,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.logInSignUp.signup.SignUpActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.activity.logInSignUp.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
     </application>
 
