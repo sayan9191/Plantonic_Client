@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.AddressItem;
+import com.example.plantonic.retrofit.models.pincode.PinCodeAvailableResponseModel;
+import com.example.plantonic.ui.dialogbox.LoadingScreen;
 import com.example.plantonic.utils.constants.IntentConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.razorpay.Checkout;
@@ -112,15 +114,52 @@ public class CheckoutActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Address is missing",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    // Check phone number
+
+
+                    viewModel.checkIfPinCodeAvailable(addressPinCode.getText().toString());
+                    viewModel.isPinCodeAvailable.observe(CheckoutActivity.this, new Observer<PinCodeAvailableResponseModel>() {
+                        @Override
+                        public void onChanged(PinCodeAvailableResponseModel pinCodeAvailableRes) {
+                            if (pinCodeAvailableRes!= null && pinCodeAvailableRes.is_delivery_possible()){
+                                saveAddress(new AddressItem(FirebaseAuth.getInstance().getUid(), addressFullName.getText().toString(), addressPhoneNo.getText().toString(),
+                                        addressPinCode.getText().toString(), addressState.getText().toString(), addressCity.getText().toString(),
+                                        addressAreaName.getText().toString(), addressType));
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Sorry we're not available at your area, please try another pincode",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 //                    startPayment(payablePriceLoad);
-                    saveAddress(new AddressItem(FirebaseAuth.getInstance().getUid(), addressFullName.getText().toString(), addressPhoneNo.getText().toString(),
-                            addressPinCode.getText().toString(), addressState.getText().toString(), addressCity.getText().toString(),
-                            addressAreaName.getText().toString(), addressType));
+
 
                 }
             }
         });
 
+        viewModel.errorMessage.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (!Objects.equals(s, "")) {
+                    Toast.makeText(CheckoutActivity.this, s, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        viewModel.isLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                if (isLoading) {
+                    LoadingScreen.Companion.showLoadingDialog(CheckoutActivity.this);
+                } else {
+                    try {
+                        LoadingScreen.Companion.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.getStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void selectHome(){

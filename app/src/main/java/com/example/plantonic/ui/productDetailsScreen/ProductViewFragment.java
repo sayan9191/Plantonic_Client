@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,13 +45,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
     TextView addToCartBtn, goToCartBtn;
     TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount;
     ImageView backBtn;
-    com.google.android.material.floatingactionbutton.FloatingActionButton shareBtn, favouriteBtn;
+    CircleImageView shareBtn, favouriteBtn;
     NestedScrollView productDetailsScrollView;
     ProgressBar progressBar;
     int productNo = 1;
@@ -209,7 +212,7 @@ public class ProductViewFragment extends Fragment {
                         favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), android.R.color.holo_red_dark));
 
                     } else {
-                        favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.green));
+                        favouriteBtn.setForegroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.light_gray));
 
                     }
 

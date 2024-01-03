@@ -1,27 +1,17 @@
 package com.example.plantonic.repo
 
 import android.util.Log
-import com.example.plantonic.utils.NetworkUtils.Companion.getRetrofitInstance
-import com.example.plantonic.retrofit.RemoteApi
-import com.example.plantonic.utils.NetworkUtils
-import com.google.firebase.firestore.FirebaseFirestore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.LiveData
-import com.google.firebase.firestore.DocumentSnapshot
 import com.example.plantonic.firebaseClasses.UserItem
-import com.example.plantonic.utils.crypto.EasyAES
-import com.example.plantonic.retrofit.models.AuthRequestModel
-import com.example.plantonic.retrofit.models.AuthResponseModel
+import com.example.plantonic.retrofit.models.auth.AuthRequestModel
+import com.example.plantonic.retrofit.models.auth.AuthResponseModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginRepository {
-    private val aes = EasyAES()
 
-    private val api = getRetrofitInstance().create(RemoteApi::class.java)
-    private val db = FirebaseFirestore.getInstance()
-
+class LoginRepository : BaseRepository() {
     private val _userExists: MutableLiveData<Boolean?> = MutableLiveData()
     val userExists: LiveData<Boolean?> = _userExists
 
@@ -43,7 +33,9 @@ class LoginRepository {
     }
 
     fun getJwtToken(userId: String?): LiveData<String?> {
-        api.getUserToken(AuthRequestModel(aes.encrypt(userId)))
+        val uid = aes.encrypt(userId)
+        Log.d("UID: ", uid)
+        api.getUserToken(AuthRequestModel(uid))
             .enqueue(object : Callback<AuthResponseModel?> {
                 override fun onResponse(
                     call: Call<AuthResponseModel?>,
@@ -63,7 +55,7 @@ class LoginRepository {
 
                 override fun onFailure(call: Call<AuthResponseModel?>, t: Throwable) {
                     _userToken.postValue(null)
-                    Log.d("Login: ", "failed")
+                    Log.d("Login: ", "failed" + t.message)
                     t.stackTrace
                 }
             })

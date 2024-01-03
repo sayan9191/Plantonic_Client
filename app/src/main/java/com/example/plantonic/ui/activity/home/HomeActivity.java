@@ -15,6 +15,7 @@ import com.example.plantonic.R;
 import com.example.plantonic.databinding.ActivityHomeBinding;
 import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
+//        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
 
 
 
