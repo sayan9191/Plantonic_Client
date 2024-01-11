@@ -1,5 +1,6 @@
 package com.example.plantonic.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -153,12 +154,14 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             productDeliveryFreeText = itemView.findViewById(R.id.productDeliveryFreeText);
         }
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void updateAllCartProductItems(List<ProductItem> list){
         allCartProductItems.clear();
         allCartProductItems.addAll(list);
         this.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateAllCartItems(List<CartItem> list){
         allCartItems.clear();
         allCartItems.addAll(list);

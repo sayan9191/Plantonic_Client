@@ -3,4 +3,38 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_google_web_client_id">171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com</string>
+
+
+    <!--    CHECKOUT PAGE-->
+    <string name="enter_valid_mobile_no">Please enter valid Mobile Number</string>
+    <string name="address_is_missing">Address is missing</string>
+    <string name="city_is_missing">City is missing</string>
+    <string name="state_is_missing">State is missing</string>
+    <string name="phone_number_is_missing">Phone Number is missing</string>
+    <string name="pincode_is_missing">Pin code is missing</string>
+    <string name="full_name_is_missing">Full name is missing</string>
+    <string name="UNABLE_TO_FETCH_PIN_CODE">Sorry, We are not available at your area, please try another pincode</string>
+    <string name="enter_valid_email_id">Please enter valid Email Id.</string>
+
+    <!--    ORDER PLACED SUCCESSFUL-->
+    <string name="order_placed_successfully">Order placed successfully</string>
+    <string name="continue_shopping">Continue Shopping</string>
+    <string name="payment_completed_message">Our delivery partner will collect the money. \nPlease check the delivery status \n<b>My Orders page</b></string>
+
+    <!--    MY ORDER-->
+    <string name="track_order">Track Order</string>
+    <string name="delivered_by">Delivered by</string>
+    <string name="order_placed_on">Order placed on</string>
+    <string name="order_id">Order Id</string>
+    <string name="status_of_order">Status of Order</string>
+    <string name="title_activity_payment_method_selection">PaymentMethodSelectionActivity</string>
+
+    <!--    payment method-->
+    <string name="select_your_payment_method">Select your payment method</string>
+    <string name="debit_credit_card">Debit Card/ Credit Card</string>
+    <string name="g_pay">G-Pay</string>
+    <string name="Phone_pay">Phone pay</string>
+    <string name="paytm">Paytm</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="not_available">This option is not available for your pin code.</string>
 </resources>

@@ -6,6 +6,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -18,28 +27,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.R;
 import com.example.plantonic.firebaseClasses.FavouriteItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomSheet;
 import com.example.plantonic.utils.CartUtil;
-import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.example.plantonic.utils.FavUtil;
 import com.example.plantonic.utils.ProductUtil;
+import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -272,12 +270,7 @@ public class ProductViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
-//                if (isCart) {
                     ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(PRODUCT_ID, productId);
-//                    bundle.putString(IntentConstants.PRODUCT_QUANTITY, "4");
-//                    cartBottomSheet.setArguments(bundle);
                     cartBottomSheet.show(requireActivity().getSupportFragmentManager(), "TAG");
 //                }
             }

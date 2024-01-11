@@ -377,11 +377,9 @@
             android:id="@+id/addToCartBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:background="@color/yellow"
             android:gravity="center"
             android:textColor="@color/black"
-
             android:text="ADD TO CART"
             android:layout_weight="1"
             />
