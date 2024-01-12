@@ -384,7 +384,6 @@
             android:text="Place order"
             android:textAlignment="center"
             android:textColor="@color/black"
-
             android:textSize="18sp"
 
             app:layout_constraintBottom_toBottomOf="parent"

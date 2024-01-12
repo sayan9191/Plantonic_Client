@@ -1,10 +1,10 @@
 package com.example.plantonic.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.plantonic.databinding.ActivityThankYouOrderBinding;
 import com.example.plantonic.ui.activity.home.HomeActivity;
@@ -18,7 +18,7 @@ public class ThankYouOrderActivity extends AppCompatActivity {
         binding = ActivityThankYouOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+        binding.continueShoppingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThankYouOrderActivity.this, HomeActivity.class);

@@ -1,0 +1,19 @@
+<!-- res/drawable/rounded_border_rectangle.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background rectangle with curved corners -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="#000000" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</layer-list>

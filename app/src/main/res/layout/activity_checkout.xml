@@ -344,6 +344,23 @@
                     android:maxLines="3" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/specailMessageEditTxt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addressCityEditTxt"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:hint="Any Special Instructions(Optional)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/specailMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:maxLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/typeAddress"

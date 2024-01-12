@@ -34,23 +34,30 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/orderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_id"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/deliveredItemProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
-                android:textStyle="bold"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/deliveredItemDescription"
+                android:id="@+id/deliveredItemQuantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Product Description"
-                android:textSize="14sp"
-                />
+                android:text="Quantity: "
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/deliveredItemPrice"
@@ -58,9 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Price: 748/-"
-                android:textSize="16sp"
+                android:text="Price: /-"
+                android:textSize="14sp"
                 />
 
 
@@ -72,7 +78,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order placed on"
+                    android:text="@string/order_placed_on"
                     android:textSize="14sp"
                     android:textColor="@color/black"/>
 
@@ -80,10 +86,9 @@
                     android:id="@+id/orderPlacedDateTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25th december"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -93,25 +98,36 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/deliveryStatusTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delivered by"
+                    android:text="@string/delivered_by"
                     android:textSize="14sp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/deliveryDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25th december"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black" />
+
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/trackOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_gradient_bg"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/track_order"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         </LinearLayout>

@@ -12,8 +12,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/back_icon"
+        android:drawableStart="@drawable/back_icon"
         android:text="Back"
+        android:visibility="gone"
         android:textColor="@color/green"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +24,6 @@
         android:id="@+id/orderSuccessfulAnimation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_below="@+id/btnBack"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/btnBack"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Order placed successfully"
+        android:text="@string/order_placed_successfully"
         android:textColor="@color/green"
         android:textSize="30sp"
         android:padding="10dp"
@@ -53,11 +53,31 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:padding="10dp"
-        android:text="You can find your orders under : Profile -> My Orders"
-
+        android:text="@string/payment_completed_message"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thankYouTextView" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/continueShoppingBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/offer_background"
+        android:backgroundTint="@color/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderDeliveredDate">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/continue_shopping"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
