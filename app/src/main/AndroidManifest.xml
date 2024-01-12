@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
     <queries>
 
         <!-- List of apps which you want to support for Intent pay -->
@@ -59,8 +56,7 @@
         </receiver>
 
 
-        <activity
-            android:name=".ui.activity.OrderSummaryActivity"
+        <activity android:name=".ui.activity.OrderSummaryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -116,21 +112,21 @@
             <tools:validation testUrl="https://plantonic.co.in/p/93bd77c0-6f9a-4580-8828-99e5383c54fe" />
 
             <!--<intent-filter android:autoVerify="true">
-                    <action android:name="android.intent.action.VIEW" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                    <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                    <data
-                        android:scheme="https"
-                        android:host="plantonic.co.in"
-                        android:pathPrefix="/p" />
-                </intent-filter>-->
+                <data
+                    android:scheme="https"
+                    android:host="plantonic.co.in"
+                    android:pathPrefix="/p" />
+            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
 
-            <nav-graph android:value="@navigation/main_nav_graph" />
+            <nav-graph android:value="@navigation/main_nav_graph"/>
         </activity>
         <activity
             android:name=".ui.activity.forget_password.ResetPasswordActivity"
@@ -140,24 +136,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.logInSignUp.signup.SignUpActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.activity.logInSignUp.login.LoginActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             android:exported="false" />
-
-        <activity
-            android:name="com.example.plantonic.ui.activity.PaymentMethodsActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
     </application>
 
 </manifest>
-
-
-
-

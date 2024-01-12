@@ -47,7 +47,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
     ArrayList<ProductItem> allProductItems = new ArrayList<>();
 
     // User Details
-    String fullName, address, phoneNo, email, addressType, pincode;
+    String fullName, address, phoneNo, email, addressType, pincode, specialDeliveryInstruction;
 
     // Last order
     String lastOrder = "";
@@ -69,6 +69,8 @@ public class OrderSummaryActivity extends AppCompatActivity {
         email = intent.getStringExtra(IntentConstants.DELIVERY_EMAIL);
         addressType = intent.getStringExtra(IntentConstants.ADDRESS_TYPE);
         payable = intent.getLongExtra(IntentConstants.PAY_AMOUNT,0L);
+//        landmark = intent.getStringExtra(IntentConstants.DELIVERY_LANDMARK);
+        specialDeliveryInstruction = intent.getStringExtra(IntentConstants.DELIVERY_SPECIAL_INSTRUCTION);
 
         binding.deliverToName.setText(fullName);
         binding.deliveryAddress.setText(address);
@@ -283,7 +285,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
                     "", System.currentTimeMillis(),
                     String.valueOf(Long.parseLong(currentProductItem.getActualPrice()) * currentCartItem.getQuantity()),
                     String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
-                    String.valueOf(deliveryCharge), -1L, ""));
+                    String.valueOf(deliveryCharge), -1L, specialDeliveryInstruction));
         }
         return allOrders;
     }

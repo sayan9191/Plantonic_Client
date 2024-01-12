@@ -1,21 +1,21 @@
 package com.example.plantonic.ui.activity
 
-import com.example.plantonic.ui.dialogbox.LoadingScreen.Companion.showLoadingDialog
-import com.example.plantonic.ui.dialogbox.LoadingScreen.Companion.hideLoadingDialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.example.plantonic.R
-import androidx.lifecycle.ViewModelProvider
 import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.plantonic.R
 import com.example.plantonic.databinding.ActivityCheckoutBinding
-
 import com.example.plantonic.firebaseClasses.AddressItem
-import com.google.firebase.auth.FirebaseAuth
-
+import com.example.plantonic.ui.dialogbox.LoadingScreen.Companion.hideLoadingDialog
+import com.example.plantonic.ui.dialogbox.LoadingScreen.Companion.showLoadingDialog
 import com.example.plantonic.utils.constants.IntentConstants
-import java.lang.Exception
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class CheckoutActivity : AppCompatActivity() {
@@ -24,6 +24,9 @@ class CheckoutActivity : AppCompatActivity() {
     private lateinit var viewModel: CheckoutActivityViewModel
     var payablePriceLoad: Long? = null
     var isPinCodeChecked = false
+    private val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$")
+    private val mobileRegex = Regex("[6-9]\\d{9}")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckoutBinding.inflate(layoutInflater);
@@ -49,33 +52,72 @@ class CheckoutActivity : AppCompatActivity() {
             }
         })
 
+
+        // add +91
+        binding.addressPhoneNo.onFocusChangeListener = OnFocusChangeListener { _, isFocused ->
+            if (isFocused) {
+                if (binding.addressPhoneNo.text.toString() == "") {
+                    binding.addressPhoneNo.setText("+91")
+                    binding.addressPhoneNo.setSelection(3)
+                }
+            } else if (binding.addressPhoneNo.text.toString() == "+91") {
+                binding.addressPhoneNo.setText("")
+            }
+        }
+
+
+        binding.addressPhoneNo.addTextChangedListener(object : TextWatcher {
+            var prevText = ""
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                prevText = charSequence.toString()
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun afterTextChanged(editable: Editable) {
+                if (!binding.addressPhoneNo.text.toString().trim { it <= ' ' }.startsWith("+91")) {
+                    binding.addressPhoneNo.setText(prevText)
+                    if (3 <= binding.addressPhoneNo.text.toString().trim { it <= ' ' }.length) {
+                        binding.addressPhoneNo.setSelection(3)
+                    }
+                }
+            }
+        })
+
+
         // Get saved address
         address
         binding.proceedToPaymentBtn.setOnClickListener(View.OnClickListener {
+
             if (binding.addressFullName.text.toString() == "") {
                 binding.addressFullName.requestFocus()
-                Toast.makeText(applicationContext, "Full name is missing", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, R.string.full_name_is_missing, Toast.LENGTH_SHORT)
                     .show()
-            } else if (binding.addressPhoneNo.text.toString() == "") {
+            } else if (binding.addressPhoneNo.text.toString().length != 13 && !binding.addressPhoneNo.text
+                    .toString().matches(mobileRegex)) {
                 binding.addressFullName.requestFocus()
-                Toast.makeText(applicationContext, "Phone Number is missing", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, R.string.phone_number_is_missing, Toast.LENGTH_SHORT)
                     .show()
             } else if (binding.addressPinCode.text.toString() == "") {
                 binding.addressPinCode.requestFocus()
-                Toast.makeText(applicationContext, "Pin code is missing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.pincode_is_missing, Toast.LENGTH_SHORT).show()
             } else if (binding.addressState.text.toString() == "") {
                 binding.addressState.requestFocus()
-                Toast.makeText(applicationContext, "State is missing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.state_is_missing, Toast.LENGTH_SHORT).show()
             } else if (binding.addressCity.text.toString() == "") {
                 binding.addressCity.requestFocus()
-                Toast.makeText(applicationContext, "City is missing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.city_is_missing, Toast.LENGTH_SHORT).show()
             } else if (binding.addressAreaName.text.toString() == "") {
                 binding.addressAreaName.requestFocus()
-                Toast.makeText(applicationContext, "Address is missing", Toast.LENGTH_SHORT).show()
-            } else {
-                // Check phone number
-
+                Toast.makeText(applicationContext, R.string.address_is_missing, Toast.LENGTH_SHORT).show()
                 // Check email if entered
+            } else if (binding.addressEmail.text.toString() != "" && !binding.addressEmail.text.toString().matches(emailRegex)) {
+                binding.addressEmail.text
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.enter_valid_email_id),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 isPinCodeChecked = false
                 viewModel.checkIfPinCodeAvailable(binding.addressPinCode.text.toString())
                 viewModel.isPinCodeAvailable.observe(this@CheckoutActivity) { pinCodeAvailableRes ->
@@ -91,7 +133,9 @@ class CheckoutActivity : AppCompatActivity() {
                                         binding.addressCity.text.toString(),
                                         binding.addressAreaName.text.toString(),
                                         addressType,
-                                        binding.addressEmail.text.toString()
+                                        binding.addressEmail.text.toString(),
+                                        binding.addressLandMark.text.toString(),
+                                        binding.specialMessage.text.toString()
                                     )
                                 )
                                 isPinCodeChecked = true
@@ -145,15 +189,19 @@ class CheckoutActivity : AppCompatActivity() {
                 binding.nestedScrollView.isClickable = true
                 val intent = Intent(this@CheckoutActivity, OrderSummaryActivity::class.java)
                 intent.putExtra(IntentConstants.DELIVERY_NAME, addressItem.fullName)
+                var customerAddress = addressItem.area + ", " + addressItem.city + ", " + addressItem.state + ", Pin - " + addressItem.pinCode
+                if (addressItem.landmark != ""){
+                    customerAddress += ", Near - ${addressItem.specialInstruction}"
+                }
                 intent.putExtra(
-                    IntentConstants.DELIVERY_ADDRESS, addressItem.area + ", "
-                            + addressItem.city + ", " + addressItem.state + ", Pin - "
-                            + addressItem.pinCode
+                    IntentConstants.DELIVERY_ADDRESS, customerAddress
                 )
                 intent.putExtra(IntentConstants.DELIVERY_PINCODE, addressItem.pinCode)
                 intent.putExtra(IntentConstants.ADDRESS_TYPE, addressItem.addressType)
                 intent.putExtra(IntentConstants.DELIVERY_PHONE, addressItem.phoneNo)
                 intent.putExtra(IntentConstants.DELIVERY_EMAIL, addressItem.email)
+//                intent.putExtra(IntentConstants.DELIVERY_LANDMARK, addressItem.landmark)
+                intent.putExtra(IntentConstants.DELIVERY_SPECIAL_INSTRUCTION, addressItem.specialInstruction)
                 val firstLetterType = addressItem.addressType[0].toString()
                 intent.putExtra(
                     IntentConstants.ADDRESS_TYPE,

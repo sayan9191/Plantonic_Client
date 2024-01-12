@@ -74,7 +74,23 @@ public class AddressItem {
         this.email = email;
     }
 
-    public AddressItem(String userId, String fullName, String phoneNo, String pinCode, String state, String city, String area, String addressType, String email) {
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
+    }
+
+    public String getSpecialInstruction() {
+        return specialInstruction;
+    }
+
+    public void setSpecialInstruction(String specialInstruction) {
+        this.specialInstruction = specialInstruction;
+    }
+
+    public AddressItem(String userId, String fullName, String phoneNo, String pinCode, String state, String city, String area, String addressType, String email, String landmark, String specialInstruction) {
         this.userId = userId;
         this.fullName = fullName;
         this.phoneNo = phoneNo;
@@ -84,6 +100,8 @@ public class AddressItem {
         this.area = area;
         this.addressType = addressType;
         this.email = email;
+        this.landmark = landmark;
+        this.specialInstruction = specialInstruction;
     }
 
     public AddressItem() {
@@ -96,6 +114,8 @@ public class AddressItem {
         this.area = "";
         this.addressType = "";
         this.email = "";
+        this.landmark = "";
+        this.specialInstruction = "";
     }
 
     private String userId;
@@ -107,4 +127,6 @@ public class AddressItem {
     private String area;
     private String addressType;
     private String email;
+    private String landmark;
+    private String specialInstruction;
 }

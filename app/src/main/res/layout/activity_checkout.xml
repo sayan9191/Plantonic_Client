@@ -224,7 +224,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:maxLength="10"
+                    android:maxLength="13"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -245,8 +245,7 @@
                     android:id="@+id/addressEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:maxLength="10"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -345,7 +344,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/specailMessageEditTxt"
+                android:id="@+id/specialMessageEditTxt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -356,7 +355,7 @@
                 android:hint="Any Special Instructions(Optional)">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/specailMessage"
+                    android:id="@+id/specialMessage"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:maxLines="3" />
@@ -413,7 +412,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/offer_background"
                 android:backgroundTint="@color/yellow"
                 android:gravity="center"
