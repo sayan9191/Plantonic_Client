@@ -17,7 +17,8 @@ class BlueDartRepository : BaseRepository(){
 
 
     fun checkIsPinCodeAvailable(pincode: String){
-        api.checkPinCodeAvailability(pincode).enqueue(object: Callback<PinCodeAvailableResponseModel>{
+        isLoading.postValue(true)
+        api.checkPinCodeAvailability("Bearer " + localStorage.token, pincode).enqueue(object: Callback<PinCodeAvailableResponseModel>{
             override fun onResponse(
                 call: Call<PinCodeAvailableResponseModel>,
                 response: Response<PinCodeAvailableResponseModel>

@@ -1,6 +1,7 @@
 package com.example.plantonic.firebaseClasses;
 
 public class ProductItem {
+
     public String productId;
     public String merchantId;
     public String productName;
@@ -15,6 +16,10 @@ public class ProductItem {
     private String deliveryCharge;
     private String category;
     private Long timestamp;
+    private String breadth;
+    private String height;
+    private String length;
+    private String weight;
 
     public ProductItem() {
         this.category = "";
@@ -31,9 +36,14 @@ public class ProductItem {
         this.imageUrl4 = "";
         this.currentStock = 0L;
         this.deliveryCharge = "";
+        this.breadth = "";
+        this.height = "";
+        this.length = "";
+        this.weight = "";
     }
 
-    public ProductItem(String productId, String merchantId, String productName, String productDescription, String listedPrice, String actualPrice, String imageUrl1, String imageUrl2, String imageUrl3, String imageUrl4, Long currentStock, String deliveryCharge, String category, Long timestamp) {
+
+    public ProductItem(String productId, String merchantId, String productName, String productDescription, String listedPrice, String actualPrice, String imageUrl1, String imageUrl2, String imageUrl3, String imageUrl4, Long currentStock, String deliveryCharge, String category, Long timestamp, String breadth, String height, String length, String weight) {
         this.productId = productId;
         this.merchantId = merchantId;
         this.productName = productName;
@@ -48,23 +58,12 @@ public class ProductItem {
         this.deliveryCharge = deliveryCharge;
         this.category = category;
         this.timestamp = timestamp;
+        this.breadth = breadth;
+        this.height = height;
+        this.length = length;
+        this.weight = weight;
     }
 
-    public Long getCurrentStock() {
-        return currentStock;
-    }
-
-    public void setCurrentStock(Long currentStock) {
-        this.currentStock = currentStock;
-    }
-
-    public String getDeliveryCharge() {
-        return deliveryCharge;
-    }
-
-    public void setDeliveryCharge(String deliveryCharge) {
-        this.deliveryCharge = deliveryCharge;
-    }
 
     public String getProductId() {
         return productId;
@@ -146,6 +145,21 @@ public class ProductItem {
         this.imageUrl4 = imageUrl4;
     }
 
+    public Long getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Long currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public String getDeliveryCharge() {
+        return deliveryCharge;
+    }
+
+    public void setDeliveryCharge(String deliveryCharge) {
+        this.deliveryCharge = deliveryCharge;
+    }
 
     public String getCategory() {
         return category;
@@ -161,5 +175,37 @@ public class ProductItem {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getBreadth() {
+        return breadth;
+    }
+
+    public void setBreadth(String breadth) {
+        this.breadth = breadth;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 }

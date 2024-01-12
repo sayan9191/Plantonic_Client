@@ -1,27 +1,42 @@
 package com.example.plantonic.repo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.plantonic.firebaseClasses.OrderItem
 import com.example.plantonic.firebaseClasses.UserOrderItem
+import com.example.plantonic.retrofit.models.CommonErrorModel
+import com.example.plantonic.retrofit.models.order.PlaceOrderRequestModel
+import com.example.plantonic.retrofit.models.order.PlaceOrderResponseModel
 import com.example.plantonic.utils.constants.DatabaseConstants.*
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class OrderRepository {
+class OrderRepository : BaseRepository() {
 
     private val cartRepository = CartRepository()
 
     private val _lastOrder : MutableLiveData<String> = MutableLiveData();
-    val lastOrder : LiveData<String> = _lastOrder
+//    val lastPlacedOrderId : LiveData<String> = _lastOrder
+//get() {
+//        return orderRepository.lastOrder
+//    }
 
     private val _allOrderItems: MutableLiveData<List<OrderItem>> = MutableLiveData()
     val allOrderItems: LiveData<List<OrderItem>> = _allOrderItems
 
     private val allOrdersMap: HashMap<String, OrderItem> = HashMap()
     private val allUserOrdersMap: HashMap<String, UserOrderItem> = HashMap()
+
+
+    private val _placeOrderResponse : MutableLiveData<PlaceOrderResponseModel> = MutableLiveData()
+    val placeOrderResponse : LiveData<PlaceOrderResponseModel> = _placeOrderResponse
 
     fun getAllUserOrders(userId: String) {
         getAllUserOrdersReference(userId).addChildEventListener(object : ChildEventListener {
@@ -80,6 +95,43 @@ class OrderRepository {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+        })
+    }
+
+
+    fun placeOrder(all_orders: List<OrderItem>){
+        isLoading.postValue(true)
+        api.placeOrder("Bearer " + localStorage.token, PlaceOrderRequestModel(all_orders)).enqueue(object : Callback<PlaceOrderResponseModel>{
+            override fun onResponse(
+                call: Call<PlaceOrderResponseModel>,
+                response: Response<PlaceOrderResponseModel>
+            ) {
+                if (response.isSuccessful) {
+                    isLoading.postValue(false)
+                    errorMessage.postValue("")
+                    response.body()?.let {
+                        _placeOrderResponse.postValue(it)
+                    }
+                } else {
+                    isLoading.postValue(false)
+                    response.errorBody()?.let { errorBody ->
+                        errorBody.string().let {
+                            Log.e("Error: ", it)
+                            val errorResponse: CommonErrorModel =
+                                Gson().fromJson(it, CommonErrorModel::class.java)
+                            errorMessage.postValue(errorResponse.detail)
+                            Log.e("Error: ", errorResponse.detail)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceOrderResponseModel>, t: Throwable) {
+                Log.d("Request Failed. Error: ", t.message.toString())
+                isLoading.postValue(false)
+                errorMessage.postValue("Something went wrong")
+            }
+
         })
     }
 

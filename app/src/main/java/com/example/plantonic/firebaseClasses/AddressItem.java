@@ -66,7 +66,15 @@ public class AddressItem {
         this.addressType = addressType;
     }
 
-    public AddressItem(String userId, String fullName, String phoneNo, String pinCode, String state, String city, String area, String addressType) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public AddressItem(String userId, String fullName, String phoneNo, String pinCode, String state, String city, String area, String addressType, String email) {
         this.userId = userId;
         this.fullName = fullName;
         this.phoneNo = phoneNo;
@@ -75,6 +83,7 @@ public class AddressItem {
         this.city = city;
         this.area = area;
         this.addressType = addressType;
+        this.email = email;
     }
 
     public AddressItem() {
@@ -86,6 +95,7 @@ public class AddressItem {
         this.city = "";
         this.area = "";
         this.addressType = "";
+        this.email = "";
     }
 
     private String userId;
@@ -96,4 +106,5 @@ public class AddressItem {
     private String city;
     private String area;
     private String addressType;
+    private String email;
 }

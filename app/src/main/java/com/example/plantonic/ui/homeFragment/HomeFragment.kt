@@ -24,6 +24,7 @@ import com.example.plantonic.R
 import com.example.plantonic.databinding.FragmentHomeBinding
 import com.example.plantonic.firebaseClasses.CategoryItem
 import com.example.plantonic.firebaseClasses.ProductItem
+import com.example.plantonic.retrofit.models.home.HomePageBannerResponseModel
 import com.example.plantonic.ui.activity.home.HomeActivity
 import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity
 import com.example.plantonic.ui.categoryItemFragment.CategoryItemsFragment
@@ -63,70 +64,60 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
 
         //Slider of offers
         val slideModels = ArrayList<SlideModel>()
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        slideModels.add(
-            SlideModel(
-                "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175__480.jpg",
-                ScaleTypes.FIT
-            )
-        )
-        binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT)
 
-        //Adapters
-        categoryAdapter = CategoryAdapter(this.context, this)
-        popularItemAdapter = PopularItemAdapter(this.context, this)
-        binding.recyclerView1.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        binding.recyclerView1.adapter = categoryAdapter
-        binding.searchResultRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
-        binding.searchResultRecyclerView.adapter = popularItemAdapter
-
-
-        //Search Button of products
-        binding.searchBtn.setOnClickListener(View.OnClickListener {
-            val fragmentTransaction = parentFragmentManager.beginTransaction()
-            fragmentTransaction.addToBackStack("searchFragment")
-                .setReorderingAllowed(true).replace(R.id.fragmentContainerView, SearchFragment())
-            fragmentTransaction.commit()
-            HomeUtil.lastFragment = "search"
-        })
-
-        // Observe Categories
-        viewModel.allCategories.observe(viewLifecycleOwner) { categoryItems ->
-            categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
-            Log.d("-----------", categoryItems[0].categoryName)
-        }
-
-        // Observe Popular items
-        viewModel.allPopularProductItems.observe(this.viewLifecycleOwner) { popularProductItems ->
-            popularItemAdapter.updatePopularProducts(popularProductItems)
-            if (popularProductItems.size > 0){
-                binding.popularItemProgressBar.visibility = View.GONE
+        viewModel.getAllBanners?.let { liveData ->
+            liveData.observe(viewLifecycleOwner
+                ) { banners ->
+                    banners.data.forEach {
+                        slideModels.add(
+                            SlideModel(it.image_link, ScaleTypes.FIT)
+                        )
+                    }
+                binding.imageSlider.setImageList(slideModels, ScaleTypes.FIT)
+                }
             }
+
+
+
+            //Adapters
+            categoryAdapter = CategoryAdapter(this.context, this)
+            popularItemAdapter = PopularItemAdapter(this.context, this)
+            binding.recyclerView1.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            binding.recyclerView1.adapter = categoryAdapter
+            binding.searchResultRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
+            binding.searchResultRecyclerView.adapter = popularItemAdapter
+
+
+            //Search Button of products
+            binding.searchBtn.setOnClickListener(View.OnClickListener {
+                val fragmentTransaction = parentFragmentManager.beginTransaction()
+                fragmentTransaction.addToBackStack("searchFragment")
+                    .setReorderingAllowed(true).replace(R.id.fragmentContainerView, SearchFragment())
+                fragmentTransaction.commit()
+                HomeUtil.lastFragment = "search"
+            })
+
+            // Observe Categories
+            viewModel.allCategories?.observe(viewLifecycleOwner) { categoryItems ->
+                categoryAdapter.updateCategories(categoryItems.sortedBy { it.categoryId.toInt() })
+                Log.d("-----------", categoryItems[0].categoryName)
+            }
+
+            // Observe Popular items
+            viewModel.allPopularProductItems?.observe(this.viewLifecycleOwner) { popularProductItems ->
+                popularItemAdapter.updatePopularProducts(popularProductItems)
+                if (popularProductItems.size > 0){
+                    binding.popularItemProgressBar.visibility = View.GONE
+                }
+            }
+
+            return binding.root
         }
 
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

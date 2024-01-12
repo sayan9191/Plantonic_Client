@@ -45,7 +45,7 @@ class LoginRepository : BaseRepository() {
                         val loginResponse = response.body()
                         if (loginResponse != null) {
                             _userToken.postValue(loginResponse.access_token)
-                            Log.d("Login: ", "success")
+                            Log.d("Login: ", "success ::" + loginResponse.access_token)
                         }
                     } else {
                         _userToken.postValue(null)

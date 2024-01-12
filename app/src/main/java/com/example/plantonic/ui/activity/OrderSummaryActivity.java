@@ -19,6 +19,8 @@ import com.example.plantonic.databinding.ActivityOrderSummaryBinding;
 import com.example.plantonic.firebaseClasses.CartItem;
 import com.example.plantonic.firebaseClasses.OrderItem;
 import com.example.plantonic.firebaseClasses.ProductItem;
+import com.example.plantonic.retrofit.models.order.PlaceOrderResponseModel;
+import com.example.plantonic.ui.dialogbox.LoadingScreen;
 import com.example.plantonic.utils.constants.IntentConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.razorpay.Checkout;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class OrderSummaryActivity extends AppCompatActivity  implements PaymentResultListener {
+public class OrderSummaryActivity extends AppCompatActivity {
 
     ActivityOrderSummaryBinding binding;
     OrderSummaryRVAdapter adapter;
@@ -45,7 +47,7 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
     ArrayList<ProductItem> allProductItems = new ArrayList<>();
 
     // User Details
-    String fullName, address, phoneNo, addressType;
+    String fullName, address, phoneNo, email, addressType, pincode;
 
     // Last order
     String lastOrder = "";
@@ -62,7 +64,9 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         Intent intent = getIntent();
         fullName = intent.getStringExtra(IntentConstants.DELIVERY_NAME);
         address = intent.getStringExtra(IntentConstants.DELIVERY_ADDRESS);
+        pincode = intent.getStringExtra(IntentConstants.DELIVERY_PINCODE);
         phoneNo = intent.getStringExtra(IntentConstants.DELIVERY_PHONE);
+        email = intent.getStringExtra(IntentConstants.DELIVERY_EMAIL);
         addressType = intent.getStringExtra(IntentConstants.ADDRESS_TYPE);
         payable = intent.getLongExtra(IntentConstants.PAY_AMOUNT,0L);
 
@@ -84,8 +88,17 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
         binding.proceedToPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPayment(payable);
                 binding.summaryProgressBar.setVisibility(View.VISIBLE);
+
+                viewModel.placeOrder(getPlaceOrderPayload()).observe(OrderSummaryActivity.this, new Observer<PlaceOrderResponseModel>() {
+                    @Override
+                    public void onChanged(PlaceOrderResponseModel placeOrderResponseModel) {
+                        if (placeOrderResponseModel!=null && placeOrderResponseModel.getStatus().equals("Valid")){
+                            binding.summaryProgressBar.setVisibility(View.GONE);
+                            startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
+                        }
+                    }
+                });
             }
         });
 
@@ -166,65 +179,85 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
 
             }
         });
+
+        viewModel.getErrorMessage().observe(OrderSummaryActivity.this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        if (!Objects.equals(s, "")) {
+                            Toast.makeText(OrderSummaryActivity.this, s, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        viewModel.isLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                if (isLoading) {
+                    LoadingScreen.Companion.showLoadingDialog(OrderSummaryActivity.this);
+                } else {
+                    try {
+                        LoadingScreen.Companion.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.getStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
 
-    private void startPayment(Long price) {
-        /**
-         * Instantiate Checkout
-         */
-        Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_krjMSuWqbBTfqs");
+//    private void startPayment(Long price) {
+//        /**
+//         * Instantiate Checkout
+//         */
+//        Checkout checkout = new Checkout();
+//        checkout.setKeyID("rzp_test_krjMSuWqbBTfqs");
+//
+//        /**
+//         * Set your logo here
+//         */
+//        checkout.setImage(R.drawable.icon);
+//
+//        /**
+//         * Reference to current activity
+//         */
+//        final Activity activity = this;
+//
+//        /**
+//         * Pass your payment options to the Razorpay Checkout as a JSONObject
+//         */
+//        try {
+//            JSONObject options = new JSONObject();
+//
+//            options.put("name", "Plantonic");
+//            options.put("description", "Reference No. #123456");
+//            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
+////            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+//            options.put("theme.color", "#37AC6C");
+//            options.put("currency", "INR");
+//            options.put("amount", price*100);//pass amount in currency subunits
+////            options.put("prefill.email", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
+//            options.put("prefill.contact", binding.deliverToPhoneNo.getText());
+//            JSONObject retryObj = new JSONObject();
+//            retryObj.put("enabled", true);
+//            retryObj.put("max_count", 4);
+//            options.put("retry", retryObj);
+//
+//            checkout.open(activity, options);
+//            binding.summaryProgressBar.setVisibility(View.GONE);
+//
+//        } catch(Exception e) {
+//            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+//            binding.summaryProgressBar.setVisibility(View.GONE);
+//        }
+//    }
 
-        /**
-         * Set your logo here
-         */
-        checkout.setImage(R.drawable.icon);
-
-        /**
-         * Reference to current activity
-         */
-        final Activity activity = this;
-
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-
-            options.put("name", "Plantonic");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
-//            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
-            options.put("theme.color", "#37AC6C");
-            options.put("currency", "INR");
-            options.put("amount", price*100);//pass amount in currency subunits
-//            options.put("prefill.email", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
-            options.put("prefill.contact", binding.deliverToPhoneNo.getText());
-            JSONObject retryObj = new JSONObject();
-            retryObj.put("enabled", true);
-            retryObj.put("max_count", 4);
-            options.put("retry", retryObj);
-
-            checkout.open(activity, options);
-            binding.summaryProgressBar.setVisibility(View.GONE);
-
-        } catch(Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
-            binding.summaryProgressBar.setVisibility(View.GONE);
-        }
-    }
 
 
-    @Override
-    public void onPaymentSuccess(String s) {
-
-        Log.d(TAG, "onPaymentSuccess: "+s);
-
+    private List<OrderItem> getPlaceOrderPayload(){
+        ArrayList<OrderItem> allOrders = new ArrayList<>();
         for (int i = 0; i < allProductItems.size(); i++){
-
-
-
             CartItem currentCartItem = allCartItems.get(i);
             ProductItem currentProductItem = allProductItems.get(i);
 
@@ -240,34 +273,76 @@ public class OrderSummaryActivity extends AppCompatActivity  implements PaymentR
 
             orderId = UUID.randomUUID().toString();
 
-            viewModel.placeOrder(new OrderItem(orderId, currentProductItem.getMerchantId(),
+            allOrders.add(new OrderItem(orderId, currentProductItem.getMerchantId(),
                     currentProductItem.getProductId(),
                     currentCartItem.getUserId(),
-                    fullName, address, addressType, phoneNo,
-                    "online/razorpay",
+                    fullName, address, pincode, addressType, phoneNo,
+                    email,
+                    "COD",
                     currentCartItem.getQuantity(), "order placed",
-                    s, System.currentTimeMillis(),
+                    "", System.currentTimeMillis(),
                     String.valueOf(Long.parseLong(currentProductItem.getActualPrice()) * currentCartItem.getQuantity()),
                     String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
-                    String.valueOf(deliveryCharge), -1L));
+                    String.valueOf(deliveryCharge), -1L, ""));
         }
-
-        viewModel.getLastPlacedOrderId().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String placedOrderId) {
-                if (Objects.equals(OrderSummaryActivity.this.lastOrder, placedOrderId)){
-                    binding.summaryProgressBar.setVisibility(View.GONE);
-                    startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
-                }
-            }
-        });
-
+        return allOrders;
     }
 
-    @Override
-    public void onPaymentError(int i, String s) {
-        binding.summaryProgressBar.setVisibility(View.GONE);
-        Log.d(TAG, "onPaymentError: "+s);
-        Toast.makeText(this, "Payment failed. Try again", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onPaymentSuccess(String s) {
+//
+//        Log.d(TAG, "onPaymentSuccess: "+s);
+//
+//        for (int i = 0; i < allProductItems.size(); i++){
+//
+//            CartItem currentCartItem = allCartItems.get(i);
+//            ProductItem currentProductItem = allProductItems.get(i);
+//
+//            this.lastOrder = currentProductItem.getProductId();
+//
+//            Long deliveryCharge;
+//
+//            if (payable >= 500){
+//                deliveryCharge = 0L;
+//            }else{
+//                deliveryCharge = Long.parseLong(currentProductItem.getDeliveryCharge());
+//            }
+//
+//            orderId = UUID.randomUUID().toString();
+//
+//            all_orders.add(new OrderItem(orderId, currentProductItem.getMerchantId(),
+//                    currentProductItem.getProductId(),
+//                    currentCartItem.getUserId(),
+//                    fullName, address, pincode, addressType, phoneNo,
+//                    "online/razorpay",
+//                    currentCartItem.getQuantity(), "order placed",
+//                    s, System.currentTimeMillis(),
+//                    String.valueOf(Long.parseLong(currentProductItem.getActualPrice()) * currentCartItem.getQuantity()),
+//                    String.valueOf(Long.parseLong(currentProductItem.getListedPrice()) * currentCartItem.getQuantity()),
+//                    String.valueOf(deliveryCharge), -1L));
+//
+//
+//
+//
+////            viewModel.placeOrder();
+//        }
+//
+//        viewModel.getLastPlacedOrderId().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String placedOrderId) {
+//                if (Objects.equals(OrderSummaryActivity.this.lastOrder, placedOrderId)){
+//                    binding.summaryProgressBar.setVisibility(View.GONE);
+//                    startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
+//                }
+//            }
+//        });
+//
+//    }
+//
+//    @Override
+//    public void onPaymentError(int i, String s) {
+//        binding.summaryProgressBar.setVisibility(View.GONE);
+//        Log.d(TAG, "onPaymentError: "+s);
+//        Toast.makeText(this, "Payment failed. Try again", Toast.LENGTH_SHORT).show();
+//    }
 }

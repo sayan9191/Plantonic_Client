@@ -7,8 +7,11 @@ import com.example.plantonic.retrofit.RemoteApi
 import com.example.plantonic.retrofit.models.auth.AuthRequestModel
 import com.example.plantonic.retrofit.models.auth.AuthResponseModel
 import com.example.plantonic.utils.NetworkUtils
+import com.example.plantonic.utils.StorageUtil
 import com.example.plantonic.utils.crypto.EasyAES
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.plantonic.retrofit.models.CommonErrorModel
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +29,7 @@ open class BaseRepository{
         }
     }
 
+    val localStorage = StorageUtil.getInstance()
 
     val api: RemoteApi = NetworkUtils.getRetrofitInstance().create(RemoteApi::class.java)
     val aes = EasyAES()

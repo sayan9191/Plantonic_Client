@@ -114,7 +114,7 @@ public class CartFragment extends Fragment implements CartListner {
                     for (int i = 0; i < productItems.size(); i++) {
                         actualAmount = Long.parseLong(productItems.get(i).getActualPrice()) * allCartItems.get(i).getQuantity() + actualAmount;
                         totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
-                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
+                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) * allCartItems.get(i).getQuantity() + deliveryCharge;
                     }
 
                     discountPrice = totalAmount - actualAmount;
