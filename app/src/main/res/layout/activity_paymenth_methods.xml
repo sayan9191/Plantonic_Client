@@ -193,8 +193,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:src="@drawable/black_line" />
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_gray" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -204,24 +205,23 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:src="@drawable/black_line" />
+
 
             <LinearLayout
                 android:id="@+id/cardLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_rectangular_black"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/button_design"
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:layout_width="24dp"
+                    android:layout_width="19dp"
                     android:layout_height="24dp"
+                    android:clickable="false"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp" />
+                    android:layout_marginStart="15dp" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -244,15 +244,17 @@
                 android:id="@+id/gPayLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_rectangular_black"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/button_design"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:clickable="false"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp" />
+                    android:layout_marginStart="15dp" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -275,15 +277,17 @@
                 android:id="@+id/paytmLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_rectangular_black"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/button_design"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:clickable="false"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp" />
+                    android:layout_marginStart="15dp" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -306,15 +310,17 @@
                 android:id="@+id/phonePayLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_rectangular_black"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/button_design"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp" />
+                    android:clickable="false"
+                    android:layout_marginStart="15dp" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -337,16 +343,19 @@
                 android:id="@+id/coddLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_rectangular_black"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/button_design"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/codCheckBox"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:checked="true"
+
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp" />
+                    android:layout_marginStart="15dp" />
 
                 <ImageView
                     android:layout_width="30dp"

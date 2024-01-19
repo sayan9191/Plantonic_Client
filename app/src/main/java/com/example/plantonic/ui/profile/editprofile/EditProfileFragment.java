@@ -2,6 +2,7 @@ package com.example.plantonic.ui.profile.editprofile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -106,6 +107,20 @@ public class EditProfileFragment extends Fragment {
             email.setText(emailId);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
+    }
+
     //backspaced backstack
     @Override
     public void onAttach(@NonNull Context context) {

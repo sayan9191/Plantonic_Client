@@ -3,6 +3,7 @@ package com.example.plantonic.ui.cartfav;
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -132,6 +133,20 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         }else{
             binding.favBackBtn.setVisibility(View.GONE);
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
     }
 
     //backspaced backstack

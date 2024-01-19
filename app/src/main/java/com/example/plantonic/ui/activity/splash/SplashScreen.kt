@@ -2,19 +2,18 @@ package com.example.plantonic.ui.activity.splash
 
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import com.example.plantonic.ui.activity.splash.SplashScreenViewModel
-import androidx.constraintlayout.motion.widget.MotionLayout
-import android.os.Bundle
-import com.example.plantonic.R
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.plantonic.databinding.ActivitySplashScreenBinding
 import com.example.plantonic.ui.activity.home.HomeActivity
 import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity
 import com.example.plantonic.utils.StorageUtil.Companion.getInstance
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var splashScreenViewModel: SplashScreenViewModel
@@ -61,6 +60,7 @@ class SplashScreen : AppCompatActivity() {
                         splashScreenViewModel.getUserToken(it).observe(this@SplashScreen) { token ->
 
                             if (token != null) {
+                                Log.d("yyuvujtyfvui", token)
                                 // save token to local storage
                                 localStorage.token = token
 

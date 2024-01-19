@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.plantonic.firebaseClasses.OrderItem
 import com.example.plantonic.firebaseClasses.UserOrderItem
 import com.example.plantonic.retrofit.models.CommonErrorModel
+import com.example.plantonic.retrofit.models.order.GetOrdersResponseModel
 import com.example.plantonic.retrofit.models.order.PlaceOrderRequestModel
 import com.example.plantonic.retrofit.models.order.PlaceOrderResponseModel
+import com.example.plantonic.retrofit.models.track.TrackOrderRequestModel
+import com.example.plantonic.retrofit.models.track.TrackOrderResponseModel
 import com.example.plantonic.utils.constants.DatabaseConstants.*
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -37,6 +40,83 @@ class OrderRepository : BaseRepository() {
 
     private val _placeOrderResponse : MutableLiveData<PlaceOrderResponseModel> = MutableLiveData()
     val placeOrderResponse : LiveData<PlaceOrderResponseModel> = _placeOrderResponse
+
+    private val _myOrdersResponseModel : MutableLiveData<GetOrdersResponseModel> = MutableLiveData()
+    val myOrdersResponseModel : LiveData<GetOrdersResponseModel> = _myOrdersResponseModel
+
+    val trackOrderResponse : MutableLiveData<TrackOrderResponseModel> = MutableLiveData()
+
+    fun getMyOrders(page: Int){
+        isLoading.postValue(true)
+        api.getOrders("Bearer " + localStorage.token, page).enqueue( object: Callback<GetOrdersResponseModel>{
+            override fun onResponse(
+                call: Call<GetOrdersResponseModel>,
+                response: Response<GetOrdersResponseModel>
+            ) {
+                if (response.isSuccessful) {
+                    isLoading.postValue(false)
+                    errorMessage.postValue("")
+                    response.body()?.let {
+                        _myOrdersResponseModel.postValue(it)
+                    }
+                } else {
+                    isLoading.postValue(false)
+                    response.errorBody()?.let { errorBody ->
+                        errorBody.string().let {
+                            Log.e("Error: ", it)
+                            val errorResponse: CommonErrorModel =
+                                Gson().fromJson(it, CommonErrorModel::class.java)
+                            errorMessage.postValue(errorResponse.detail)
+                            Log.e("Error: ", errorResponse.detail)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetOrdersResponseModel>, t: Throwable) {
+                Log.d("Request Failed. Error: ", t.message.toString())
+                isLoading.postValue(false)
+                errorMessage.postValue("Something went wrong")
+            }
+
+        })
+    }
+
+    fun trackOrder(orderId: Int) {
+        isLoading.postValue(true)
+        api.trackOrder("Bearer " + localStorage.token, TrackOrderRequestModel(orderId)).enqueue( object: Callback<TrackOrderResponseModel>{
+            override fun onResponse(
+                call: Call<TrackOrderResponseModel>,
+                response: Response<TrackOrderResponseModel>
+            ) {
+                if (response.isSuccessful) {
+                    isLoading.postValue(false)
+                    errorMessage.postValue("")
+                    response.body()?.let {
+                        trackOrderResponse.postValue(it)
+                    }
+                } else {
+                    isLoading.postValue(false)
+                    response.errorBody()?.let { errorBody ->
+                        errorBody.string().let {
+                            Log.e("Error: ", it)
+                            val errorResponse: CommonErrorModel =
+                                Gson().fromJson(it, CommonErrorModel::class.java)
+                            errorMessage.postValue(errorResponse.detail)
+                            Log.e("Error: ", errorResponse.detail)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<TrackOrderResponseModel>, t: Throwable) {
+                Log.d("Request Failed. Error: ", t.message.toString())
+                isLoading.postValue(false)
+                errorMessage.postValue("Something went wrong")
+            }
+
+        })
+    }
 
     fun getAllUserOrders(userId: String) {
         getAllUserOrdersReference(userId).addChildEventListener(object : ChildEventListener {

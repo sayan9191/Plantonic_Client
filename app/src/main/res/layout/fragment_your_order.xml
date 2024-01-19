@@ -39,7 +39,7 @@
         android:id="@+id/noDeliveryItemTxtView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Well! you not order anything. Go and Order now."
+        android:text="Well! you haven't ordered anything. Go ahead and order now."
         android:textColor="@color/black"
         android:gravity="center"
         android:visibility="invisible"

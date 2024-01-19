@@ -3,6 +3,7 @@ package com.example.plantonic.ui.search;
 import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -119,6 +120,20 @@ public class SearchFragment extends Fragment implements OnSearchListener {
                 .addToBackStack("detailsScreen")
                 .replace(R.id.fragmentContainerView, productViewFragment);
         fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
     }
 
 

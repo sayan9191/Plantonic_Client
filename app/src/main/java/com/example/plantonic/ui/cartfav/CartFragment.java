@@ -4,6 +4,7 @@ import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -230,7 +231,7 @@ public class CartFragment extends Fragment implements CartListner {
                     if (Objects.equals(lastFragment, "product") || Objects.equals(FavUtil.lastFragment, "cart")){
                         navController.navigate(R.id.favouriteFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                         CartUtil.lastFragment = "";
-                    }else{
+                    }else if (!Objects.equals(ProductUtil.lastFragment, "orders")){
                         navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.cartFragment, true).build());
                     }
 
@@ -250,4 +251,18 @@ public class CartFragment extends Fragment implements CartListner {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
+    }
 }
+

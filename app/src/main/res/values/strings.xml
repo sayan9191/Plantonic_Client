@@ -22,10 +22,11 @@
     <string name="payment_completed_message">Our delivery partner will collect the money. \nPlease check the delivery status \n<b>My Orders page</b></string>
 
     <!--    MY ORDER-->
-    <string name="track_order">Track Order</string>
-    <string name="delivered_by">Delivered by</string>
-    <string name="order_placed_on">Order placed on</string>
-    <string name="order_id">Order Id</string>
+    <string name="track_order">Track order</string>
+    <string name="order_payment_mode">Payment method:</string>
+    <string name="order_placed_on">Placed on:</string>
+    <string name="delivery_price">Delivery charge:</string>
+    <string name="order_id">Order id:</string>
     <string name="status_of_order">Status of Order</string>
     <string name="title_activity_payment_method_selection">PaymentMethodSelectionActivity</string>
 
@@ -36,5 +37,5 @@
     <string name="Phone_pay">Phone pay</string>
     <string name="paytm">Paytm</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
-    <string name="not_available">This option is not available for your pin code.</string>
+    <string name="not_available">This option is not available for now.</string>
 </resources>

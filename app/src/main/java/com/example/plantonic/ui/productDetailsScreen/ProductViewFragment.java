@@ -36,6 +36,7 @@ import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.ui.bottomSheet.proceedToCheckout.ProceedToBottomSheet;
 import com.example.plantonic.utils.CartUtil;
 import com.example.plantonic.utils.FavUtil;
+import com.example.plantonic.utils.OrdersUtil;
 import com.example.plantonic.utils.ProductUtil;
 import com.example.plantonic.utils.crypto.EncryptUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
     TextView addToCartBtn, goToCartBtn;
-    TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount;
+    TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount, product_breath, product_height, product_length, product_weight;
     ImageView backBtn;
     CircleImageView shareBtn, favouriteBtn;
     NestedScrollView productDetailsScrollView;
@@ -89,6 +90,10 @@ public class ProductViewFragment extends Fragment {
         increase = view.findViewById(R.id.increase);
         productDetailsScrollView = view.findViewById(R.id.productDetailsScrollView);
         progressBar = view.findViewById(R.id.productDetailsProgressBar);
+        product_breath = view.findViewById(R.id.product_breath);
+        product_height = view.findViewById(R.id.product_height);
+        product_length = view.findViewById(R.id.product_length);
+        product_weight = view.findViewById(R.id.product_weight);
 
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -133,6 +138,11 @@ public class ProductViewFragment extends Fragment {
                         int discount = (realPrice - price) * 100 / realPrice;
                         productDiscount.setText(discount + "% off");
                         productDescription.setText(productItem.productDescription);
+                        product_breath.setText(productItem.getBreadth() + " cm");
+                        product_height.setText(productItem.getHeight() + " cm");
+                        product_length.setText(productItem.getLength() + " cm");
+                        product_weight.setText(productItem.getWeight() + " kg");
+
 
                         //share button of Product
                         shareBtn.setOnClickListener(new View.OnClickListener() {
@@ -393,6 +403,14 @@ public class ProductViewFragment extends Fragment {
 //                if (Objects.equals(CartUtil.lastFragment, "")){
 //                    FavUtil.lastFragment = "";
 //                }
+
+                if (Objects.equals(ProductUtil.lastFragment, "orders")){
+                    ProductUtil.lastFragment = "";
+                }
+
+                if (Objects.equals(OrdersUtil.lastFragment, "product")){
+                    ((HomeActivity)requireActivity()).hideBottomNavBar();
+                }
 
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 manager.popBackStackImmediate();

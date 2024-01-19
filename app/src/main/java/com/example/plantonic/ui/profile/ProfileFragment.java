@@ -26,12 +26,16 @@ import android.widget.Toast;
 
 import com.example.plantonic.BuildConfig;
 import com.example.plantonic.firebaseClasses.UserItem;
+import com.example.plantonic.ui.activity.home.HomeActivity;
 import com.example.plantonic.ui.orders.YourOrderFragment;
 import com.example.plantonic.ui.others.FeedbackFragment;
 import com.example.plantonic.ui.others.HelpCenterFragment;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.profile.editprofile.EditProfileFragment;
 import com.example.plantonic.utils.CartUtil;
+import com.example.plantonic.utils.FavUtil;
+import com.example.plantonic.utils.OrdersUtil;
+import com.example.plantonic.utils.ProductUtil;
 import com.example.plantonic.utils.ProfileUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -190,6 +194,13 @@ public class ProfileFragment extends Fragment {
                 navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
                 manager.popBackStackImmediate();
 
+                if (Objects.equals(OrdersUtil.lastFragment, "orders")){
+//                    navController.navigate(R.id.homeFragment, null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
+                    OrdersUtil.lastFragment = "";
+                }
+
+//                ((HomeActivity)requireActivity()).showBottomNavBar();
+
             }
         };
 
@@ -208,4 +219,5 @@ public class ProfileFragment extends Fragment {
         super.onPause();
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
+
 }

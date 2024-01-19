@@ -28,6 +28,7 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,15 +93,19 @@ public class OrderSummaryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 binding.summaryProgressBar.setVisibility(View.VISIBLE);
 
-                viewModel.placeOrder(getPlaceOrderPayload()).observe(OrderSummaryActivity.this, new Observer<PlaceOrderResponseModel>() {
-                    @Override
-                    public void onChanged(PlaceOrderResponseModel placeOrderResponseModel) {
-                        if (placeOrderResponseModel!=null && placeOrderResponseModel.getStatus().equals("Valid")){
-                            binding.summaryProgressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
-                        }
-                    }
-                });
+                Intent intent = new Intent(OrderSummaryActivity.this, PaymentMethodsActivity.class);
+                intent.putExtra("orders", (Serializable) getPlaceOrderPayload());
+                startActivity(intent);
+
+//                viewModel.placeOrder(getPlaceOrderPayload()).observe(OrderSummaryActivity.this, new Observer<PlaceOrderResponseModel>() {
+//                    @Override
+//                    public void onChanged(PlaceOrderResponseModel placeOrderResponseModel) {
+//                        if (placeOrderResponseModel!=null && placeOrderResponseModel.getStatus().equals("Valid")){
+//                            binding.summaryProgressBar.setVisibility(View.GONE);
+//                            startActivity(new Intent(OrderSummaryActivity.this, ThankYouOrderActivity.class));
+//                        }
+//                    }
+//                });
             }
         });
 

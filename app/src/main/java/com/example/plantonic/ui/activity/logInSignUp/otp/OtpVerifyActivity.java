@@ -78,7 +78,7 @@ public class OtpVerifyActivity extends AppCompatActivity {
         VerificationId = getIntent().getStringExtra("verificationId");
 
         phoneNo = getIntent().getStringExtra("phoneNumber");
-        mobile.setText(String.format("+91-%s", phoneNo));
+        mobile.setText(String.format("%s", phoneNo));
 
         try {
             fullName = getIntent().getStringExtra("fullName");
