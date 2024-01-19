@@ -91,7 +91,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         binding.proceedToPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.summaryProgressBar.setVisibility(View.VISIBLE);
+//                binding.summaryProgressBar.setVisibility(View.VISIBLE);
 
                 Intent intent = new Intent(OrderSummaryActivity.this, PaymentMethodsActivity.class);
                 intent.putExtra("orders", (Serializable) getPlaceOrderPayload());

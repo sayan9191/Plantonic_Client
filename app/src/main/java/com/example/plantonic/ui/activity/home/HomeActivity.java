@@ -92,7 +92,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        navController.handleDeepLink(intent);
+        try{
+            navController.handleDeepLink(intent);
+        } catch (Exception e){
+            e.getStackTrace();
+        }
+
     }
 
     public void hideBottomNavBar(){
