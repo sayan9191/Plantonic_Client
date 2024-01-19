@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior=".ui.custom.LockableBottomSheetBehavior"
+    >
 
-    <View
-        android:layout_width="100dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/black"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tncBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Terms and Condition"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_margin="20dp"
-        android:text="Company does not permit Users to avail the Services on the Platform without prior registration. Users may access the Application by registering to create an account and become a member. The membership is limited for the purpose of buying or selling products, is subject to this Agreement and strictly not transferable.
+        app:cardMaxElevation="2dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true">
 
-"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <View
+                android:layout_width="100dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/black"/>
+
+            <ProgressBar
+                android:id="@+id/tncProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+            <com.example.plantonic.ui.custom.ObservableWebView
+                android:id="@+id/tAndCWebView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</FrameLayout>

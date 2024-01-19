@@ -1,24 +1,36 @@
-package com.example.plantonic.ui.bottomSheet;
+package com.example.plantonic.ui.bottomSheet
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import com.example.plantonic.R
+import com.example.plantonic.databinding.PrivatepolicyXmlBinding
+import com.example.plantonic.utils.constants.UrlConstants
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+class BottomSheetPP : BottomSheetDialogFragment() {
+    lateinit var binding: PrivatepolicyXmlBinding
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = PrivatepolicyXmlBinding.inflate(layoutInflater, container, false)
+        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
 
-import com.example.plantonic.R;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+        binding.ppWebView.loadUrl(UrlConstants.BaseURL + "privacy-policy")
+        binding.ppWebView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String) {
+                super.onPageFinished(view, url)
+                binding.ppProgressBar.visibility = View.GONE
+            }
+        }
 
-public class BottomSheetPP extends BottomSheetDialogFragment {
-    public BottomSheetPP() {
+        return binding.root
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.privatepolicy_xml,container,false);
-        return view;
-    }
+    override fun getTheme() = R.style.CustomBottomSheetDialogTheme
 }

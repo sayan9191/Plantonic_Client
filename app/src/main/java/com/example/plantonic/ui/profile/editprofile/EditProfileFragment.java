@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
 import com.example.plantonic.R;
+import com.example.plantonic.ui.activity.splash.SplashScreen;
 import com.example.plantonic.ui.profile.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,7 +75,7 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 firebaseAuth.signOut();
-                Intent intent = new Intent(requireContext(), LoginActivity.class);
+                Intent intent = new Intent(requireContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

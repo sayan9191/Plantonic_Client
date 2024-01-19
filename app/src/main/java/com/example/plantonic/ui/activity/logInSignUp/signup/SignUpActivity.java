@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.plantonic.R;
 import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
 import com.example.plantonic.ui.activity.logInSignUp.otp.OtpVerifyActivity;
-import com.example.plantonic.ui.bottomSheet.BottomSheet;
+import com.example.plantonic.ui.bottomSheet.TermsAndConditionBottomSheet;
 import com.example.plantonic.ui.bottomSheet.BottomSheetPP;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         privacyPolicyCheckBox = findViewById(R.id.privacyAndPolicyCheckBox);
 
 
+
         phoneNo.addTextChangedListener(new TextWatcher() {
             String prevText = "";
 
@@ -74,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
         termsAndConditionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheet bottomSheet= new BottomSheet();
+                TermsAndConditionBottomSheet bottomSheet= new TermsAndConditionBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(),"TAG");
             }
         });
