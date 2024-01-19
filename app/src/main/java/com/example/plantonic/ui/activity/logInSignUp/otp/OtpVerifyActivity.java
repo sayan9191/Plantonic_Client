@@ -205,7 +205,7 @@ public class OtpVerifyActivity extends AppCompatActivity {
                     startCountdown();
                     resendOtpBtn.setClickable(false);
 
-                    PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + getIntent().getStringExtra("phoneNumber"),
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(getIntent().getStringExtra("phoneNumber"),
                             60L,
                             TimeUnit.SECONDS,
                             OtpVerifyActivity.this,
@@ -266,6 +266,9 @@ public class OtpVerifyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()){
                     input3.requestFocus();
+                }else{
+                    input1.requestFocus();
+                    input1.setSelection(input1.getText().length());
                 }
             }
 
@@ -284,6 +287,9 @@ public class OtpVerifyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()){
                     input4.requestFocus();
+                }else{
+                    input2.requestFocus();
+                    input2.setSelection(input2.getText().length());
                 }
             }
 
@@ -302,6 +308,9 @@ public class OtpVerifyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()){
                     input5.requestFocus();
+                }else{
+                    input3.requestFocus();
+                    input3.setSelection(input3.getText().length());
                 }
             }
 
@@ -320,6 +329,29 @@ public class OtpVerifyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()){
                     input6.requestFocus();
+                }else{
+                    input4.requestFocus();
+                    input4.setSelection(input4.getText().length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        input6.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()){
+                    input5.requestFocus();
+                    input5.setSelection(input5.getText().length());
                 }
             }
 

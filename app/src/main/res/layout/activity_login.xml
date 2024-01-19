@@ -234,7 +234,8 @@
             android:id="@+id/btnSignIN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:text="Sign Up"
             android:textColor="@color/green"
             android:textStyle="bold" />

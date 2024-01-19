@@ -196,7 +196,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter Your Full Name(Required)*">
+                android:hint="Enter your full name(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressFullName"
@@ -217,7 +217,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter Your Phone Number(Required)*">
+                android:hint="Enter your phone number(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressPhoneNo"
@@ -239,7 +239,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter Your Email(Optional)">
+                android:hint="Enter your email(Optional)">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressEmail"
@@ -259,7 +259,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter your Area,Colony name(Required)*">
+                android:hint="Enter your street, area, colony(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressAreaName"
@@ -277,7 +277,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter your PinCode(Required)*">
+                android:hint="Enter your pincode(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressPinCode"
@@ -296,7 +296,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter Your State(Required)*">
+                android:hint="Enter your state(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressState"
@@ -315,7 +315,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter Your City(Required)*">
+                android:hint="Enter your city(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressCity"
@@ -334,7 +334,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter a Landmark(Optional)">
+                android:hint="Enter a landmark(Optional)">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/addressLandMark"
@@ -352,7 +352,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Any Special Instructions(Optional)">
+                android:hint="Any special instructions(Optional)">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/specialMessage"
