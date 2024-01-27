@@ -40,6 +40,7 @@ class YourOrderFragment : Fragment(), TrackOrderListener {
         binding = FragmentYourOrderBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this)[OrdersViewModel::class.java]
         adapter = YourOrderRecyclerViewAdapter(requireContext(), this)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.yourOrderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.yourOrderRecyclerView.adapter = this.adapter
@@ -176,10 +177,10 @@ class YourOrderFragment : Fragment(), TrackOrderListener {
 
 
 
-    override fun onPause() {
-        super.onPause()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+//    }
 
 //    override fun onStart() {
 //        super.onStart()

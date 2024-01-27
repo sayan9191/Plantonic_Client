@@ -61,6 +61,8 @@ public class CartFragment extends Fragment implements CartListner {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(getLayoutInflater(), container, false);
 
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
         // CartRecyclerViewAdapter
@@ -262,11 +264,11 @@ public class CartFragment extends Fragment implements CartListner {
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//
+//    }
 }
 

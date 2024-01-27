@@ -35,6 +35,7 @@ class CategoryItemsFragment : Fragment(), OnProductListener {
         viewModel = ViewModelProvider(this)[CategoryItemsFragmentViewModel::class.java]
         categoryId = arguments?.getString(IntentConstants.CATEGORY_ID).toString()
         adapter = PopularItemAdapter(requireContext(), this)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         //Initializing recyclerView
         binding.categoryItemsRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
@@ -72,10 +73,10 @@ class CategoryItemsFragment : Fragment(), OnProductListener {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    override fun onPause() {
-        super.onPause()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+//    }
 
     //backspaced backstack
     override fun onAttach(context: Context) {

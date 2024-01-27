@@ -102,11 +102,20 @@
                         android:gravity="center">
                         <ImageView
                             android:layout_width="40dp"
-                            android:layout_height="100dp"
+                            android:layout_height="60dp"
                             android:src="@drawable/phone_icon"
                             android:layout_gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Call Us"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
+
+
                 </androidx.cardview.widget.CardView>
 
             </FrameLayout>
@@ -134,9 +143,17 @@
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="40dp"
-                            android:layout_height="100dp"
+                            android:layout_height="60dp"
                             android:src="@drawable/email_icon"
                             android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mail Us"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

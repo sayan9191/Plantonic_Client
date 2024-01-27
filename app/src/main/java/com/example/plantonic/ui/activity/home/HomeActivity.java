@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -89,18 +91,18 @@ public class HomeActivity extends AppCompatActivity {
 //        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//
+//    }
 
     @Override
     protected void onNewIntent(Intent intent) {

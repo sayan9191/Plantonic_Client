@@ -46,6 +46,7 @@ public class SearchFragment extends Fragment implements OnSearchListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(getLayoutInflater(), container, false);
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Initialize recycler view
         adapter = new SearchResultAdapter(this.requireContext(), this);
@@ -129,12 +130,12 @@ public class SearchFragment extends Fragment implements OnSearchListener {
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//
+//    }
 
 
     //backspaced backstack

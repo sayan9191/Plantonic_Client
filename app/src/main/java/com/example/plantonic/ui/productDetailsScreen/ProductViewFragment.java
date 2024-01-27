@@ -414,12 +414,12 @@ public class ProductViewFragment extends Fragment {
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//
+//    }
 
 //    @Override
 //    public void onResume() {

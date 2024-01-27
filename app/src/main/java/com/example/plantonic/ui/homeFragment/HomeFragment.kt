@@ -249,8 +249,8 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
     }
 
 
-    override fun onPause() {
-        super.onPause()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+//    }
 }

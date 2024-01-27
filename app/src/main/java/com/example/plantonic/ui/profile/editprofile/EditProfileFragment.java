@@ -51,6 +51,7 @@ public class EditProfileFragment extends Fragment {
         updateProfile = view.findViewById(R.id.updateProfile);
         logoutBtn = view.findViewById(R.id.logoutBtn);
         backBtn = view.findViewById(R.id.backBtn);
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
@@ -123,12 +124,12 @@ public class EditProfileFragment extends Fragment {
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//
+//    }
 
     //backspaced backstack
     @Override

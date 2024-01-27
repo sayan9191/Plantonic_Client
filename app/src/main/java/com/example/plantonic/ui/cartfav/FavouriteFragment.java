@@ -48,6 +48,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFavouriteBinding.inflate(getLayoutInflater());
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
         // Initialize viewModel
@@ -142,12 +143,12 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
         requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//
+//    }
 
     //backspaced backstack
     @Override

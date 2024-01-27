@@ -64,6 +64,8 @@ public class ProfileFragment extends Fragment {
         versionCode = view.findViewById(R.id.versionCode);
         userName = view.findViewById(R.id.userNameGreetings);
 
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         // Initialize viewModel
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
@@ -214,10 +216,10 @@ public class ProfileFragment extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//    }
 
 }
