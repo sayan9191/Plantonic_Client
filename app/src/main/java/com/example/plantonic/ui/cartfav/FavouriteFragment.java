@@ -93,7 +93,7 @@ public class FavouriteFragment extends Fragment implements FavouriteListener {
     @Override
     public void onGoToCartBtnClicked(String productId) {
 
-        FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentManager manager = requireActivity().getSupportFragmentManager();
 
 //        if (Objects.equals(FavUtil.lastFragment, "cart")){
 //            manager.popBackStackImmediate();

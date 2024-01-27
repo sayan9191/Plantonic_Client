@@ -83,6 +83,53 @@ class CheckoutActivity : AppCompatActivity() {
             }
         })
 
+        binding.addressPinCode.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(charSequence: Editable?) {
+                binding.proceedToPaymentBtn.visibility = View.GONE
+                if (charSequence.toString().isNotEmpty()){
+                    binding.checkPinCodeBtn.visibility = View.VISIBLE
+                }
+            }
+
+        })
+
+        viewModel.isPinCodeAvailable.observe(this@CheckoutActivity) { pinCodeAvailableRes ->
+            pinCodeAvailableRes?.let {
+                if (it.is_delivery_possible) {
+                    if (it.location_data.isNotEmpty()){
+                        binding.addressState.setText(it.location_data[0].state)
+                        binding.addressCity.setText(it.location_data[0].region)
+                        binding.addressDistrict.setText(it.location_data[0].dist)
+                        binding.proceedToPaymentBtn.visibility = View.VISIBLE
+                    }
+//                    else{
+//                        binding.proceedToPaymentBtn.visibility = View.GONE
+//                    }
+                }else{
+                    Toast.makeText(this@CheckoutActivity, "Sorry, we're not available currently at your area, please try another pincode.", Toast.LENGTH_SHORT).show()
+                    binding.proceedToPaymentBtn.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.checkPinCodeBtn.setOnClickListener {
+//            isPinCodeChecked = false
+            if (binding.addressPinCode.text.toString().length == 6){
+                viewModel.checkIfPinCodeAvailable(binding.addressPinCode.text.toString())
+            }else{
+                Toast.makeText(this@CheckoutActivity, "Invalid pincode.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
 
         // Get saved address
         address
@@ -103,6 +150,9 @@ class CheckoutActivity : AppCompatActivity() {
             } else if (binding.addressState.text.toString() == "") {
                 binding.addressState.requestFocus()
                 Toast.makeText(applicationContext, R.string.state_is_missing, Toast.LENGTH_SHORT).show()
+            }else if (binding.addressDistrict.text.toString() == "") {
+                binding.addressState.requestFocus()
+                Toast.makeText(applicationContext, R.string.district_is_missing, Toast.LENGTH_SHORT).show()
             } else if (binding.addressCity.text.toString() == "") {
                 binding.addressCity.requestFocus()
                 Toast.makeText(applicationContext, R.string.city_is_missing, Toast.LENGTH_SHORT).show()
@@ -118,30 +168,37 @@ class CheckoutActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                isPinCodeChecked = false
-                viewModel.checkIfPinCodeAvailable(binding.addressPinCode.text.toString())
-                viewModel.isPinCodeAvailable.observe(this@CheckoutActivity) { pinCodeAvailableRes ->
-                    pinCodeAvailableRes?.let {
-                        if (it.is_delivery_possible && !isPinCodeChecked) {
+
+//                isPinCodeChecked = false
+//                viewModel.checkIfPinCodeAvailable(binding.addressPinCode.text.toString())
+//
+//                viewModel.isPinCodeAvailable.observe(this@CheckoutActivity) { pinCodeAvailableRes ->
+//                    pinCodeAvailableRes?.let {
+//                        if (it.is_delivery_possible && !isPinCodeChecked) {
+//                            isPinCodeChecked = true
                             saveAddress(
-                                    AddressItem(
-                                        FirebaseAuth.getInstance().uid,
-                                        binding.addressFullName.text.toString(),
-                                        binding.addressPhoneNo.text.toString(),
-                                        binding.addressPinCode.text.toString(),
-                                        binding.addressState.text.toString(),
-                                        binding.addressCity.text.toString(),
-                                        binding.addressAreaName.text.toString(),
-                                        addressType,
-                                        binding.addressEmail.text.toString(),
-                                        binding.addressLandMark.text.toString(),
-                                        binding.specialMessage.text.toString()
-                                    )
-                                )
-                                isPinCodeChecked = true
-                        }
-                    }
-                }
+                                AddressItem(
+                                    FirebaseAuth.getInstance().uid,
+                                    binding.addressFullName.text.toString(),
+                                    binding.addressPhoneNo.text.toString(),
+                                    binding.addressPinCode.text.toString(),
+                                    binding.addressState.text.toString(),
+                                    binding.addressCity.text.toString(),
+                                    binding.addressAreaName.text.toString(),
+                                    addressType,
+                                    binding.addressEmail.text.toString(),
+                                    binding.addressLandMark.text.toString(),
+                                    binding.specialMessage.text.toString()
+                                ),
+                                binding.addressDistrict.text.toString()
+                            )
+//                        }else{
+//                            Toast.makeText(this@CheckoutActivity, "Sorry, we're not available currently at your area, please try another pincode.", Toast.LENGTH_SHORT).show()
+////                            binding.proceedToPaymentBtn.visibility = View.GONE
+//                        }
+//                    }
+//                }
+
                 //                    startPayment(payablePriceLoad);
             }
         })
@@ -179,7 +236,7 @@ class CheckoutActivity : AppCompatActivity() {
             resources.getDrawable(R.drawable.button_design, application.theme)
     }
 
-    private fun saveAddress(addressItem: AddressItem) {
+    private fun saveAddress(addressItem: AddressItem, district: String) {
         binding.addressProgressBar.visibility = View.VISIBLE
         binding.nestedScrollView.isClickable = false
         viewModel.updateAddress(addressItem)
@@ -189,7 +246,7 @@ class CheckoutActivity : AppCompatActivity() {
                 binding.nestedScrollView.isClickable = true
                 val intent = Intent(this@CheckoutActivity, OrderSummaryActivity::class.java)
                 intent.putExtra(IntentConstants.DELIVERY_NAME, addressItem.fullName)
-                var customerAddress = addressItem.area + ", " + addressItem.city + ", " + addressItem.state + ", Pin - " + addressItem.pinCode
+                var customerAddress = addressItem.area + ", " + addressItem.city + ", " + district + ", " + addressItem.state + ", Pin - " + addressItem.pinCode
                 if (addressItem.landmark != ""){
                     customerAddress += ", Near - ${addressItem.specialInstruction}"
                 }
@@ -226,8 +283,8 @@ class CheckoutActivity : AppCompatActivity() {
                     binding.addressFullName.setText(addressItem.fullName)
                     binding.addressPhoneNo.setText(addressItem.phoneNo)
                     binding.addressPinCode.setText(addressItem.pinCode)
-                    binding.addressState.setText(addressItem.state)
-                    binding.addressCity.setText(addressItem.city)
+//                    binding.addressState.setText(addressItem.state)
+//                    binding.addressCity.setText(addressItem.city)
                     binding.addressAreaName.setText(addressItem.area)
                     if (addressItem.addressType == "home") {
                         selectHome()
@@ -241,4 +298,11 @@ class CheckoutActivity : AppCompatActivity() {
                 binding.nestedScrollView.isClickable = true
             }
         }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (binding.addressState.text.toString() != ""){
+            binding.proceedToPaymentBtn.visibility = View.VISIBLE
+        }
+    }
 }

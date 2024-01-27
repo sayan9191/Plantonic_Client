@@ -10,6 +10,7 @@
     <string name="address_is_missing">Address is missing</string>
     <string name="city_is_missing">City is missing</string>
     <string name="state_is_missing">State is missing</string>
+    <string name="district_is_missing">District is missing</string>
     <string name="phone_number_is_missing">Phone Number is missing</string>
     <string name="pincode_is_missing">Pin code is missing</string>
     <string name="full_name_is_missing">Full name is missing</string>

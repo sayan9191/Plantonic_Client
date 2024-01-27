@@ -104,6 +104,9 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.cartIncreaseProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Long.parseLong(holder.cartProductItemNo.getText().toString()) >= productItem.getCurrentStock()){
+                    Toast.makeText(context, "Only " + productItem.getCurrentStock().toString() + "items in current stock", Toast.LENGTH_SHORT).show();
+                }
                 cartViewModel.addIncreaseCartQuantity(FirebaseAuth.getInstance().getUid(), productItem.getProductId(), Long.parseLong(holder.cartProductItemNo.getText().toString()));
             }
         });

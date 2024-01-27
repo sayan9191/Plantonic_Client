@@ -48,6 +48,22 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
+        // add +91
+        phoneNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (isFocused) {
+                    if (phoneNo.getText().toString().equals("")) {
+                        phoneNo.setText("+91");
+                        phoneNo.setSelection(3);
+                    }
+                } else if (phoneNo.getText().toString().equals("+91")) {
+                    phoneNo.setText("");
+                }
+            }
+        });
+
+
         phoneNo.addTextChangedListener(new TextWatcher() {
             String prevText = "";
 
@@ -117,7 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 continueBtn.setVisibility(View.INVISIBLE);
-                PhoneAuthProvider.getInstance().verifyPhoneNumber("+91" + phoneNo.getText().toString(),
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNo.getText().toString(),
                         60L,
                         TimeUnit.SECONDS,
                         SignUpActivity.this,

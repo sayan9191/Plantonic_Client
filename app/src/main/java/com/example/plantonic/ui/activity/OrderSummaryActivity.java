@@ -160,7 +160,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
                         totalAmount = Long.parseLong(productItems.get(i).getListedPrice()) * allCartItems.get(i).getQuantity() + totalAmount;
                         discountPrice = totalAmount - actualAmount;
 
-                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) + deliveryCharge;
+                        deliveryCharge = Long.parseLong(productItems.get(i).getDeliveryCharge()) * allCartItems.get(i).getQuantity() + deliveryCharge;
                     }
                     binding.priceTotal.setText(String.valueOf("₹" + totalAmount));
                     binding.discountPrice.setText(String.valueOf("- ₹" + discountPrice));

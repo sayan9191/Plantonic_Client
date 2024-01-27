@@ -34,14 +34,16 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.activity.ThankYouOrderActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.activity.CheckoutActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -57,14 +59,16 @@
 
 
         <activity android:name=".ui.activity.OrderSummaryActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
 
         <activity android:name=".ui.activity.PaymentMethodsActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -74,7 +78,8 @@
             android:name="com.razorpay.CheckoutActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@style/CheckoutTheme">
+            android:theme="@style/CheckoutTheme"
+            android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,7 +96,8 @@
 
         <activity
             android:name=".ui.activity.splash.SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -104,7 +110,8 @@
         </activity>
         <activity
             android:name=".ui.activity.logInSignUp.otp.OtpVerifyActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="nosensor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -113,7 +120,8 @@
             android:name=".ui.activity.home.HomeActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="nosensor">
 
             <tools:validation testUrl="https://plantonic.co.in/p/" />
             <tools:validation testUrl="https://plantonic.co.in/p/93bd77c0-6f9a-4580-8828-99e5383c54fe" />
@@ -137,17 +145,19 @@
         </activity>
         <activity
             android:name=".ui.activity.forget_password.ResetPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="nosensor"/>
         <activity
             android:name=".ui.activity.forget_password.ForgotPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="nosensor"/>
         <activity
             android:name=".ui.activity.logInSignUp.signup.SignUpActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="nosensor"
             android:exported="false" />
         <activity
             android:name=".ui.activity.logInSignUp.login.LoginActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="nosensor"
             android:exported="false" />
     </application>
 

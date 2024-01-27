@@ -53,8 +53,8 @@ class ProceedToRVAdapter(private val context: Context) : RecyclerView.Adapter<Pr
 
 
         holder.summaryProductQuantity.text = currentCartItem.quantity.toString()
-        holder.summaryProductPrice.text = "₹${currentProductItem.listedPrice}"
-        holder.summaryActualPrice.text = "₹${currentProductItem.actualPrice}"
+        holder.summaryProductPrice.text = "₹${currentProductItem.actualPrice}"
+        holder.summaryActualPrice.text = "₹${currentProductItem.listedPrice}"
     }
 
     override fun getItemCount(): Int {

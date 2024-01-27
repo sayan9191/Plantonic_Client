@@ -250,6 +250,68 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:layout_below="@+id/addressPhoneNoEditTxt"
+                >
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressPinCodeEditTxt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="Enter your pincode(Required)*"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/checkPinCodeBtn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addressPinCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="6" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <FrameLayout
+                    android:id="@+id/checkPinCodeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingStart="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="Check"
+
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:background="@drawable/offer_background"
+                        android:backgroundTint="@color/yellow"
+                        android:textAllCaps="false"
+                         />
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addressHouseEditTxt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -269,23 +331,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addressPinCodeEditTxt"
+                android:id="@+id/addressDistrictEditTxt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/addressPhoneNoEditTxt"
+                android:layout_below="@+id/addressPinCodeEditTxt"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Enter your pincode(Required)*">
+                android:hint="Enter your district(Required)*">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addressPinCode"
+                    android:id="@+id/addressDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="6" />
+                    android:clickable="false"
+                    android:inputType="text"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addressStateEditTxt"
@@ -303,6 +367,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -322,6 +387,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -405,14 +471,18 @@
                     android:textSize="17sp" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
             <TextView
                 android:id="@+id/proceedToPaymentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="15dp"
+                android:visibility="gone"
                 android:background="@drawable/offer_background"
                 android:backgroundTint="@color/yellow"
                 android:gravity="center"

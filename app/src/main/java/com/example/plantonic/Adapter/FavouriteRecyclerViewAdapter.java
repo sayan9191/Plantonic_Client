@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
@@ -118,7 +119,11 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
                                     holder.cartBtn.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
+                                            if (productItem.getCurrentStock() > 0){
+                                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
+                                            }else{
+                                                Toast.makeText(context, "Sorry, we're out of stock currently.", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
                                 }
@@ -126,7 +131,7 @@ public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<Favourite
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
+//                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
                             }
                         });
 

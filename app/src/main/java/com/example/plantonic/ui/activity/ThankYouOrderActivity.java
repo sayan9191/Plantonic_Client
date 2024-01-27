@@ -35,6 +35,6 @@ public class ThankYouOrderActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        ThankYouOrderActivity.this.finish();
+//        ThankYouOrderActivity.this.finish();
     }
 }

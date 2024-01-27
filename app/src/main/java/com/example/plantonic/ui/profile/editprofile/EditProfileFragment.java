@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.plantonic.firebaseClasses.UserItem;
 import com.example.plantonic.ui.activity.logInSignUp.login.LoginActivity;
@@ -67,6 +68,13 @@ public class EditProfileFragment extends Fragment {
                 lastName.setText(userItem.getLastName());
                 email.setText(userItem.getEmail());
                 phone.setText(userItem.getPhoneNo());
+            }
+        });
+
+        updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(requireContext(), "Profile details can't be updated", Toast.LENGTH_SHORT).show();
             }
         });
 

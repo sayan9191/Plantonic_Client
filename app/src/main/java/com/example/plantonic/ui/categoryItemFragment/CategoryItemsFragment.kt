@@ -1,12 +1,12 @@
 package com.example.plantonic.ui.categoryItemFragment
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,7 +18,6 @@ import com.example.plantonic.R
 import com.example.plantonic.databinding.FragmentCategoryItemsBinding
 import com.example.plantonic.firebaseClasses.ProductItem
 import com.example.plantonic.ui.productDetailsScreen.ProductViewFragment
-import com.example.plantonic.utils.HomeUtil
 import com.example.plantonic.utils.constants.IntentConstants
 
 class CategoryItemsFragment : Fragment(), OnProductListener {
@@ -67,6 +66,16 @@ class CategoryItemsFragment : Fragment(), OnProductListener {
         return binding.root
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+    }
 
     //backspaced backstack
     override fun onAttach(context: Context) {

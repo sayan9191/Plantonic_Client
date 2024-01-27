@@ -139,7 +139,7 @@
                 android:background="@drawable/button_design"
                 android:backgroundTint="@color/yellow"
                 android:gravity="center"
-                android:text="Update Your Profile"
+                android:text="Update my profile"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"

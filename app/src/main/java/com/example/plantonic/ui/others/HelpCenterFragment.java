@@ -49,7 +49,7 @@ public class HelpCenterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:+91 8240251373"));
+                callIntent.setData(Uri.parse("tel:+91 7980173001"));
                 startActivity(callIntent);
             }
         });
@@ -58,7 +58,7 @@ public class HelpCenterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto","84mondal.sayan@email.com", null));
+                        "mailto","plantonic.co.in@gmail.com", null));
 
                 startActivity(Intent.createChooser(emailIntent, "Choose an Email client :"));
             }

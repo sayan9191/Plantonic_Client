@@ -122,8 +122,12 @@ public class CartFragment extends Fragment implements CartListner {
 
                     if (actualAmount >= 500){
                         deliveryChargeWaver = deliveryCharge;
+                        binding.addMoreToSaveDeliveryChargeLabel.setVisibility(View.VISIBLE);
+                        binding.addMoreToSaveDeliveryChargeLabel.setText("Wow, you'll get FREE delivery on this order.");
                     }else {
                         deliveryChargeWaver = 0L;
+                        binding.addMoreToSaveDeliveryChargeLabel.setVisibility(View.VISIBLE);
+                        binding.addMoreToSaveDeliveryChargeLabel.setText("Add items worth " + (500 - actualAmount)  +" more to get free delivery.");
                     }
 
                     binding.priceTotal.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(totalAmount)));

@@ -5,6 +5,7 @@ import static com.example.plantonic.utils.constants.IntentConstants.PRODUCT_ID;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -49,7 +52,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProductViewFragment extends Fragment {
     com.denzcoskun.imageslider.ImageSlider imageSlider;
-    TextView addToCartBtn, goToCartBtn;
+    TextView addToCartBtn, goToCartBtn, outOfStockLabel;
     TextView name, productPrice, productActualPrice, productDescription, productDetails, productDiscount, product_breath, product_height, product_length, product_weight;
     ImageView backBtn;
     CircleImageView shareBtn, favouriteBtn;
@@ -58,6 +61,7 @@ public class ProductViewFragment extends Fragment {
     int productNo = 1;
     TextView integer_number;
     TextView decrease, increase;
+    LinearLayout bottom_buttons_layout;
     View view;
 
 
@@ -94,6 +98,8 @@ public class ProductViewFragment extends Fragment {
         product_height = view.findViewById(R.id.product_height);
         product_length = view.findViewById(R.id.product_length);
         product_weight = view.findViewById(R.id.product_weight);
+        bottom_buttons_layout = view.findViewById(R.id.bottom_buttons_layout);
+        outOfStockLabel = view.findViewById(R.id.outOfStockLabel);
 
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
@@ -123,6 +129,14 @@ public class ProductViewFragment extends Fragment {
                         productDetailsScrollView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         addToCartBtn.setVisibility(View.VISIBLE);
+
+                        if (productItem.getCurrentStock() <= 0){
+                            bottom_buttons_layout.setVisibility(View.GONE);
+                            outOfStockLabel.setVisibility(View.VISIBLE);
+                        }else{
+                            bottom_buttons_layout.setVisibility(View.VISIBLE);
+                            outOfStockLabel.setVisibility(View.GONE);
+                        }
 
                         if (productItem.productName.length() > 20){
                             productDetails.setText(productItem.productName.substring(0, 20) + "...");
@@ -181,6 +195,34 @@ public class ProductViewFragment extends Fragment {
                                 } else {
                                     productViewModel.removeFromFav(FirebaseAuth.getInstance().getUid(), productItem.productId);
                                 }
+                            }
+                        });
+
+                        //Quantity
+                        //product Items No. increase
+                        increase.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (Long.parseLong(integer_number.getText().toString()) >= productItem.getCurrentStock()){
+                                    Toast.makeText(requireContext(), "Only " + productItem.getCurrentStock().toString() + "items in current stock", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    increaseInteger(view);
+                                }
+                            }
+                        });
+
+                        //Add to cart product item
+                        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (Long.parseLong(integer_number.getText().toString()) >= productItem.getCurrentStock()){
+                                    Toast.makeText(requireContext(), "Only " + productItem.getCurrentStock().toString() + "items in current stock", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
+                                    ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
+                                    cartBottomSheet.show(requireActivity().getSupportFragmentManager(), "TAG");
+                                }
+//                }
                             }
                         });
 
@@ -275,16 +317,6 @@ public class ProductViewFragment extends Fragment {
         }
 
 
-        //Add to cart product item
-        addToCartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                productViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productId, Long.parseLong(integer_number.getText().toString()));
-                    ProceedToBottomSheet cartBottomSheet = new ProceedToBottomSheet();
-                    cartBottomSheet.show(requireActivity().getSupportFragmentManager(), "TAG");
-//                }
-            }
-        });
 
         // Go to cart btn click
         goToCartBtn.setOnClickListener(new View.OnClickListener() {
@@ -320,13 +352,6 @@ public class ProductViewFragment extends Fragment {
             }
         });
 
-        //product Items No. increase
-        increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                increaseInteger(view);
-            }
-        });
         return view;
     }
 
@@ -380,6 +405,20 @@ public class ProductViewFragment extends Fragment {
         }
 
 //        callBack[0] = 0;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
     }
 
 //    @Override
