@@ -8,12 +8,65 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:171985324980:android:a1a8c3cb968bfa409040e1",
+        "android_client_info": {
+          "package_name": "co.in.plantonic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171985324980-f9hpjemtneviglld393lu5qegss2u90f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.in.plantonic",
+            "certificate_hash": "4cd9f6701bf9bb969fcf8df643d24ba8a3d81ed0"
+          }
+        },
+        {
+          "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC75CHTHGGlHAIdd3WtOvt3MG-bzsLiiMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171985324980-4m89f63p7t9cmdintg3guv6bp79ste9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:171985324980:android:2a517570592d6c4b9040e1",
         "android_client_info": {
           "package_name": "com.example.plantonic"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "171985324980-bi6f6hbgfee15l554v60i02qkov41euv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantonic",
+            "certificate_hash": "4cd9f6701bf9bb969fcf8df643d24ba8a3d81ed0"
+          }
+        },
+        {
+          "client_id": "171985324980-pucq5kjp385tqp8oo4kcvmim81ee4vji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantonic",
+            "certificate_hash": "ae5298e10a77e5222cbd8b6ae6d92a64b2d93358"
+          }
+        },
         {
           "client_id": "171985324980-fifrhiktd1thuq6o9ks462q9lcjnntev.apps.googleusercontent.com",
           "client_type": 3
@@ -43,6 +96,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "171985324980-pd0jpn0i450s2p4q3gq5pv6ql81lmrnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technicalmeaw.plantonic",
+            "certificate_hash": "ae5298e10a77e5222cbd8b6ae6d92a64b2d93358"
+          }
+        },
+        {
+          "client_id": "171985324980-sone9ci3474i2fn39ttieip1pi3up8f0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technicalmeaw.plantonic",
+            "certificate_hash": "772846a28490f3eb6a8c4251f6c70764212b950e"
+          }
+        },
         {
           "client_id": "171985324980-tnqr9lr7ejd21g4gqa93lmhtqh8qp9mr.apps.googleusercontent.com",
           "client_type": 1,

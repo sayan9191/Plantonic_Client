@@ -7,26 +7,50 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\HP\\OneDrive\\Documents\\Android\\PlayStore\\Plantonic\\prod_key_store.jks')
+            storePassword 'SM@plantonic@123'
+            keyAlias 'key0'
+            keyPassword 'SM@plantonic@123'
+        }
+    }
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.plantonic"
+        applicationId "co.in.plantonic"
         minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+        proguardFiles 'proguard-rules.pro'
+        testApplicationId "co.in.plantonic"
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        buildTypes {
+//            debug {
+//                manifestPlaceholders = [
+//                        appIcon: "@mipmap/ic_launcher",
+//                        appIconRound: "@mipmap/ic_launcher"
+//                ]
+//            }
+            release {
+                minifyEnabled false
+                debuggable false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            }
         }
+
     }
     buildFeatures{
         viewBinding true
+        buildConfig true
     }
 
     compileOptions {
@@ -49,7 +73,7 @@ android {
 
         }
     }
-    namespace 'com.example.plantonic'
+    namespace 'co.in.plantonic'
 }
 
 dependencies {

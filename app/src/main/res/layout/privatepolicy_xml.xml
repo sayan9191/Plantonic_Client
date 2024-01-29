@@ -33,7 +33,7 @@
                 android:layout_gravity="center"
                 />
 
-            <com.example.plantonic.ui.custom.ObservableWebView
+            <co.in.plantonic.ui.custom.ObservableWebView
                 android:id="@+id/ppWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
