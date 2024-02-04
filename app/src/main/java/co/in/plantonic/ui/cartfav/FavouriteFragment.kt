@@ -42,7 +42,7 @@ class FavouriteFragment : Fragment(), FavouriteListener {
 
 
         // Initialize viewModel
-        viewModel = ViewModelProvider(this).get<FavouriteViewModel>(FavouriteViewModel::class.java)
+        viewModel = ViewModelProvider(this)[FavouriteViewModel::class.java]
 
         //favouriteRecyclerView adapter
         favouriteRecyclerViewAdapter =
@@ -56,7 +56,7 @@ class FavouriteFragment : Fragment(), FavouriteListener {
         // Get all fav Items
         viewModel.getAllFavItems(FirebaseAuth.getInstance().uid)
             .observe(viewLifecycleOwner) { favouriteItems ->
-                favouriteRecyclerViewAdapter?.updateAllFavItems(favouriteItems)
+                favouriteRecyclerViewAdapter.updateAllFavItems(favouriteItems)
                 binding.favProgressBar.visibility = View.GONE
                 if (favouriteItems.size == 0) {
                     binding.noFavView.visibility = View.VISIBLE
@@ -79,7 +79,7 @@ class FavouriteFragment : Fragment(), FavouriteListener {
     }
 
     override fun onGoToCartBtnClicked(productId: String) {
-        val manager = requireActivity().supportFragmentManager
+//        val manager = requireActivity().supportFragmentManager
 
 //        if (Objects.equals(FavUtil.lastFragment, "cart")){
 //            manager.popBackStackImmediate();

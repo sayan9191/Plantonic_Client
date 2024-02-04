@@ -1,4 +1,4 @@
-package com.in.plantonic;
+package co.in.plantonic;
 
 import org.junit.Test;
 
