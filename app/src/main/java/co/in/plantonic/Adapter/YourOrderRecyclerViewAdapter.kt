@@ -59,6 +59,13 @@ class YourOrderRecyclerViewAdapter(var context: Context, val listener: TrackOrde
                             holder.orderPlacedDateTxtView.text = currentOrder.created_at.substring(0, 10)
                             holder.deliveryPaymentModeTxtView.text = currentOrder.customer_payment_method
 
+                            if (currentOrder.is_delivered){
+                                holder.deliveredStatusSymbol.visibility = View.VISIBLE
+                                holder.trackOrder.visibility = View.GONE
+                            }else{
+                                holder.deliveredStatusSymbol.visibility = View.GONE
+                                holder.trackOrder.visibility = View.VISIBLE
+                            }
                             Log.d("------------------", item.productName)
                         }
                     }

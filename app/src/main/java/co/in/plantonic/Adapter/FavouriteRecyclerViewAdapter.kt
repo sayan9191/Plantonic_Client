@@ -1,163 +1,180 @@
-package co.in.plantonic.Adapter;
+package co.`in`.plantonic.Adapter
 
-import static co.in.plantonic.utils.constants.DatabaseConstants.getSpecificUserCartItemReference;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import co.`in`.plantonic.Adapter.listeners.FavouriteListener
+import co.`in`.plantonic.R
+import co.`in`.plantonic.firebaseClasses.CartItem
+import co.`in`.plantonic.firebaseClasses.ProductItem
+import co.`in`.plantonic.ui.cartfav.FavouriteViewModel
+import co.`in`.plantonic.utils.constants.DatabaseConstants
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class FavouriteRecyclerViewAdapter(
+    context: Context,
+    favouriteListener: FavouriteListener,
+    viewModel: FavouriteViewModel
+) : RecyclerView.Adapter<FavouriteRecyclerViewAdapter.ViewHolder?>() {
+    var allFavItems: ArrayList<ProductItem> = ArrayList<ProductItem>()
+    private val favouriteViewModel: FavouriteViewModel
+    var context: Context
+    var favouriteListener: FavouriteListener
 
-import com.bumptech.glide.Glide;
-import co.in.plantonic.Adapter.listeners.FavouriteListener;
-import co.in.plantonic.R;
-import co.in.plantonic.ui.cartfav.FavouriteViewModel;
-import co.in.plantonic.firebaseClasses.ProductItem;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class FavouriteRecyclerViewAdapter extends RecyclerView.Adapter<FavouriteRecyclerViewAdapter.ViewHolder> {
-    ArrayList<ProductItem> allFavItems = new ArrayList<>();
-    private FavouriteViewModel favouriteViewModel;
-    Context context;
-    FavouriteListener favouriteListener;
-
-    public FavouriteRecyclerViewAdapter(Context context, FavouriteListener favouriteListener, FavouriteViewModel viewModel){
-        this.favouriteListener = favouriteListener;
-        this.context = context;
-        this.favouriteViewModel = viewModel;
+    init {
+        this.favouriteListener = favouriteListener
+        this.context = context
+        favouriteViewModel = viewModel
     }
 
-    @NonNull
-    @Override
-    public FavouriteRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_item, parent, false);
-        return new ViewHolder(view);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.favourite_item, parent, false)
+        return ViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull FavouriteRecyclerViewAdapter.ViewHolder holder, int position) {
-        ProductItem productItem = allFavItems.get(position);
-
-        Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage);
-
-
-        holder.productName.setText(productItem.productName);
-
-        holder.productPrice.setText("₹" +productItem.actualPrice);
-        holder.actualPrice.setText("₹" +productItem.listedPrice);
-        int realPrice = Integer.parseInt(productItem.listedPrice);
-
-        int price = Integer.parseInt(productItem.actualPrice);
-        int discount = (realPrice - price) * 100 / realPrice;
-        holder.favProductOffer.setText(discount + "% off");
-
-        holder.removeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                favouriteViewModel.removeFromFav(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
-            }
-        });
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val productItem: ProductItem = allFavItems[holder.adapterPosition]
+        Glide.with(context).load(productItem.imageUrl1).centerCrop().into(holder.productImage)
+        holder.productName.text = productItem.productName
+        holder.productPrice.text = "₹" + productItem.actualPrice
+        holder.actualPrice.text = "₹" + productItem.listedPrice
+        val realPrice: Int = productItem.listedPrice.toInt()
+        val price: Int = productItem.actualPrice.toInt()
+        val discount = (realPrice - price) * 100 / realPrice
+        holder.favProductOffer.text = "$discount% off"
+        holder.removeBtn.setOnClickListener(View.OnClickListener {
+            favouriteViewModel.removeFromFav(
+                FirebaseAuth.getInstance().uid,
+                productItem.getProductId()
+            )
+        })
 
 
         //On Product Clicked
-        holder.productImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                favouriteListener.onProductClicked(productItem);
-            }
-        });
-
-        holder.productName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                favouriteListener.onProductClicked(productItem);
-            }
-        });
+        holder.productImage.setOnClickListener { favouriteListener.onProductClicked(productItem) }
+        holder.productName.setOnClickListener(View.OnClickListener {
+            favouriteListener.onProductClicked(
+                productItem
+            )
+        })
 
         // Check if already added to cart
-        getSpecificUserCartItemReference(FirebaseAuth.getInstance().getUid(), productItem.getProductId())
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (!snapshot.exists()){
-                                    holder.cartBtn.setText("Add to Cart");
-                                    holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.yellow, context.getTheme()));
-                                    holder.cartBtn.setTextColor(context.getResources().getColor(R.color.black, context.getTheme()));
-
-                                    holder.alreadyInCartText.setVisibility(View.GONE);
-
-                                    holder.cartBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            favouriteViewModel.addToCart(FirebaseAuth.getInstance().getUid(), productItem.getProductId());
-                                        }
-                                    });
-                                }else {
-                                    holder.cartBtn.setText("Go to Cart");
-                                    holder.cartBtn.setBackgroundTintList(context.getResources().getColorStateList(R.color.green, context.getTheme()));
-                                    holder.cartBtn.setTextColor(context.getResources().getColor(R.color.white, context.getTheme()));
-
-                                    holder.alreadyInCartText.setVisibility(View.VISIBLE);
-
-                                    holder.cartBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            if (productItem.getCurrentStock() > 0){
-                                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
-                                            }else{
-                                                Toast.makeText(context, "Sorry, we're out of stock currently.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                                }
+        DatabaseConstants.getSpecificUserCartItemReference(
+            FirebaseAuth.getInstance().uid,
+            productItem.getProductId()
+        )
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        snapshot.getValue(CartItem::class.java)?.let {
+                            if (productItem.productId == it.productId){
+                                holder.cartBtn.text = "Go to Cart"
+                                holder.cartBtn.backgroundTintList = context.resources.getColorStateList(
+                                    R.color.green,
+                                    context.theme
+                                )
+                                holder.cartBtn.setTextColor(
+                                    context.resources.getColor(
+                                        R.color.white,
+                                        context.theme
+                                    )
+                                )
+                                holder.alreadyInCartText.visibility = View.VISIBLE
+                                holder.cartBtn.setOnClickListener(View.OnClickListener {
+                                    if (productItem.currentStock > 0) {
+                                        favouriteListener.onGoToCartBtnClicked(productItem.getProductId())
+                                    } else {
+                                        Toast.makeText(
+                                            context,
+                                            "Sorry, we're out of stock currently.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                })
+                            } else{
+                                holder.cartBtn.text = "Add to Cart"
+                                holder.cartBtn.backgroundTintList = context.resources.getColorStateList(
+                                    R.color.yellow,
+                                    context.theme
+                                )
+                                holder.cartBtn.setTextColor(
+                                    context.resources.getColor(
+                                        R.color.black,
+                                        context.theme
+                                    )
+                                )
+                                holder.alreadyInCartText.visibility = View.GONE
+                                holder.cartBtn.setOnClickListener(View.OnClickListener {
+                                    favouriteListener.onAddToCartClicked(productItem, holder.adapterPosition)
+                                })
                             }
+                        }
+                    } else {
+                        holder.cartBtn.text = "Add to Cart"
+                        holder.cartBtn.backgroundTintList = context.resources.getColorStateList(
+                            R.color.yellow,
+                            context.theme
+                        )
+                        holder.cartBtn.setTextColor(
+                            context.resources.getColor(
+                                R.color.black,
+                                context.theme
+                            )
+                        )
+                        holder.alreadyInCartText.visibility = View.GONE
+                        holder.cartBtn.setOnClickListener(View.OnClickListener {
+                            favouriteListener.onAddToCartClicked(productItem, holder.adapterPosition)
+                        })
+                    }
+                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                override fun onCancelled(error: DatabaseError) {
 //                                favouriteListener.onGoToCartBtnClicked(productItem.getProductId());
-                            }
-                        });
-
+                }
+            })
     }
 
-    @Override
-    public int getItemCount() {
-        return allFavItems.size();
-    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var productImage: ImageView
+        var productName: TextView
+        var productPrice: TextView
+        var actualPrice: TextView
+        var cartBtn: TextView
+        var removeBtn: TextView
+        var alreadyInCartText: TextView
+        var favProductOffer: TextView
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView productImage;
-        TextView productName,productPrice,actualPrice;
-        TextView cartBtn, removeBtn;
-        TextView alreadyInCartText;
-        TextView favProductOffer;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
-            productName = itemView.findViewById(R.id.productName);
-            productPrice = itemView.findViewById(R.id.productPrice);
-            actualPrice = itemView.findViewById(R.id.actualPrice);
-            cartBtn = itemView.findViewById(R.id.moveToCartBtn);
-            removeBtn = itemView.findViewById(R.id.removeBtn);
-            alreadyInCartText = itemView.findViewById(R.id.alreadyInCartTextView);
-            favProductOffer = itemView.findViewById(R.id.favProductOffer);
+        init {
+            productImage = itemView.findViewById<ImageView>(R.id.productImage)
+            productName = itemView.findViewById<TextView>(R.id.productName)
+            productPrice = itemView.findViewById<TextView>(R.id.productPrice)
+            actualPrice = itemView.findViewById<TextView>(R.id.actualPrice)
+            cartBtn = itemView.findViewById<TextView>(R.id.moveToCartBtn)
+            removeBtn = itemView.findViewById<TextView>(R.id.removeBtn)
+            alreadyInCartText = itemView.findViewById<TextView>(R.id.alreadyInCartTextView)
+            favProductOffer = itemView.findViewById<TextView>(R.id.favProductOffer)
         }
     }
 
-    public void updateAllFavItems(List<ProductItem> list){
-        allFavItems.clear();
-        allFavItems.addAll(list);
-        this.notifyDataSetChanged();
+    fun updateAllFavItems(list: List<ProductItem>?) {
+        allFavItems.clear()
+        allFavItems.addAll(list!!)
+        this.notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int {
+        return allFavItems.size
     }
 }

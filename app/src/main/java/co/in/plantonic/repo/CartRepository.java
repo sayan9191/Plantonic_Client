@@ -127,8 +127,10 @@ public class CartRepository {
     }
 
 
+    public MutableLiveData<Boolean> isAddedToCart = new MutableLiveData();
 
     public void addToCart(CartItem cartItem){
+        isAddedToCart.postValue(false);
         getSpecificUserCartItemReference(cartItem.getUserId(), cartItem.getProductId())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -160,6 +162,7 @@ public class CartRepository {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d(TAG, "increased quantity");
+                                        isAddedToCart.postValue(true);
                                     }
                                 });
                             }
@@ -202,7 +205,7 @@ public class CartRepository {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "added to cart");
-
+                        isAddedToCart.postValue(true);
                     }
                 });
     }

@@ -1,6 +1,7 @@
 package co.in.plantonic.ui.cartfav;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import co.in.plantonic.firebaseClasses.CartItem;
@@ -16,6 +17,7 @@ public class FavouriteViewModel extends ViewModel {
     private final FavouriteRepository favouriteRepository = new FavouriteRepository();
     private final ProductDetailsRepo productDetailsRepo = new ProductDetailsRepo();
     private final CartRepository cartRepository = new CartRepository();
+    public MutableLiveData<Boolean> isAddedToCart = cartRepository.isAddedToCart;
 
     public LiveData<List<ProductItem>> getAllFavItems(String userId){
         favouriteRepository.getAllUserFavouriteItem(userId);

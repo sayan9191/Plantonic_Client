@@ -21,5 +21,6 @@ data class Data(
     val related_to_order_id: String,
     val special_instructions: String,
     val transaction_id: String,
-    val updated_at: Any
+    val updated_at: Any,
+    val is_delivered: Boolean
 )

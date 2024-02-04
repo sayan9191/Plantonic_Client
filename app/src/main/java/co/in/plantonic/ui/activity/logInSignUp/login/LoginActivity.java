@@ -24,6 +24,7 @@ import co.in.plantonic.firebaseClasses.UserItem;
 import co.in.plantonic.ui.activity.home.HomeActivity;
 import co.in.plantonic.ui.activity.logInSignUp.otp.OtpVerifyActivity;
 import co.in.plantonic.ui.activity.logInSignUp.signup.SignUpActivity;
+import co.in.plantonic.ui.dialogbox.LoadingScreen;
 import co.in.plantonic.utils.StorageUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -135,6 +136,8 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: begin google signIn");
                 Intent intent = googleSignInClient.getSignInIntent();
                 startActivityForResult(intent, RC_SIGN_IN);
+
+                LoadingScreen.Companion.showLoadingDialog(LoginActivity.this);
             }
         });
 
@@ -218,6 +221,14 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception exception) {
                 Log.d(TAG, "onActivityResult:" + exception.getMessage());
             }
+        }else{
+            try {
+                LoadingScreen.Companion.hideLoadingDialog();
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            Toast.makeText(LoginActivity.this, "Something went wrong, please try again.", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -264,6 +275,14 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (token != null) {
                                                     // save token to local
                                                     localStorage.setToken(token);
+
+                                                    // hide loader
+                                                    try {
+                                                        LoadingScreen.Companion.hideLoadingDialog();
+                                                    } catch (Exception e) {
+                                                        e.getStackTrace();
+                                                    }
+
                                                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                     startActivity(intent);

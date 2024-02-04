@@ -6,4 +6,6 @@ public interface FavouriteListener {
     void onGoToCartBtnClicked(String productId);
 
     void onProductClicked(ProductItem productItem);
+
+    void onAddToCartClicked(ProductItem productItem, int position);
 }

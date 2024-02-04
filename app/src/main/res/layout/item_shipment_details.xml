@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_weight="3">
 
@@ -36,6 +36,7 @@
             <ImageView
                 android:id="@+id/trackLowerLine"
                 android:layout_width="3dp"
+                android:visibility="visible"
                 android:layout_height="match_parent"
                 android:layout_marginTop="-5dp"
                 android:background="@color/yellow"/>
