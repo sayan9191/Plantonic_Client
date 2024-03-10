@@ -138,11 +138,11 @@ public class ProductViewFragment extends Fragment {
                             outOfStockLabel.setVisibility(View.GONE);
                         }
 
-                        if (productItem.productName.length() > 20){
-                            productDetails.setText(productItem.productName.substring(0, 20) + "...");
-                        }else{
+//                        if (productItem.productName.length() > 20){
+//                            productDetails.setText(productItem.productName.substring(0, 20) + "...");
+//                        }else{
                             productDetails.setText(productItem.productName);
-                        }
+//                        }
 
                         name.setText(productItem.productName);
                         productActualPrice.setText("₹" + productItem.listedPrice);

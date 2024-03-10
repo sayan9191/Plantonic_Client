@@ -39,4 +39,5 @@
     <string name="paytm">Paytm</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
     <string name="not_available">This option is not available for now.</string>
+    <string name="product_image">Product image</string>
 </resources>

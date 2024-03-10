@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
 
             android:textSize="22sp"
-
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_gravity="center"
             android:textColor="@color/white"
 
@@ -224,8 +225,12 @@
 
                 <TextView
                     android:id="@+id/decrease"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:background="@drawable/button_gradient_bg"
                     android:backgroundTint="@color/gray"
                     android:elevation="1dp"
@@ -253,8 +258,12 @@
 
                 <TextView
                     android:id="@+id/increase"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:background="@drawable/button_gradient_bg"
                     android:backgroundTint="@color/green"
                     android:elevation="1dp"
@@ -432,10 +441,11 @@
             android:id="@+id/goToCartBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:visibility="gone"
-            android:background="@color/light_green"
+            android:visibility="visible"
+            android:background="@drawable/border_layout"
+            android:backgroundTint="@color/light_gray"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="GO TO CART"
             android:layout_weight="1"
             />

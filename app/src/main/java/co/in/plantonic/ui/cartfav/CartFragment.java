@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import co.in.plantonic.Adapter.CartRecyclerViewAdapter;
 import co.in.plantonic.Adapter.listeners.CartListner;
@@ -129,7 +131,7 @@ public class CartFragment extends Fragment implements CartListner {
                     }else {
                         deliveryChargeWaver = 0L;
                         binding.addMoreToSaveDeliveryChargeLabel.setVisibility(View.VISIBLE);
-                        binding.addMoreToSaveDeliveryChargeLabel.setText("Add items worth " + (500 - actualAmount)  +" more to get free delivery.");
+                        binding.addMoreToSaveDeliveryChargeLabel.setText("Add items worth ₹" + (500 - actualAmount)  +" more to get free delivery.");
                     }
 
                     binding.priceTotal.setText(String.valueOf("₹" + StringUtil.Companion.getFormattedPrice(totalAmount)));
@@ -206,6 +208,11 @@ public class CartFragment extends Fragment implements CartListner {
     public void onStart() {
         super.onStart();
 
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.green));
+
         if (Objects.equals(CartUtil.lastFragment, "home") || Objects.equals(CartUtil.lastFragment, "product") || (Objects.equals(FavUtil.lastFragment, "cart") && Objects.equals(CartUtil.lastFragment, "fav"))){
             ((HomeActivity)requireActivity()).hideBottomNavBar();
             binding.backBtn.setVisibility(View.VISIBLE);
@@ -214,6 +221,14 @@ public class CartFragment extends Fragment implements CartListner {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
+    }
 
     //backspaced backstack
     @Override

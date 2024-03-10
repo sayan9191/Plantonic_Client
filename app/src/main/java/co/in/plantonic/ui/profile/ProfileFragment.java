@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
                 ProfileUtil.lastFragment = "fav";
 
                 Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.favouriteFragment,null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
-                Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Your Wishlist!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
                 ProfileUtil.lastFragment = "cart";
 
                 Navigation.findNavController(ProfileFragment.this.view).navigate(R.id.cartFragment,null, new NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build());
-                Toast.makeText(getContext(), "Your Cart Items!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Your Cart Items!", Toast.LENGTH_SHORT).show();
             }
         });
         helpCenterBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +113,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("HelpCenter")
                         .replace(R.id.fragmentContainerView, new HelpCenterFragment())
                         .commit();
-                Toast.makeText(getContext(), "Help Center", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Help Center", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -126,7 +126,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Profile")
                         .replace(R.id.fragmentContainerView, new EditProfileFragment())
                         .commit();
-                Toast.makeText(getContext(), "Profile", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Profile", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -139,7 +139,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Feedback")
                         .replace(R.id.fragmentContainerView, new FeedbackFragment())
                         .commit();
-                Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Feedback", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -152,21 +152,21 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack("Orders")
                         .replace(R.id.fragmentContainerView, new YourOrderFragment())
                         .commit();
-                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
             }
         });
 
-        orderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .setReorderingAllowed(true)
-                        .addToBackStack("Orders")
-                        .replace(R.id.fragmentContainerView, new YourOrderFragment())
-                        .commit();
-                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        orderBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getParentFragmentManager().beginTransaction()
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("Orders")
+//                        .replace(R.id.fragmentContainerView, new YourOrderFragment())
+//                        .commit();
+//                Toast.makeText(getContext(), "Orders", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         versionCode.setText(String.valueOf(BuildConfig.VERSION_NAME));
         return view;

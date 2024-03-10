@@ -25,7 +25,7 @@
         android:layout_marginTop="40dp"
         android:text="FeedBack"
         android:textColor="@color/green"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:textStyle="bold" />
 
     <TextView

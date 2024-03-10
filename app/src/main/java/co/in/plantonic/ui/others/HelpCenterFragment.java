@@ -15,7 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import co.in.plantonic.R;
 import co.in.plantonic.ui.profile.ProfileFragment;
@@ -23,7 +26,7 @@ import co.in.plantonic.ui.profile.ProfileFragment;
 
 public class HelpCenterFragment extends Fragment {
     CardView callCard, emailCard;
-    ImageView backBtn;
+    TextView backBtn;
     View view;
 
     @Override
@@ -66,6 +69,24 @@ public class HelpCenterFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.green));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Change status bar color
+        Window window = requireActivity().getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {

@@ -29,7 +29,7 @@
             android:layout_below="@+id/btnBack"
             android:background="@drawable/search_view_bg"
             android:layout_margin="8dp"
-            app:queryHint="Search Here"
+            app:queryHint="Search here"
             app:iconifiedByDefault="false"/>
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_marginBottom="10dp"
             android:text="Search Results"
             android:textColor="@color/green"
-            android:textSize="18dp"
+            android:textSize="18sp"
             />
 
         <androidx.recyclerview.widget.RecyclerView

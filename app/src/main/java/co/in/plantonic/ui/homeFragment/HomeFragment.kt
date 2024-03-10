@@ -8,14 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
 import co.`in`.plantonic.Adapter.CategoryAdapter
 import co.`in`.plantonic.Adapter.PopularItemAdapter
 import co.`in`.plantonic.Adapter.listeners.CategoryListener
@@ -36,6 +35,8 @@ import co.`in`.plantonic.utils.HomeUtil
 import co.`in`.plantonic.utils.StorageUtil
 import co.`in`.plantonic.utils.constants.IntentConstants
 import co.`in`.plantonic.utils.crypto.EncryptUtil
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment(), OnProductListener, CategoryListener {
@@ -245,6 +246,22 @@ class HomeFragment : Fragment(), OnProductListener, CategoryListener {
 
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Change status bar color
+        val window = requireActivity().window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = resources.getColor(R.color.green)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Change status bar color
+        val window = requireActivity().window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = resources.getColor(R.color.white)
     }
 
 

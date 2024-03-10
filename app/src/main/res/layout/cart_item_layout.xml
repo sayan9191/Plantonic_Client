@@ -26,7 +26,8 @@
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/treeicon"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:contentDescription="@string/product_image" />
 
 
             <LinearLayout
@@ -138,8 +139,12 @@
 
                         <TextView
                             android:id="@+id/cartDecreaseProduct"
-                            android:layout_width="30dp"
-                            android:layout_height="25dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:background="@drawable/button_gradient_bg"
@@ -165,8 +170,12 @@
 
                         <TextView
                             android:id="@+id/cartIncreaseProduct"
-                            android:layout_width="30dp"
-                            android:layout_height="25dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:elevation="1dp"

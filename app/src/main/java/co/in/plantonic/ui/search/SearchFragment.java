@@ -18,6 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import co.in.plantonic.Adapter.listeners.OnSearchListener;
 import co.in.plantonic.Adapter.SearchResultAdapter;
@@ -62,7 +65,29 @@ public class SearchFragment extends Fragment implements OnSearchListener {
             }
         });
 
+        binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(final View view, boolean hasFocus) {
+                if (hasFocus) {
+                    view.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(view.findFocus(), 0);
+                        }
+                    }, 200);
+                }
+            }
+        });
 
+        binding.searchView.requestFocus();
+//        showKeyboard(requireContext(), binding.getRoot());
+//        Window window = requireActivity().getWindow();
+//        // Calls Soft Input Mode to make it Visible
+//        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(binding.searchView, InputMethodManager.SHOW_IMPLICIT);
 
 
         // On Search
@@ -105,6 +130,14 @@ public class SearchFragment extends Fragment implements OnSearchListener {
 
         return binding.getRoot();
     }
+
+    public static void showKeyboard(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+
+
+    }
+
 
     @Override
     public void OnSearchProductClicked(SearchProductItem item) {
